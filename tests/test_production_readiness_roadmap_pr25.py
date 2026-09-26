@@ -34,7 +34,24 @@ def test_production_readiness_has_full_task_set() -> None:
         for path in task_files
         if path.name not in {"README.md", "BOARD.md", "SPRINT_REVIEW.md"}
     ]
-    assert len(task_specs) == 12
+    assert len(task_specs) == 13
+
+
+def test_pr35_engineering_book_is_tracked() -> None:
+    task = PHASE_DIR / "sprint-3" / "PR3.5-engineering-book-publication-pipeline.md"
+    board = (PHASE_DIR / "sprint-3" / "BOARD.md").read_text(encoding="utf-8")
+    text = task.read_text(encoding="utf-8")
+    assert task.is_file()
+    assert "| PR3.5 | Engineering book and publication pipeline | Todo |" in board
+    for required in (
+        "English-language engineering book",
+        "Private engineering edition",
+        "Public edition",
+        "HTML plus downloadable PDF and EPUB",
+        "public generation must redact",
+        "automated browser workflow",
+    ):
+        assert required in text
 
 
 def test_phase_links_are_indexed_and_ng_dependency_is_explicit() -> None:

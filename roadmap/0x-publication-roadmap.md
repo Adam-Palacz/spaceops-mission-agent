@@ -39,6 +39,15 @@
 - Release notes cadence.
 - Public changelog highlights.
 
+### Track D — Living engineering book
+- Maintain one English narrative covering **why -> decision -> implementation -> verification ->
+  evidence -> limitations -> lessons learned**.
+- Generate private and public editions from canonical repository Markdown and evidence.
+- Produce navigable HTML plus PDF/EPUB downloads; generated binaries are release/CI artifacts.
+- Capture selected UI/Grafana/Prometheus/Jaeger visuals automatically where practical.
+- Redact secrets, project identifiers, addresses, and private operational context before publication.
+- Execution task: [PR3.5 — Engineering book and publication pipeline](02.5-production-readiness/sprint-3/PR3.5-engineering-book-publication-pipeline.md).
+
 ---
 
 ## Phases
@@ -46,7 +55,7 @@
 ## P0 — Foundation (content inventory)
 - [ ] Collect existing reusable artifacts (docs, diagrams, sprint reviews, runbooks).
 - [ ] Identify top 3 publication themes and define one owner per theme.
-- [ ] Define output formats: article, short post, diagram card, release note.
+- [ ] Define output formats: living HTML book, PDF, EPUB, article, diagram card, and release note.
 
 ## P1 — First publication wave
 - [ ] Publish one "project overview" post (architecture + value).
@@ -56,6 +65,7 @@
 ## P2 — Repeatable cadence
 - [ ] Set a lightweight cadence (e.g. bi-weekly update or per major milestone).
 - [ ] Add publication checklist to release process.
+- [ ] Update the engineering book at sprint/phase closure and publish reviewed public artifacts.
 - [ ] Track simple KPIs (views, stars/watchers, inbound questions, issue quality).
 
 ---
@@ -66,12 +76,15 @@
 - [ ] Convert key Mermaid diagrams into publication-friendly visuals.
 - [ ] Prepare a short "what is different vs generic LLM demo" section.
 - [ ] Build a reusable template for release notes and milestone summaries.
+- [ ] Implement private/public engineering-book builds and evidence indexes (scheduled as PR3.5).
 
 ---
 
 ## Exit criteria (draft)
 
 - [ ] At least 3 public artifacts published (overview + deep-dive + walkthrough).
+- [ ] English engineering book builds reproducibly as HTML plus PDF/EPUB.
+- [ ] Public edition passes redaction review and links technical claims to repository evidence.
 - [ ] Publication process documented and repeatable.
 - [ ] Every major roadmap milestone maps to at least one publication output.
 

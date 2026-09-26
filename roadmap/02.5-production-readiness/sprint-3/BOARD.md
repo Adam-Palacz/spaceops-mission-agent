@@ -6,5 +6,6 @@
 | PR3.2 | Incident, on-call, and rollback drills | Todo | [PR3.2](PR3.2-incident-oncall-drills.md) |
 | PR3.3 | Production pilot deployment plan | Todo | [PR3.3](PR3.3-production-pilot-plan.md) |
 | PR3.4 | Production readiness review | Todo | [PR3.4](PR3.4-production-readiness-review.md) |
+| PR3.5 | Engineering book and publication pipeline | Todo | [PR3.5](PR3.5-engineering-book-publication-pipeline.md) |
 
 **Status key:** Todo | In progress | Done | Blocked

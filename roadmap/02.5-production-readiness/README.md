@@ -14,7 +14,7 @@ Source strategy: [`../02.5-production-readiness.md`](../02.5-production-readines
 |--------|--------|------|
 | **PR1** | [sprint-1/](sprint-1/) | Observability, SLOs, stage operating policy, soak/failure tests. |
 | **PR2** | [sprint-2/](sprint-2/) | Data durability, secrets rotation, security review, trace/log retention. |
-| **PR3** | [sprint-3/](sprint-3/) | Release gates, incident drills, production pilot plan, final go/no-go review. |
+| **PR3** | [sprint-3/](sprint-3/) | Release/incident gates, pilot plan, engineering book, final go/no-go review. |
 
 ---
 
@@ -43,4 +43,6 @@ Source strategy: [`../02.5-production-readiness.md`](../02.5-production-readines
 - Prefer PR1 -> PR2 -> PR3 order.
 - Treat observability, backup/restore, secrets, and release gates as blocking requirements.
 - Keep implementation evidence in docs/runbooks, tests, Helm/GitOps overlays, and sprint reviews.
+- Treat generated HTML/PDF/EPUB as derived artifacts; canonical technical truth remains in versioned
+  Markdown, ADRs, runbooks, tests, and evidence records.
 - Do not mark a task Done with analysis only when the spec requires an executed drill.
