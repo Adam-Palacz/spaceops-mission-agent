@@ -1,0 +1,59 @@
+{
+  "schema_version": "pr21.postgres_restore_drill.v1",
+  "task": "PR2.1",
+  "date": "2026-07-03",
+  "status": "blocked",
+  "environment": {
+    "name": "local-dev",
+    "source": "infra/docker-compose.yml postgres service",
+    "target": "isolated local restore database"
+  },
+  "production_pilot_target": {
+    "decision": "managed_postgres_ha",
+    "gcp_target": "Cloud SQL for PostgreSQL with regional HA, automated backups, PITR, and encrypted storage",
+    "transition": "keep in-cluster Postgres for local/stage; use external DATABASE_URL for production pilot"
+  },
+  "backup_policy": {
+    "schedule": "daily automated backup minimum plus PITR/WAL when managed service is available",
+    "retention": "7 days minimum for pilot; 30 days target",
+    "encryption": "provider encryption required; customer-managed key preferred",
+    "restore_owner": "data/on-call owner with platform IAM support"
+  },
+  "rto_rpo": {
+    "target_rto_minutes": 60,
+    "target_rpo_minutes_with_pitr": 15,
+    "logical_dump_rpo_boundary": "writes after dump start are not covered unless application is quiesced",
+    "measured_rto_minutes": null,
+    "measured_rpo_minutes": null
+  },
+  "representative_data": [
+    "incidents",
+    "runs",
+    "audit_log",
+    "approval audit rows",
+    "agent_graph_checkpoints",
+    "agent_run_queue",
+    "dlq_events",
+    "llm_usage_ledger"
+  ],
+  "integrity_checks": [
+    "source and restore row counts match for incidents, runs, audit_log, dlq_events, agent_graph_checkpoints, agent_run_queue, and llm_usage_ledger",
+    "approval decisions are present in audit_log; file-backed data/approvals remains outside Postgres backup until PR2.2",
+    "agent_graph_checkpoints latest run_id/status/next_node matches source",
+    "agent_run_queue status counts match source",
+    "llm_usage_ledger UTC-day token totals match source",
+    "alembic current succeeds against restored database"
+  ],
+  "attempt": {
+    "result": "blocked",
+    "blocker": "Docker daemon is not running in this workspace, so the local postgres service cannot be started for a live pg_dump/pg_restore drill.",
+    "command": "docker info --format '{{.ServerVersion}}'",
+    "observed_error": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine"
+  },
+  "artifacts": {
+    "adr": "docs/adr/0012-postgres-production-pilot-ha-backup.md",
+    "runbook": "docs/runbooks/postgres_backup_restore.md"
+  },
+  "next_required_action": "Run the logical dump drill from docs/runbooks/postgres_backup_restore.md after Docker or a stage/managed Postgres target is available, then update measured RTO/RPO and mark PR2.1 Done."
+}
+

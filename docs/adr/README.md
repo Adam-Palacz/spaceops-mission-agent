@@ -8,7 +8,7 @@ ADR entries are **append-only**: superseded documents keep full text; status upd
 
 ---
 
-## Index (0001–0010)
+## Index (0001-0012)
 
 | ADR | Title | Status | Theme | Sprint |
 |-----|-------|--------|-------|--------|
@@ -22,6 +22,8 @@ ADR entries are **append-only**: superseded documents keep full text; status upd
 | [0008](0008-gitops-argocd.md) | **GitOps controller (Argo CD; Flux deferred)** | **Accepted** | GitOps | PS6.7 |
 | [0009](0009-gcp-baseline-portable-first.md) | **GCP baseline deploy (portable-first)** | **Accepted** | Cloud / GCP | PS6.8 |
 | [0010](0010-multicloud-burst-routing.md) | **Multi-cloud burst routing (simulation)** | **Accepted** | Cloud burst / LLM | PS7.7 |
+| 0011 | **Reserved: multi-agent supervisor graph** | Planned | Agent architecture | NG1.1 |
+| [0012](0012-postgres-production-pilot-ha-backup.md) | **Postgres production-pilot HA and backup posture** | **Accepted** | Data durability | PR2.1 |
 
 ---
 
@@ -30,7 +32,8 @@ ADR entries are **append-only**: superseded documents keep full text; status upd
 1. **0002** — current ingest / queue strategy (read first if data path is unclear).
 2. **0004** — how LLM backends are selected and rolled out (companion: [llm_gateway.md](../llm_gateway.md)).
 3. **0005** — dev / stage / prod matrix and promotion gates.
-4. **0006–0010** — deployment path: Helm → secrets → GitOps → GCP → burst policy.
+4. **0006-0012** - deployment and production-readiness path: Helm, secrets, GitOps, GCP,
+   burst policy, and Postgres backup posture.
 
 Superseded **0001** remains for history only.
 
@@ -54,6 +57,6 @@ Some PS1–PS4 decisions live in roadmap specs and `docs/` rather than numbered 
 
 ## Adding a new ADR
 
-1. Pick next number (`0011-…`).
+1. Pick next unreserved number (`0013-…`; `0011` remains reserved for NG1.1).
 2. Append a row to the index table above (do not renumber existing files).
 3. Link from [portfolio README](../portfolio/README.md) if cross-cutting.

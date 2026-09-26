@@ -1,0 +1,70 @@
+{
+  "schema_version": "pr21.postgres_restore_drill.v1",
+  "task": "PR2.1",
+  "date": "2026-09-26",
+  "status": "pass",
+  "environment": {
+    "name": "isolated-local-docker",
+    "postgres_image": "pgvector/pgvector:pg15",
+    "source_database": "spaceops",
+    "restore_database": "spaceops_pr21_restore",
+    "isolation": "dedicated container and Docker network; no project Postgres volume used"
+  },
+  "backup": {
+    "method": "pg_dump custom format with --no-owner --no-acl",
+    "artifact": "/tmp/spaceops-pr21.dump inside the ephemeral drill container",
+    "size": "23 KiB",
+    "application_writes": "quiesced synthetic dataset"
+  },
+  "rto_rpo": {
+    "target_rto_minutes": 60,
+    "measured_rto_seconds": 10.32,
+    "measured_rto_minutes": 0.172,
+    "target_rpo_minutes_with_pitr": 15,
+    "measured_rpo_minutes": 0,
+    "rpo_basis": "No writes occurred between source snapshot and logical dump completion.",
+    "logical_dump_rpo_boundary": "Writes after dump start are not covered unless the application is quiesced."
+  },
+  "representative_data": {
+    "incidents": 1,
+    "runs": 1,
+    "audit_log": 1,
+    "approval_audit_rows": 1,
+    "agent_graph_checkpoints": 1,
+    "agent_run_queue": 1,
+    "dlq_events": 1,
+    "llm_usage_ledger": 1
+  },
+  "integrity_checks": {
+    "source_restore_counts_match": true,
+    "marker_row": "pr21-run-001,pr21-inc-001,completed,report,done,4242",
+    "approval_audit_row_present": true,
+    "append_only_audit_trigger_restored": true,
+    "append_only_tamper_attempt_exit_code": 1,
+    "append_only_tamper_error": "append-only table: audit_log is immutable",
+    "alembic_revision": "20260603_0003",
+    "alembic_upgrade_head": "pass"
+  },
+  "restore_timing": {
+    "started_at": "2026-09-26T06:27:07.6838696Z",
+    "completed_at": "2026-09-26T06:27:18.0177131Z"
+  },
+  "result": {
+    "backup": "pass",
+    "restore": "pass",
+    "integrity": "pass",
+    "rto_target_met": true,
+    "rpo_target_met_for_quiesced_logical_dump": true
+  },
+  "known_boundaries": [
+    "This drill proves the logical dump/restore fallback path, not managed Cloud SQL regional HA or PITR.",
+    "Managed PITR must still be exercised before production-pilot go/no-go.",
+    "File-backed data/approvals and incident artifacts remain outside Postgres backup.",
+    "External side effects such as tickets and GitOps pull requests are restored by their owning systems."
+  ],
+  "cleanup": {
+    "restore_database": "dropped with the ephemeral container",
+    "container": "removed",
+    "network": "removed"
+  }
+}

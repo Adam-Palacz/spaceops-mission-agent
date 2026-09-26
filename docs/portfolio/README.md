@@ -213,6 +213,7 @@ and secrets leakage to PS4/PS5/PS6 controls (tests, OPA, evals, runbooks).
 | [replay_workflow.md](../runbooks/replay_workflow.md) | Dev | Deterministic replay |
 | [post_incident_loop.md](../runbooks/post_incident_loop.md) | Ops | Post-incident learning |
 | [db_migrations.md](../runbooks/db_migrations.md) | Dev | Postgres migrations |
+| [postgres_backup_restore.md](../runbooks/postgres_backup_restore.md) | Data / SRE | PR2.1 Postgres backup, restore, and RTO/RPO drill |
 | [queue_dlq_recovery.md](../runbooks/queue_dlq_recovery.md) | SRE | NATS / DLQ recovery |
 | [add_new_mcp.md](../runbooks/add_new_mcp.md) | Dev | Extend tool surface |
 | [add_eval_case.md](../runbooks/add_eval_case.md) | Dev | Add eval coverage |

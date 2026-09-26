@@ -19,6 +19,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[slo-production-readiness.md](slo-production-readiness.md)** — PR1.2 SLO catalog, alert routing, and synthetic alert drill.
 - **[runbooks/stage_operating_policy.md](runbooks/stage_operating_policy.md)** — PR1.3 stage policy: ephemeral-by-default GKE, ownership, cost guardrails, RTO, secrets, and drift checks.
 - **[runbooks/stage_soak_load_failure.md](runbooks/stage_soak_load_failure.md)** — PR1.4 soak/load/failure profiles, thresholds, dry-run automation, and live evidence requirements.
+- **[runbooks/postgres_backup_restore.md](runbooks/postgres_backup_restore.md)** - PR2.1 Postgres production-pilot HA posture, backup policy, restore drill, integrity checks, and RTO/RPO evidence.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
@@ -27,7 +28,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[llm_gpu_backend.md](llm_gpu_backend.md)** — Optional NVIDIA NIM backend, `gpu` compose profile, and manual smoke checklist (PS5.3 / PS5.7).
 - **[llm_cost_guardrails.md](llm_cost_guardrails.md)** — Cost telemetry and process/postgres budget modes (PS5.6).
 - **[evals_backend_parity.md](evals_backend_parity.md)** — OpenAI vs GPU parity reports, invalid-arm rules, and promotion criteria (PS5.8).
-- **[adr/README.md](adr/README.md)** — ADR index 0001–0010 (PS6.10).
+- **[adr/README.md](adr/README.md)** — ADR index 0001-0012 (PS6.10 / PR2.1).
 - **[adr/0005-environment-strategy-dev-stage-prod.md](adr/0005-environment-strategy-dev-stage-prod.md)** — `dev` / `stage` / `prod` model, promotion gates (PS6.1).
 - **[threat_model.md](threat_model.md)** — Portfolio threat model: injection, tool abuse, poisoning, secrets (PS6.10).
 - **[portfolio/README.md](portfolio/README.md)** — External reviewer entry: demos, runbooks, dependency hygiene (PS6.10).
