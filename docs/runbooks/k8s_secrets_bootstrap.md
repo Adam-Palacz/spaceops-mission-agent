@@ -160,4 +160,5 @@ git grep -E 'sk-[a-zA-Z0-9]{20,}|nvapi-|ghp_' -- ':!.env' ':!deploy/examples/sec
 
 - [local_k8s_dev.md](local_k8s_dev.md) — kind bootstrap
 - [environment_promotion.md](environment_promotion.md) — dev → stage → prod
+- [secrets_rotation_pr22.md](secrets_rotation_pr22.md) — PR2.2 local proof and controlled ESO/GSM rotation
 - [deploy/examples/secrets/README.md](../../deploy/examples/secrets/README.md)

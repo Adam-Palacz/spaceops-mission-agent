@@ -192,6 +192,7 @@ and secrets leakage to PS4/PS5/PS6 controls (tests, OPA, evals, runbooks).
 | [graph_worker_checkpoint_ops.md](../runbooks/graph_worker_checkpoint_ops.md) | Dev / SRE | Checkpoint resume after pod kill / rollout (PS6.11) |
 | [k8s_environment_isolation.md](../runbooks/k8s_environment_isolation.md) | SRE | NetworkPolicy, RBAC, quotas |
 | [k8s_secrets_bootstrap.md](../runbooks/k8s_secrets_bootstrap.md) | Dev / SRE | K8s Secrets / ESO bootstrap |
+| [secrets_rotation_pr22.md](../runbooks/secrets_rotation_pr22.md) | Security / SRE | PR2.2 ESO/GSM rotation, leak checks, and rollback |
 | [gitops_bootstrap.md](../runbooks/gitops_bootstrap.md) | Dev / SRE | Optional Argo CD (PS6.7) |
 | [gitops_agent_pr_demo.md](../runbooks/gitops_agent_pr_demo.md) | Dev / SRE | Agent `create_pr` → Argo deploys ops-config |
 | [gitops_pr_demo.md](../runbooks/gitops_pr_demo.md) | Dev / SRE | Argo CD promotion via Git PR |

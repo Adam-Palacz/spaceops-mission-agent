@@ -1,0 +1,94 @@
+{
+  "schema_version": "pr22.secret_rotation.v1",
+  "task": "PR2.2",
+  "date": "2026-09-26",
+  "status": "local_pass_live_pending",
+  "environment": {
+    "cluster": "kind-spaceops-dev",
+    "kubernetes": "v1.32.2",
+    "namespace": "spaceops-pr22",
+    "eso_chart": "external-secrets-2.11.0",
+    "eso_app_version": "v2.11.0",
+    "provider": "fake",
+    "values": "synthetic only"
+  },
+  "classes": [
+    "postgres-password",
+    "OPENAI_API_KEY",
+    "APPROVAL_API_KEY",
+    "GITHUB_TOKEN",
+    "MCP_SERVICE_TOKEN contract probe"
+  ],
+  "sync": {
+    "external_secret_condition": "Ready=True",
+    "external_secret_reason": "SecretSynced",
+    "target_secret_resource_version_before": "1581914",
+    "target_secret_resource_version_after": "1582020",
+    "resource_version_changed": true
+  },
+  "rollout": {
+    "deployment": "pr22-rotation-probe",
+    "pod_uid_before": "c516f64e-801b-446c-bb28-6fc9fb836700",
+    "pod_uid_after": "94ab799e-e6c6-41cf-8d6d-35615c1d21d0",
+    "pod_uid_changed": true,
+    "status": "pass"
+  },
+  "hashes": {
+    "POSTGRES_PASSWORD": {
+      "before": "c21f4b654db57887e2916399c3ba8238fc017d403f95ba1892c4b4e45c67a05f",
+      "after": "4dc5799f6eca73f15e07c7e2b118beb3cd4679611ad9c248c42e0429b162b31d",
+      "changed": true
+    },
+    "OPENAI_API_KEY": {
+      "before": "9f49449ef76eebea14f75a2ef066b59540209254ec450523f042f9db06153b2a",
+      "after": "00f706fb18b7f89d5e1fc4ddd057abbef53d234767ad441a4d558a6f7780ce80",
+      "changed": true
+    },
+    "APPROVAL_API_KEY": {
+      "before": "77f415e63fbfe8e37c34ad2b3683ead3decff349af2aa81fb962dd0ba242f902",
+      "after": "6c123b315a3b4b550257b796501582d12fa7df978a4f52e8717138412b768ae3",
+      "changed": true
+    },
+    "GITHUB_TOKEN": {
+      "before": "c43deeefccd9a45d202eac6755fa9bda368a8155c4e2bbe9d0828129542aa74c",
+      "after": "0f4a6d7e59e0a912156080bcd81e1adde39b9830435e1376e2b440face8d4f85",
+      "changed": true
+    },
+    "MCP_SERVICE_TOKEN": {
+      "before": "c4bfa02d53f5299e99b77d4a9e7076ba2478bd6b1c9265514dc7b3ab97991ec3",
+      "after": "269e9af893be542b6b31d68b9b269f2ade9b9937dce0b49e8660ed325a4ebd99",
+      "changed": true
+    }
+  },
+  "leak_scan": {
+    "scope": [
+      "probe pod logs",
+      "ESO controller logs (last 1000 lines)",
+      "spaceops-pr22 Kubernetes events"
+    ],
+    "raw_synthetic_value_matches": 0,
+    "result": "pass"
+  },
+  "helm": {
+    "stage_plain_secret_kinds": 0,
+    "stage_string_data_blocks": 0,
+    "stage_external_secret_kinds": 1,
+    "prod_plain_secret_kinds": 0,
+    "prod_string_data_blocks": 0,
+    "prod_external_secret_kinds": 1,
+    "helm_lint": "pass"
+  },
+  "cleanup": {
+    "proof_namespace_removed": true,
+    "eso_release_removed": true,
+    "eso_namespace_removed": true
+  },
+  "boundaries": [
+    "The local proof uses ESO fake provider and synthetic values, not GSM or real credentials.",
+    "The probe proves secret sync plus process restart mechanics, not recovery of SpaceOps workloads.",
+    "MCP service-token authentication is not implemented; the MCP class is a contract probe only.",
+    "Coordinated Postgres role-password rotation is not exercised locally.",
+    "Live logs, traces, audit events, dashboards, and rollback remain pending."
+  ],
+  "next_required_action": "Execute the controlled ESO/GSM stage drill from docs/runbooks/secrets_rotation_pr22.md after explicit approval, then record workload recovery, leak checks, and rollback evidence."
+}
