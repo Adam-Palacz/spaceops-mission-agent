@@ -10,6 +10,9 @@ for a production pilot, not just whether tasks were completed.
 - Summarize PR1-PR3 evidence.
 - Evaluate hard exit criteria from `roadmap/02.5-production-readiness.md`.
 - Record open risks, accepted risks, owners, and deadlines.
+- Import PR2.3 findings PR23-002 through PR23-006. The default decision is `No-go` while
+  PR23-002 or PR23-003 remains open unless the Security and production-pilot owners approve
+  explicit, time-boxed waivers with compensating controls.
 - Decide readiness level:
   - No-go: remain reference/stage only.
   - Conditional go: production pilot allowed with constraints.

@@ -77,6 +77,12 @@ schemas and audit records (`roadmap/goals.md` §4.3).
 - KB quarantine is manual — operators review audit + re-index.
 - `LLM_BUDGET_MODE=postgres` org-wide cap on stage/prod (PS7.6); dev stays `process` (ADR 0005).
 - Local `.env` file is operator responsibility on laptops.
+- Approval identity uses a shared key and caller-supplied attribution; verified principal/role is a
+  PR2.3 production-pilot blocker.
+- Approval execution is sequentially idempotent but lacks an atomic multi-replica claim; Postgres
+  transactional state is required before a production-pilot go decision.
+- Audit NDJSON is application append-only, not tamper-evident; durable immutable export is pending.
+- MCP application-layer caller authentication is deferred while stage remains namespace-isolated.
 - TLS deferred on lab GKE LoadBalancer (PS6.8).
 
 ---

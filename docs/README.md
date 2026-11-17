@@ -21,6 +21,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[runbooks/stage_soak_load_failure.md](runbooks/stage_soak_load_failure.md)** — PR1.4 soak/load/failure profiles, thresholds, dry-run automation, and live evidence requirements.
 - **[runbooks/postgres_backup_restore.md](runbooks/postgres_backup_restore.md)** - PR2.1 Postgres production-pilot HA posture, backup policy, restore drill, integrity checks, and RTO/RPO evidence.
 - **[runbooks/secrets_rotation_pr22.md](runbooks/secrets_rotation_pr22.md)** — PR2.2 secret inventory, local ESO rotation proof, controlled ESO/GSM live procedure, leak checks, and rollback.
+- **[security_control_review_pr23.md](security_control_review_pr23.md)** — PR2.3 focused review of OPA, approvals, MCP, audit, platform ops, and LLM gateway controls.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
@@ -56,7 +57,7 @@ The **docs/** directory holds project documentation that supports both humans an
 | **[agent/](agent/)** | Agent state and Act behaviour | LangGraph nodes (Triage → Investigate → Decide → Act → Report); Escalation state; safe vs restricted steps; OPA allow/deny/error; approval request and execution. |
 | **[planning/](planning/)** | Delivery plan | Sprint 1 (pipeline to Report + evals + OTel), Sprint 2 (Act + OPA + approvals + injection suite), Phase 4 (docs, runbooks, expanded evals). |
 | **[requirements/](requirements/)** | Goals and measures | Functional (F1–F10), Non-functional (NF1–NF9), Policy (P1–P6); MoE (triage accuracy, citation precision, unsafe=0, escalation); MoP (latency, tool-call count). |
-| **[data/](data/)** | Audit and schema | Audit log: timestamp, trace_id, incident_id, actor, tool, args_hash, decision, policy_result, outcome; append-only, no in-place edits. |
+| **[data/](data/)** | Audit and schema | Audit log: timestamp, trace_id, incident_id, actor, tool, args_hash, decision, policy_result, outcome; application append-only, not tamper-evident. |
 | **[runbooks/](runbooks/)** | Operator & maintainer runbooks | How to add a new MCP, how to add eval cases, how to operate the agent, future playbooks. |
 
 ---
@@ -134,7 +135,7 @@ The **docs/** directory holds project documentation that supports both humans an
 | Field | Value |
 |-------|--------|
 | **Document version** | 1.1 |
-| **Last updated** | 2026-06-21 |
+| **Last updated** | 2026-09-26 |
 
 ### Instructions for AI when working in `docs/`
 

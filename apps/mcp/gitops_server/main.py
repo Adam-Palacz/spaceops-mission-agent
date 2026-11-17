@@ -7,6 +7,7 @@ S2.2: Writes files locally; when GITHUB_TOKEN and GITHUB_REPO are set, creates a
 
 from __future__ import annotations
 
+import re
 import subprocess
 from pathlib import Path
 from typing import TypedDict
@@ -20,6 +21,9 @@ from apps.tracing import extract_w3c_context_from_headers
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 DEFAULT_OPS_CONFIG_DIR = REPO_ROOT / "ops-config"
+MAX_FILES_PER_REQUEST = 20
+MAX_FILE_CONTENT_BYTES = 256 * 1024
+_BRANCH_RE = re.compile(r"^agent/[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$")
 
 
 class FileSpec(TypedDict):
@@ -41,18 +45,38 @@ def _resolve_ops_config_dir(repo_path: str | None) -> Path:
     """
     Resolve the ops-config directory for GitOps operations.
 
-    - If repo_path is provided, treat it as a path to the repo root or to
-      the ops-config directory itself.
+    - If repo_path is provided, it may only identify this repository or its
+      ops-config directory. Arbitrary filesystem roots are rejected.
     - Otherwise, default to REPO_ROOT / \"ops-config\".
     """
-    if repo_path:
-        p = Path(repo_path)
-        if (p / "alerts").exists() or (p / "channels").exists():
-            return p.resolve()
-        if (p / "ops-config").exists():
-            return (p / "ops-config").resolve()
-        return p.resolve()
-    return DEFAULT_OPS_CONFIG_DIR.resolve()
+    allowed = DEFAULT_OPS_CONFIG_DIR.resolve()
+    if not repo_path:
+        return allowed
+
+    requested = Path(repo_path).resolve()
+    if requested == REPO_ROOT.resolve():
+        return allowed
+    if requested == allowed:
+        return allowed
+    raise ValueError("repo_path must identify the SpaceOps repository or ops-config")
+
+
+def _validate_create_pr_arguments(branch: str, files: list[FileSpec]) -> str:
+    normalized_branch = (branch or "").strip()
+    if (
+        not _BRANCH_RE.fullmatch(normalized_branch)
+        or ".." in normalized_branch
+        or "//" in normalized_branch
+        or normalized_branch.endswith(("/", ".", ".lock"))
+    ):
+        raise ValueError(
+            "branch must start with 'agent/' and contain only safe Git ref characters"
+        )
+    if not files or len(files) > MAX_FILES_PER_REQUEST:
+        raise ValueError(
+            f"files must contain between 1 and {MAX_FILES_PER_REQUEST} entries"
+        )
+    return normalized_branch
 
 
 def _run_git(cwd: Path, *args: str) -> tuple[bool, str]:
@@ -263,7 +287,7 @@ def create_pr(
     ) as span:
         span.set_attribute("tool", "create_pr")
         try:
-            branch = (branch or "").strip() or "agent/unknown"
+            branch = _validate_create_pr_arguments(branch, files)
             ops_dir = _resolve_ops_config_dir(repo_path)
             api_only = _use_github_api_only()
             if not api_only:
@@ -273,9 +297,15 @@ def create_pr(
             files_rel_to_repo: list[str] = []
             files_repo_content: list[tuple[str, str]] = []
             for spec in files:
-                rel = (spec.get("path") or "").strip() or ""
+                rel = (spec.get("path") or "").strip()
                 content = spec.get("content")
                 content = content if isinstance(content, str) else ""
+                if not rel:
+                    raise ValueError("GitOps file path must not be empty")
+                if len(content.encode("utf-8")) > MAX_FILE_CONTENT_BYTES:
+                    raise ValueError(
+                        f"GitOps file exceeds {MAX_FILE_CONTENT_BYTES} bytes: {rel}"
+                    )
                 rel_path = Path(rel)
                 if rel_path.is_absolute() or ".." in rel_path.parts:
                     raise ValueError(f"Invalid path for GitOps file: {rel}")
