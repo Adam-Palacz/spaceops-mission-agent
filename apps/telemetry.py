@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -18,6 +19,30 @@ from opentelemetry.sdk.resources import Resource
 _tracer_provider: TracerProvider | None = None
 _service_name = "spaceops"
 _logging_configured = False
+
+_BEARER_RE = re.compile(r"(?i)(\bbearer\s+)[A-Za-z0-9._~+/=-]+")
+_SECRET_ASSIGNMENT_RE = re.compile(
+    r"(?i)(\b(?:authorization|api[_-]?key|openai[_-]?api[_-]?key|"
+    r"approval[_-]?api[_-]?key|github[_-]?token|ngc[_-]?api[_-]?key|"
+    r"cursor[_-]?sh[_-]?api[_-]?key|gpu[_-]?llm[_-]?api[_-]?key|"
+    r"access[_-]?token|refresh[_-]?token|password|secret|token|cookie)\b"
+    r"\s*[:=]\s*)(?:\"[^\"]*\"|'[^']*'|[^\s,;]+)"
+)
+_PROVIDER_TOKEN_RE = re.compile(
+    r"\b(?:sk-[A-Za-z0-9_-]{8,}|gh[pousr]_[A-Za-z0-9_]{8,})\b"
+)
+_DATABASE_URL_CREDENTIAL_RE = re.compile(
+    r"(?i)(\b(?:postgres|postgresql)://[^:\s/@]+:)[^@\s/]+(@)"
+)
+
+
+def redact_sensitive_text(value: str) -> str:
+    """Best-effort baseline redaction for structured log messages and exceptions."""
+    text = str(value)
+    text = _BEARER_RE.sub(r"\1<redacted>", text)
+    text = _SECRET_ASSIGNMENT_RE.sub(r"\1<redacted>", text)
+    text = _PROVIDER_TOKEN_RE.sub("<redacted>", text)
+    return _DATABASE_URL_CREDENTIAL_RE.sub(r"\1<redacted>\2", text)
 
 
 class JsonTraceFormatter(logging.Formatter):
@@ -37,12 +62,14 @@ class JsonTraceFormatter(logging.Formatter):
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
-            "message": record.getMessage(),
+            "message": redact_sensitive_text(record.getMessage()),
         }
         if trace_id:
             out["trace_id"] = trace_id
         if record.exc_info:
-            out["exception"] = self.formatException(record.exc_info)
+            out["exception"] = redact_sensitive_text(
+                self.formatException(record.exc_info)
+            )
         return json.dumps(out, ensure_ascii=False)
 
 

@@ -13,6 +13,8 @@ for a production pilot, not just whether tasks were completed.
 - Import PR2.3 findings PR23-002 through PR23-006. The default decision is `No-go` while
   PR23-002 or PR23-003 remains open unless the Security and production-pilot owners approve
   explicit, time-boxed waivers with compensating controls.
+- Import PR2.4 managed trace/log backend gates: configured retention, authorized query,
+  unauthorized-access denial, deletion/expiry drill, and NG3 masking disposition.
 - Decide readiness level:
   - No-go: remain reference/stage only.
   - Conditional go: production pilot allowed with constraints.

@@ -22,6 +22,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[runbooks/postgres_backup_restore.md](runbooks/postgres_backup_restore.md)** - PR2.1 Postgres production-pilot HA posture, backup policy, restore drill, integrity checks, and RTO/RPO evidence.
 - **[runbooks/secrets_rotation_pr22.md](runbooks/secrets_rotation_pr22.md)** — PR2.2 secret inventory, local ESO rotation proof, controlled ESO/GSM live procedure, leak checks, and rollback.
 - **[security_control_review_pr23.md](security_control_review_pr23.md)** — PR2.3 focused review of OPA, approvals, MCP, audit, platform ops, and LLM gateway controls.
+- **[data_retention_privacy_pr24.md](data_retention_privacy_pr24.md)** — PR2.4 retention, classification, redaction, managed trace/log backend, export, and deletion policy.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
