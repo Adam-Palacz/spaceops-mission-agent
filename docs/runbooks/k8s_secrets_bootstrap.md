@@ -7,9 +7,9 @@ application-level abstraction see [secrets.md](../secrets.md).
 
 | Environment | Namespace | K8s Secret | Example store path (ESO/GSM) |
 |-------------|-----------|------------|--------------------------------|
-| dev | `spaceops-dev` | `spaceops-dev-secrets` | `spaceops-dev/postgres-password` |
-| stage | `spaceops-stage` | `spaceops-stage-secrets` | `spaceops-stage/openai-api-key` |
-| prod | `spaceops-prod` | `spaceops-prod-secrets` | `spaceops-prod/openai-api-key` |
+| dev | `spaceops-dev` | `spaceops-dev-secrets` | `spaceops-dev-postgres-password` |
+| stage | `spaceops-stage` | `spaceops-stage-secrets` | `spaceops-stage-openai-api-key` |
+| prod | `spaceops-prod` | `spaceops-prod-secrets` | `spaceops-prod-openai-api-key` |
 
 ### Env var → Secret key mapping
 
@@ -87,7 +87,8 @@ Example manifest: `deploy/examples/secrets/local/bootstrap-secret.yaml.example`
 ## Stage / prod — External Secrets Operator (recommended)
 
 1. Install [External Secrets Operator](https://external-secrets.io/) on the cluster.
-2. Create secrets in GSM/Vault using paths from ADR 0007 (`spaceops-stage/openai-api-key`, …).
+2. Create GSM secrets using IDs from ADR 0007 (`spaceops-stage-openai-api-key`, …). Vault may
+   use backend-specific hierarchical paths.
 3. Apply `SecretStore` — example: `deploy/examples/secrets/eso/secret-store-gcp-sm.yaml.example`
 4. Apply `ExternalSecret` — example: `deploy/examples/secrets/eso/external-secret-stage.yaml.example`
    or enable chart stub: `externalSecrets.enabled=true` in values overlay.

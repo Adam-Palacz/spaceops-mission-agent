@@ -1,5 +1,12 @@
 # PR2.2 - Secrets rotation and external secret proof
 
+| Field | Value |
+|-------|-------|
+| **Status** | Done |
+| **Live drill date** | 2026-11-20 |
+| **Backend** | Google Secret Manager + ESO + GKE Workload Identity |
+| **Evidence** | [Local proof](evidence/PR2.2-local-eso-rotation-2026-09-26.json), [live GSM drill](evidence/PR2.2-live-gsm-rotation-2026-11-20.json) |
+
 ## Description
 
 Prove that stage/prod secrets are not just designed but operable. Rotate secrets through the
@@ -16,11 +23,11 @@ approved external-secret path and verify workloads recover without leaking value
 ## Checklist
 
 - [x] Secret inventory documented.
-- [ ] Rotation procedure executed for at least the critical secret classes.
+- [x] Rotation procedure executed for at least the critical secret classes.
 - [x] Local synthetic ESO sync and probe rollout behavior verified.
-- [ ] Live SpaceOps workload restart/rollout behavior verified.
-- [x] Local probe/ESO/event leak check performed; live logs/traces/audit/dashboard check pending.
-- [x] Rollback path documented; live rollback execution pending.
+- [x] Live SpaceOps workload restart/rollout behavior verified.
+- [x] Local and live logs/traces/audit/dashboard/event leak checks performed.
+- [x] Rollback path documented and live approval-token rollback executed.
 
 ## Test requirements
 
@@ -44,16 +51,32 @@ approved external-secret path and verify workloads recover without leaking value
 - Evidence:
   [PR2.2-local-eso-rotation-2026-09-26.json](evidence/PR2.2-local-eso-rotation-2026-09-26.json).
 
-## Remaining live proof
+## Completed live proof
 
-PR2.2 requires a separately approved ESO/GSM stage window. The live drill must rotate applicable
-real secret classes one at a time, verify actual SpaceOps workload recovery, inspect logs/traces/
-audit/dashboards, and execute rollback for at least one class. MCP service-token rotation is
-currently N/A because MCP authentication is not implemented; this remains an explicit boundary.
+The approved, time-boxed GKE stage drill used only generated synthetic credentials:
+
+- enabled Secret Manager and IAM Credentials APIs through Terraform;
+- installed ESO with GKE Workload Identity and no service-account key;
+- corrected GSM-incompatible slash-based remote IDs to hyphenated secret IDs;
+- rotated all seven chart secret classes and changed the Postgres role password in a coordinated
+  cutover;
+- proved API health and database connectivity before and after rotation;
+- proved the new approval token returned 200 while the prior and missing tokens returned 401;
+- restarted API, Postgres, KB MCP, GitOps MCP, and telemetry persister paths;
+- executed approval-token rollback by publishing the prior value as a new latest GSM version;
+- scanned SpaceOps/ESO logs, events, API audit, Jaeger metadata, and Prometheus labels/alerts:
+  zero raw-value matches;
+- deleted namespaces, seven GSM secrets, GKE, Artifact Registry, compute instances, disks,
+  forwarding rules, and addresses; only Terraform budget-alert resources remain.
+
+Evidence:
+[PR2.2-live-gsm-rotation-2026-11-20.json](evidence/PR2.2-live-gsm-rotation-2026-11-20.json).
+
+MCP service-token rotation remains N/A because MCP authentication is not implemented; PR23-005
+tracks that boundary.
 
 ## Status
 
-In progress: inventory, chart contract, local ESO rotation, probe rollout, local leak scan, Helm
-plaintext checks, live procedure, and rollback plan are complete. Live ESO/GSM workload rotation
-and rollback evidence remain pending explicit approval.
+Done: local and live ESO/GSM proofs, coordinated database rotation, workload recovery, leak checks,
+approval rollback, evidence, and cost cleanup are complete.
 

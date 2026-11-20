@@ -18,7 +18,7 @@ enterprise upgrade (ESO + GSM/Vault).
 ## Requirements
 
 - [x] ADR: chosen approach — **SOPS** (Git-encrypted) and/or **External Secrets Operator** stub.
-- [x] Secret naming convention per env (`spaceops-dev/openai-api-key`, etc.).
+- [x] Secret naming convention per env (`spaceops-dev-openai-api-key`, etc.; GSM-compatible IDs).
 - [x] Rotation procedure documented (even if manual for lab).
 - [x] **No secrets** in Helm values committed to repo; use `existingSecret` refs.
 - [x] Align with `config.py` / PS5.1 env var names — single mapping table.

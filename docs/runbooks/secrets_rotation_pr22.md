@@ -22,16 +22,20 @@ Manager (GSM) or real credentials.
 
 | Secret class | Store path | K8s key | Main consumers | Rotation note |
 |--------------|------------|---------|----------------|---------------|
-| Database password | `spaceops-{env}/postgres-password` | `postgres-password` | Postgres, API, persister, KB MCP, worker | Coordinated maintenance; database role and clients must change together |
-| OpenAI/LLM key | `spaceops-{env}/openai-api-key` | `OPENAI_API_KEY` | API, agent worker | Restart consumers; smoke one guarded LLM path |
-| Approval token | `spaceops-{env}/approval-api-key` | `APPROVAL_API_KEY` | API/UI clients | Restart API; old token must stop authorizing after cutover |
-| GitOps token | `spaceops-{env}/github-token` | `GITHUB_TOKEN` | API and GitOps MCP | Restart consumers; verify read-only repository operation before writes |
-| NGC key | `spaceops-{env}/ngc-api-key` | `NGC_API_KEY` | Optional NIM path | Rotate only when NIM is enabled |
-| Cursor/GPU backend keys | `spaceops-{env}/cursor-sh-api-key`, `gpu-llm-api-key` | `CURSOR_SH_API_KEY`, `GPU_LLM_API_KEY` | Optional LLM backends | Restart API/worker and run backend health check |
-| MCP service token | `spaceops-{env}/mcp-<name>-token` | Not implemented | Future authenticated MCP services | **N/A today:** MCP service-token auth is not implemented; track before claiming this class live |
+| Database password | `spaceops-{env}-postgres-password` | `postgres-password` | Postgres, API, persister, KB MCP, worker | Coordinated maintenance; database role and clients must change together |
+| OpenAI/LLM key | `spaceops-{env}-openai-api-key` | `OPENAI_API_KEY` | API, agent worker | Restart consumers; smoke one guarded LLM path |
+| Approval token | `spaceops-{env}-approval-api-key` | `APPROVAL_API_KEY` | API/UI clients | Restart API; old token must stop authorizing after cutover |
+| GitOps token | `spaceops-{env}-github-token` | `GITHUB_TOKEN` | API and GitOps MCP | Restart consumers; verify read-only repository operation before writes |
+| NGC key | `spaceops-{env}-ngc-api-key` | `NGC_API_KEY` | Optional NIM path | Rotate only when NIM is enabled |
+| Cursor/GPU backend keys | `spaceops-{env}-cursor-sh-api-key`, `spaceops-{env}-gpu-llm-api-key` | `CURSOR_SH_API_KEY`, `GPU_LLM_API_KEY` | Optional LLM backends | Restart API/worker and run backend health check |
+| MCP service token | `spaceops-{env}-mcp-<name>-token` | Not implemented | Future authenticated MCP services | **N/A today:** MCP service-token auth is not implemented; track before claiming this class live |
 
 Environment variables are injected with `secretKeyRef`; changing a Secret does not update an
 already-running process. A controlled rollout is therefore part of every rotation.
+
+GSM secret IDs use hyphens because Google Secret Manager does not allow `/` in an ID. A Vault
+deployment may map these logical names to hierarchical paths, but the Helm `remoteRefs` must match
+the selected backend exactly.
 
 ## Completed local ESO proof
 
@@ -121,12 +125,17 @@ The live evidence must contain match counts and query scope, not matching raw co
 
 ## Rollback
 
-1. Re-enable the previously recorded backend version.
-2. Force ESO synchronization and confirm a new Kubernetes Secret resource version.
-3. Restart affected workloads.
-4. Run the same smoke and leak checks.
-5. For Postgres, restore the database role password before restarting clients.
-6. Record cause, owner, timeline, and whether the failed version was disabled or destroyed.
+1. Read the previously approved backend version through an access-controlled process.
+2. Publish that prior value as a **new latest GSM version**. With ESO
+   `secretVersionSelectionPolicy: LatestOrFail`, disabling the numerically latest version first
+   does not fall back to an older version; it makes the `ExternalSecret` not Ready.
+3. Force ESO synchronization and confirm a new Kubernetes Secret resource version.
+4. Disable the failed version only after the rollback version is available and synced.
+5. Restart affected workloads.
+6. Run the same smoke and leak checks.
+7. For Postgres, restore the database role password before publishing the rollback version and
+   restarting clients.
+8. Record cause, owner, timeline, and whether the failed version was disabled or destroyed.
 
 ## Closure criteria
 

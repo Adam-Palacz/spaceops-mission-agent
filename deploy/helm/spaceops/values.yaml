@@ -252,13 +252,13 @@ externalSecrets:
     name: spaceops-secret-store
     kind: SecretStore
   remoteRefs:
-    postgresPassword: spaceops-dev/postgres-password
-    openaiApiKey: spaceops-dev/openai-api-key
-    approvalApiKey: spaceops-dev/approval-api-key
-    githubToken: spaceops-dev/github-token
-    ngcApiKey: spaceops-dev/ngc-api-key
-    cursorShApiKey: spaceops-dev/cursor-sh-api-key
-    gpuLlmApiKey: spaceops-dev/gpu-llm-api-key
+    postgresPassword: spaceops-dev-postgres-password
+    openaiApiKey: spaceops-dev-openai-api-key
+    approvalApiKey: spaceops-dev-approval-api-key
+    githubToken: spaceops-dev-github-token
+    ngcApiKey: spaceops-dev-ngc-api-key
+    cursorShApiKey: spaceops-dev-cursor-sh-api-key
+    gpuLlmApiKey: spaceops-dev-gpu-llm-api-key
 
 serviceAccount:
   create: true

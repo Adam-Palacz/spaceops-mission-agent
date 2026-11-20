@@ -32,6 +32,15 @@ EVIDENCE = (
     / "evidence"
     / "PR2.2-local-eso-rotation-2026-09-26.json"
 )
+LIVE_EVIDENCE = (
+    REPO_ROOT
+    / "roadmap"
+    / "02.5-production-readiness"
+    / "sprint-2"
+    / "evidence"
+    / "PR2.2-live-gsm-rotation-2026-11-20.json"
+)
+LIVE_SCRIPT = REPO_ROOT / "scripts" / "pr22_live_gsm_rotation.ps1"
 
 
 def _helm_available() -> bool:
@@ -81,6 +90,9 @@ def test_stage_prod_render_external_secret_without_plaintext_secret(
         "CURSOR_SH_API_KEY",
         "GPU_LLM_API_KEY",
     } == secret_keys
+    remote_keys = {item["remoteRef"]["key"] for item in external[0]["spec"]["data"]}
+    assert all("/" not in key for key in remote_keys)
+    assert all(key.startswith(f"spaceops-{environment}-") for key in remote_keys)
 
 
 def test_pr22_local_evidence_records_rotation_without_raw_values() -> None:
@@ -101,16 +113,38 @@ def test_pr22_local_evidence_records_rotation_without_raw_values() -> None:
     )
 
 
+def test_pr22_live_evidence_records_rotation_rollback_leak_scan_and_cleanup() -> None:
+    evidence = json.loads(LIVE_EVIDENCE.read_text(encoding="utf-8-sig"))
+    assert evidence["status"] == "live_pass"
+    assert evidence["sync"]["external_secret_reason_after"] == "SecretSynced"
+    assert evidence["sync"]["resource_version_changed"] is True
+    assert all(evidence["rotation"]["hashes_changed"].values())
+    assert evidence["rotation"]["database_password_coordinated"] is True
+    assert evidence["rotation"]["smoke_after"] == {
+        "health_status": 200,
+        "database_connect": True,
+    }
+    assert evidence["rotation"]["approval_after_rotation"] == {
+        "current_token_status": 200,
+        "previous_token_status": 401,
+        "missing_token_status": 401,
+    }
+    assert evidence["rollback"]["restored_hash_matches_baseline"] is True
+    assert evidence["leak_scan"]["raw_value_matches"] == 0
+    assert evidence["cleanup"]["gke_clusters"] == 0
+    assert evidence["cleanup"]["persistent_disks"] == 0
+    assert evidence["cleanup"]["gsm_secrets"] == 0
+    assert LIVE_SCRIPT.is_file()
+
+
 def test_pr22_docs_board_and_boundaries_are_explicit() -> None:
     runbook = RUNBOOK.read_text(encoding="utf-8")
     spec = PR22.read_text(encoding="utf-8")
     board = BOARD.read_text(encoding="utf-8")
 
-    assert (
-        "| PR2.2 | Secrets rotation and external secret proof | In progress |" in board
-    )
-    assert "## Status\n\nIn progress" in spec
-    assert "Live ESO/GSM workload rotation" in spec
+    assert "| PR2.2 | Secrets rotation and external secret proof | Done |" in board
+    assert "| **Status** | Done |" in spec
+    assert "## Completed live proof" in spec
     assert "MCP authentication is not implemented" in spec
     for required in (
         "Secret inventory",
@@ -119,6 +153,7 @@ def test_pr22_docs_board_and_boundaries_are_explicit() -> None:
         "Leak check",
         "Rollback",
         "explicit confirmation",
+        "LatestOrFail",
     ):
         assert required in runbook
     assert "secrets_rotation_pr22.md" in DOCS_INDEX.read_text(encoding="utf-8")
@@ -134,3 +169,13 @@ def test_pr22_local_markdown_links_resolve() -> None:
             if not target or "://" in target or target.startswith("mailto:"):
                 continue
             assert (doc.parent / target).resolve().exists(), f"{doc}: {href}"
+
+
+def test_pr22_terraform_enables_gsm_and_workload_identity_apis() -> None:
+    main_tf = (REPO_ROOT / "infra" / "terraform" / "gcp" / "main.tf").read_text(
+        encoding="utf-8"
+    )
+    assert '"secretmanager.googleapis.com"' in main_tf
+    assert '"iamcredentials.googleapis.com"' in main_tf
+    assert "roles/secretmanager.secretAccessor" in main_tf
+    assert "roles/iam.workloadIdentityUser" in main_tf

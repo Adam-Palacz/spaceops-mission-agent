@@ -190,7 +190,7 @@ docker push "${AR_REPO}/mcp:${TAG}"
 ## 3. Bootstrap secrets (GSM + ESO)
 
 1. Create secrets in Google Secret Manager matching `values-stage.yaml` `externalSecrets.remoteRefs`
-   (e.g. `spaceops-stage/postgres-password`).
+   (e.g. `spaceops-stage-postgres-password`; GSM secret IDs cannot contain `/`).
 2. Install External Secrets Operator and apply
    `deploy/examples/secrets/eso/secret-store-gcp-sm.yaml.example` (annotate K8s SA with
    `eso_service_account_email` from Terraform).

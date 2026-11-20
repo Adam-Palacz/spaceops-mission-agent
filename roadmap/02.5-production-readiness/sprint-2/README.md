@@ -12,11 +12,11 @@ rotation, audit integrity, trace/log retention, and security review.
 
 ## Definition of done
 
-- [ ] PR2 board is complete.
-- [ ] Backup/restore drill evidence exists.
-- [ ] Secret rotation evidence exists.
-- [ ] Security review records findings and owners.
-- [ ] Retention/privacy decisions are documented.
+- [x] PR2 board is complete.
+- [x] Backup/restore drill evidence exists.
+- [x] Secret rotation evidence exists.
+- [x] Security review records findings and owners.
+- [x] Retention/privacy decisions are documented.
 
-See [BOARD.md](BOARD.md).
+See [BOARD.md](BOARD.md) and [SPRINT_REVIEW.md](SPRINT_REVIEW.md).
 

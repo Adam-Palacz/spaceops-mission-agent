@@ -1,9 +1,9 @@
 locals {
   common_labels = {
-    app         = "spaceops"
-    env         = var.environment
-    managed_by  = "terraform"
-    sprint      = "ps68"
+    app        = "spaceops"
+    env        = var.environment
+    managed_by = "terraform"
+    sprint     = "ps68"
   }
 
   required_apis = [
@@ -11,7 +11,9 @@ locals {
     "compute.googleapis.com",
     "artifactregistry.googleapis.com",
     "iam.googleapis.com",
+    "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "secretmanager.googleapis.com",
   ]
 }
 

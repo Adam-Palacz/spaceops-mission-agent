@@ -1,0 +1,141 @@
+﻿{
+    "schema_version":  "pr22.secret_rotation.live.v1",
+    "status":  "live_pass",
+    "project_id":  "spaceops-project-498213",
+    "environment":  "stage",
+    "started_at":  "2026-11-20T11:06:55.3445078Z",
+    "completed_at":  "2026-11-20T11:11:35.7960731Z",
+    "backend":  "Google Secret Manager",
+    "authentication":  "GKE Workload Identity; no service-account key",
+    "secret_ids":  [
+                       "spaceops-stage-postgres-password",
+                       "spaceops-stage-openai-api-key",
+                       "spaceops-stage-approval-api-key",
+                       "spaceops-stage-github-token",
+                       "spaceops-stage-ngc-api-key",
+                       "spaceops-stage-cursor-sh-api-key",
+                       "spaceops-stage-gpu-llm-api-key"
+                   ],
+    "gsm_new_versions":  {
+                             "openai-api-key":  "4",
+                             "cursor-sh-api-key":  "4",
+                             "approval-api-key":  "5",
+                             "github-token":  "4",
+                             "postgres-password":  "4",
+                             "gpu-llm-api-key":  "4",
+                             "ngc-api-key":  "4"
+                         },
+    "sync":  {
+                 "resource_version_after":  "1795172895327311002",
+                 "resource_version_before":  "1795172788490495002",
+                 "resource_version_changed":  true,
+                 "external_secret_reason_before":  "SecretSynced",
+                 "external_secret_reason_after":  "SecretSynced"
+             },
+    "rotation":  {
+                     "approval_after_rotation":  {
+                                                     "current_token_status":  200,
+                                                     "previous_token_status":  401,
+                                                     "missing_token_status":  401
+                                                 },
+                     "new_hashes":  {
+                                        "openai-api-key":  "6cab4a00c22817299308a22ce4b5badf9852fea9c7ec683ac9782ac15be18049",
+                                        "cursor-sh-api-key":  "fdc87ea384fbfc8e9550255d906356ae4219c37a6a81fd94831c801aa9289094",
+                                        "approval-api-key":  "380a3026c4e1339c9ac997f4f71f2b57cc42d238802889d59a6f246aa1a06b7f",
+                                        "github-token":  "0db4967614caba59197ee1e959b7bdd2af98eb515fd84f1cdd9ef998805d0931",
+                                        "postgres-password":  "bb06173ce5580edac3f61db277a8bd73046125819f27faec5d3c2cef08300d37",
+                                        "gpu-llm-api-key":  "a09ce42b753323017d9f0623785cfa4f0c11fbe5d3ea99d746bb4c13fee0d3d1",
+                                        "ngc-api-key":  "60c0cbc54e2b753c4fa8fb305447fe5945a8354a7b49151b23ac3ffc5b8f79dd"
+                                    },
+                     "smoke_before":  {
+                                          "health_status":  200,
+                                          "database_connect":  true
+                                      },
+                     "hashes_changed":  {
+                                            "openai-api-key":  true,
+                                            "cursor-sh-api-key":  true,
+                                            "approval-api-key":  true,
+                                            "github-token":  true,
+                                            "postgres-password":  true,
+                                            "gpu-llm-api-key":  true,
+                                            "ngc-api-key":  true
+                                        },
+                     "pod_uids_changed":  {
+                                              "api":  true,
+                                              "postgres":  true,
+                                              "kb_mcp":  true,
+                                              "gitops_mcp":  true,
+                                              "telemetry_persister":  false
+                                          },
+                     "database_password_coordinated":  true,
+                     "pod_uids_after":  {
+                                            "kb_mcp":  "59e99d93-34e9-4cf9-a742-5d454358e7ed",
+                                            "postgres":  "757dd41b-8cdc-4f73-b864-ddb113263dbf",
+                                            "api":  "0c1c0b14-8778-4847-998b-6af2b9a62017",
+                                            "gitops_mcp":  "43f70b01-bffa-4d85-8a80-f27f93f75d05",
+                                            "telemetry_persister":  "41902220-b55e-4993-8319-4790cd6a4754"
+                                        },
+                     "old_hashes":  {
+                                        "openai-api-key":  "aa3f7bb974b09d0a6a24d794354b23e03312e4ca4ec612120e455a71b59f74f6",
+                                        "cursor-sh-api-key":  "fb6d90135a1a2ef6f132e3e35dd6699ee1b07e124c5bc1560dc142c7c36f71d9",
+                                        "approval-api-key":  "d43077fd03aeaa5222b793fe21cb6513b63706c474188b3f50f418d0e2f14f62",
+                                        "github-token":  "eb278add53ef8ec19d18cca9d99c85e5dde34852aa2393fe626f745914ed2034",
+                                        "postgres-password":  "f66d07049e7bd3e14d1499bce8ac5bea8620c9db15cc0759a7a2c1383407e36b",
+                                        "gpu-llm-api-key":  "13ec96d2c0791f770d328ade5c18c9a299bf8678f13b76692a44911a868dbf25",
+                                        "ngc-api-key":  "b1ffd8e90e12b1a79b7c77771887b01432456691c8cddca0f539def0d4ec6a75"
+                                    },
+                     "smoke_after":  {
+                                         "health_status":  200,
+                                         "database_connect":  true
+                                     },
+                     "pod_uids_before":  {
+                                             "kb_mcp":  "239d49e4-c3e2-47bc-9243-65bbfa001d6b",
+                                             "postgres":  "1963457e-23fa-404a-9b86-878f3bc6866f",
+                                             "api":  "0b7747ce-e53c-4d5f-b951-28572dde51ff",
+                                             "gitops_mcp":  "a31f963c-d793-469d-bc2f-0596949a447d",
+                                             "telemetry_persister":  "41902220-b55e-4993-8319-4790cd6a4754"
+                                         }
+                 },
+    "rollback":  {
+                     "disabled_rotated_version":  "5",
+                     "rollback_version":  "6",
+                     "approval_after_rollback":  {
+                                                     "current_token_status":  200,
+                                                     "previous_token_status":  401,
+                                                     "missing_token_status":  401
+                                                 },
+                     "restored_hash_matches_baseline":  true,
+                     "class":  "approval-api-key"
+                 },
+    "leak_scan":  {
+                      "raw_value_matches":  0,
+                      "scopes":  [
+                                     "SpaceOps pod logs",
+                                     "ESO controller logs",
+                                     "SpaceOps and ESO Kubernetes events",
+                                     "API audit NDJSON",
+                                     "Jaeger service metadata",
+                                     "Prometheus labels and alerts"
+                                 ]
+                  },
+    "safety":  {
+                   "mcp_service_token":  "not_applicable_auth_not_implemented",
+                   "production_credentials_used":  false,
+                   "raw_values_in_evidence":  false
+               },
+    "operational_findings":  [
+                                  "GSM secret IDs cannot contain slash; Helm remoteRefs were changed to hyphenated IDs",
+                                  "ESO LatestOrFail does not fall back when the latest version is disabled; rollback publishes the prior value as a new latest version before disabling the failed version"
+                              ],
+    "cleanup":  {
+                    "completed_at":  "2026-11-20T11:25:57Z",
+                    "gke_clusters":  0,
+                    "artifact_registry_repositories":  0,
+                    "compute_instances":  0,
+                    "persistent_disks":  0,
+                    "forwarding_rules":  0,
+                    "reserved_addresses":  0,
+                    "gsm_secrets":  0,
+                    "terraform_state":  "budget alert and notification resources only"
+               }
+}

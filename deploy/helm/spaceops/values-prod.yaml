@@ -53,13 +53,13 @@ gitopsMcp:
 
 externalSecrets:
   remoteRefs:
-    postgresPassword: spaceops-prod/postgres-password
-    openaiApiKey: spaceops-prod/openai-api-key
-    approvalApiKey: spaceops-prod/approval-api-key
-    githubToken: spaceops-prod/github-token
-    ngcApiKey: spaceops-prod/ngc-api-key
-    cursorShApiKey: spaceops-prod/cursor-sh-api-key
-    gpuLlmApiKey: spaceops-prod/gpu-llm-api-key
+    postgresPassword: spaceops-prod-postgres-password
+    openaiApiKey: spaceops-prod-openai-api-key
+    approvalApiKey: spaceops-prod-approval-api-key
+    githubToken: spaceops-prod-github-token
+    ngcApiKey: spaceops-prod-ngc-api-key
+    cursorShApiKey: spaceops-prod-cursor-sh-api-key
+    gpuLlmApiKey: spaceops-prod-gpu-llm-api-key
 
 isolation:
   enabled: true
