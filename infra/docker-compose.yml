@@ -278,7 +278,7 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_API_BASE_URL: ${UI_API_BASE_URL:-http://localhost:8000}
-        NEXT_PUBLIC_APPROVAL_API_KEY: ${APPROVAL_API_KEY}
+        NEXT_PUBLIC_LOCAL_APPROVAL_API_KEY: ${APPROVAL_API_KEY}
     container_name: spaceops-ui
     ports:
       - "3001:3001"

@@ -152,6 +152,13 @@ data:
       scrape_interval: {{ .Values.observability.prometheus.scrapeInterval }}
     rule_files:
       - /etc/prometheus/rules/*.yml
+    {{- if .Values.observability.paging.enabled }}
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+                - {{ include "spaceops.fullname" . }}-alertmanager:{{ .Values.observability.paging.port }}
+    {{- end }}
     scrape_configs:
       - job_name: spaceops-api
         metrics_path: /metrics

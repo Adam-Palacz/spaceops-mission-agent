@@ -620,7 +620,10 @@ def test_approvals_approve_reject_flow_and_idempotent(
     )
     assert approve_resp.status_code == 200
     assert approve_resp.json().get("status") == "approved"
-    assert approve_resp.json().get("approval", {}).get("decided_by") == "operator-1"
+    assert (
+        approve_resp.json().get("approval", {}).get("decided_by")
+        == "api_key:legacy-api-key"
+    )
     # S2.6: first approve triggers execution once; response includes execution
     assert "execution" in approve_resp.json()
     assert approve_resp.json()["execution"].get("outcome") == "success"

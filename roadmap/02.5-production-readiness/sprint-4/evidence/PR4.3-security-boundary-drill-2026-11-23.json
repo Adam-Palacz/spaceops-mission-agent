@@ -1,0 +1,24 @@
+{
+  "audit": {
+    "root_hash_recorded": true,
+    "signing_key_persisted": false,
+    "tamper_detected": true,
+    "tamper_reason": "entry_hash_mismatch",
+    "valid_chain_entries": 3
+  },
+  "limitations": [
+    "Istio mTLS authorization requires a live mesh allow/deny drill.",
+    "Durable managed audit export is completed together with PR4.4.",
+    "Named Security and pilot-owner disposition is still required."
+  ],
+  "mcp_policy_static_checks": {
+    "api_service_account": true,
+    "production_enabled": true,
+    "strict_mtls": true,
+    "worker_service_account": true,
+    "workload_principals": true
+  },
+  "platform_ops_write_actions": "disabled",
+  "result": "pass",
+  "schema_version": "pr43.security-boundary-drill.v1"
+}

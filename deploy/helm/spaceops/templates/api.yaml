@@ -36,6 +36,10 @@ spec:
       labels:
         {{- include "spaceops.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: api
+      {{- if .Values.mcpWorkloadIdentity.enabled }}
+      annotations:
+        sidecar.istio.io/inject: "true"
+      {{- end }}
     spec:
       serviceAccountName: {{ include "spaceops.componentServiceAccountName" (dict "root" . "component" "api") }}
       containers:
@@ -49,6 +53,7 @@ spec:
             {{- include "spaceops.apiEnv" . | nindent 12 }}
             {{- include "spaceops.secretEnvOptional" (list . "OPENAI_API_KEY" "OPENAI_API_KEY") | nindent 12 }}
             {{- include "spaceops.secretEnvOptional" (list . "APPROVAL_API_KEY" "APPROVAL_API_KEY") | nindent 12 }}
+            {{- include "spaceops.secretEnvOptional" (list . "AUDIT_SIGNING_KEY" "AUDIT_SIGNING_KEY") | nindent 12 }}
             {{- include "spaceops.secretEnvOptional" (list . "GITHUB_TOKEN" "GITHUB_TOKEN") | nindent 12 }}
             {{- include "spaceops.secretEnvOptional" (list . "CURSOR_SH_API_KEY" "CURSOR_SH_API_KEY") | nindent 12 }}
             {{- include "spaceops.secretEnvOptional" (list . "GPU_LLM_API_KEY" "GPU_LLM_API_KEY") | nindent 12 }}

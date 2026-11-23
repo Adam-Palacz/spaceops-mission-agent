@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from apps.agent.audit_log import append_entry, get_audit_path
+from apps.agent.audit_log import append_entry, get_audit_path, verify_chain
 from apps.agent.graph import run_pipeline
 
 
@@ -194,3 +194,72 @@ def test_audit_outcome_success_empty_failure_and_error_message(
     # Should be short, single-line, no obvious stack trace markers
     assert "\n" not in e_failure["error_message"]
     assert len(e_failure["error_message"]) <= 200
+
+
+def test_signed_hash_chain_detects_mutation(tmp_path: Path, monkeypatch) -> None:
+    path = tmp_path / "audit.ndjson"
+    monkeypatch.setattr("config.settings.audit_log_path", str(path))
+    monkeypatch.setattr("config.settings.audit_signing_key", "synthetic-signing-key")
+    for index in range(3):
+        append_entry(
+            trace_id=f"trace-{index}",
+            incident_id="inc-chain",
+            actor="agent",
+            tool="chain_test",
+            args={"index": index},
+        )
+
+    verification = verify_chain(path, signing_key="synthetic-signing-key")
+    assert verification["valid"] is True
+    assert verification["checked"] == 3
+    assert len(verification["root_hash"]) == 64
+
+    lines = path.read_text(encoding="utf-8").splitlines()
+    tampered = json.loads(lines[1])
+    tampered["outcome"] = "failure"
+    lines[1] = json.dumps(tampered)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    assert verify_chain(path, signing_key="synthetic-signing-key") == {
+        "valid": False,
+        "checked": 1,
+        "reason": "entry_hash_mismatch",
+    }
+
+
+def test_signed_chain_requires_correct_verification_key(
+    tmp_path: Path, monkeypatch
+) -> None:
+    path = tmp_path / "audit.ndjson"
+    monkeypatch.setattr("config.settings.audit_log_path", str(path))
+    monkeypatch.setattr("config.settings.audit_signing_key", "correct-key")
+    append_entry(
+        trace_id="trace-key",
+        incident_id="inc-key",
+        actor="human",
+        tool="approve",
+        args={"approval_id": "synthetic"},
+    )
+    assert verify_chain(path)["reason"] == "signing_key_required"
+    assert verify_chain(path, signing_key="wrong-key")["reason"] == "signature_mismatch"
+
+
+def test_managed_stdout_export_is_structured_and_contains_no_raw_args(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(
+        "config.settings.audit_log_path", str(tmp_path / "audit.ndjson")
+    )
+    monkeypatch.setattr("config.settings.audit_signing_key", "synthetic-signing-key")
+    monkeypatch.setattr("config.settings.audit_stdout_export", True)
+    append_entry(
+        trace_id="trace-managed",
+        incident_id="inc-managed",
+        actor="human",
+        tool="approve",
+        args={"authorization": "Bearer must-not-appear"},
+    )
+    exported = json.loads(capsys.readouterr().out)
+    assert exported["spaceops_audit"] is True
+    assert "args_hash" in exported
+    assert "authorization" not in exported
+    assert "must-not-appear" not in json.dumps(exported)

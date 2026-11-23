@@ -146,6 +146,12 @@ Record drill evidence under `roadmap/02.5-production-readiness/sprint-2/evidence
 Completed logical fallback drill:
 [PR2.1-postgres-restore-drill-2026-09-26.json](../../roadmap/02.5-production-readiness/sprint-2/evidence/PR2.1-postgres-restore-drill-2026-09-26.json).
 It verifies custom-format dump/restore, representative table counts, marker values, Alembic head,
-and the restored append-only audit trigger. Managed Cloud SQL PITR remains required before the
-production-pilot go/no-go.
+and the restored append-only audit trigger.
+
+The managed Cloud SQL regional failover and isolated PITR drill ran on 2026-11-23. Failover took
+42 seconds; PITR took 642 seconds and reproduced the intended pre/post mutation boundary. See
+[managed_postgres_ha_pitr_pr45.md](../managed_postgres_ha_pitr_pr45.md) and the sanitized
+[PR4.5 evidence](../../roadmap/02.5-production-readiness/sprint-4/evidence/PR4.5-cloud-sql-ha-pitr-2026-11-23.json).
+The billable instances are deleted. PR4.5 remains In progress only while Google retains the empty
+private-service producer subnet during its documented post-deletion recovery window.
 

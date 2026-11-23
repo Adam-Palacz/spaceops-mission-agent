@@ -103,6 +103,12 @@ reintroduce records whose retention period has expired; a post-restore expiry sw
 
 ## Managed backend decision
 
+**PR4.4 update (2026-11-23):** the Google Cloud Logging/Trace baseline below is implemented in
+Terraform and Helm. The live managed-backend query, separate-principal denial, and deletion/expiry
+drill passed with sanitized evidence; see
+[managed_observability_pr44.md](managed_observability_pr44.md). This closes the observability
+evidence gap but does not override the current production-admission No-go decision.
+
 ### Current state
 
 - Local and stage use the OpenTelemetry Collector and in-cluster Jaeger all-in-one.

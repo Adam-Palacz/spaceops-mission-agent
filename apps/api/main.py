@@ -32,11 +32,13 @@ from pydantic import BaseModel, Field
 from prometheus_client import (
     CONTENT_TYPE_LATEST,
     Counter,
+    Gauge,
     Histogram,
     generate_latest,
 )
 
 from config import settings
+from apps.api.approval_auth import ApprovalPrincipal, authenticate_approval
 from apps.behavior_metrics import record_agent_run_behavior, record_agent_run_error
 from apps.contracts.v1 import TelemetryEventV1
 from apps.contracts.output_validation import (
@@ -109,6 +111,20 @@ INGEST_EVENTS_TOTAL = Counter(
     "ingest_events_total",
     "Total ingest records processed, by outcome.",
     ["outcome"],
+)
+APPROVAL_EXECUTION_CLAIMS_TOTAL = Counter(
+    "approval_execution_claims_total",
+    "Approval execution claim attempts by outcome.",
+    ["outcome"],
+)
+APPROVAL_EXECUTIONS_TOTAL = Counter(
+    "approval_executions_total",
+    "Completed approved-action executions by outcome.",
+    ["outcome"],
+)
+APPROVAL_STALE_CLAIMS = Gauge(
+    "approval_stale_claims",
+    "Approved-action claims whose execution lease has expired.",
 )
 
 
@@ -1062,34 +1078,9 @@ def replay_run(run_id: str) -> JSONResponse:
 def _approval_auth(
     x_api_key: str | None = Header(None, alias="X-API-Key"),
     authorization: str | None = Header(None),
-) -> str:
-    """
-    Validate API key for approve/reject; return identity for audit (who).
-    Accepts X-API-Key or Authorization: Bearer <key>. If X-Approval-By is used, that becomes 'who'.
-    """
-    expected = (getattr(settings, "approval_api_key", None) or "").strip()
-    if not expected:
-        raise HTTPException(
-            status_code=501,
-            detail="Approval API key not configured (set APPROVAL_API_KEY)",
-        )
-    token: str | None = None
-    if x_api_key:
-        token = x_api_key.strip()
-    elif authorization and authorization.lower().startswith("bearer "):
-        token = authorization[7:].strip()
-    if not token or token != expected:
-        raise HTTPException(status_code=401, detail="Invalid or missing API key")
-    return "authenticated"
-
-
-def _approval_identity(
-    request: Request,
-    _auth: str = Depends(_approval_auth),
-) -> str:
-    """Return 'who' for audit: X-Approval-By header or fallback to 'authenticated'."""
-    who = request.headers.get("X-Approval-By", "").strip()
-    return who or _auth
+) -> ApprovalPrincipal:
+    """Authenticate the caller and derive identity only from a verified credential."""
+    return authenticate_approval(authorization=authorization, api_key=x_api_key)
 
 
 @app.get("/approvals")
@@ -1107,26 +1098,40 @@ def list_approvals(
 @app.post("/approvals/{approval_id}/approve")
 def approve_request(
     approval_id: str,
-    who: str = Depends(_approval_identity),
+    principal: ApprovalPrincipal = Depends(_approval_auth),
 ) -> JSONResponse:
     """
     Mark approval request as approved and execute the stored action once (S2.6).
     Idempotent: already approved/rejected returns 200 without re-execution.
-    Requires X-API-Key or Authorization: Bearer. Optional X-Approval-By for audit 'who'.
+    Audit identity is derived from the verified credential; caller identity headers are ignored.
     """
-    from apps.agent.approval_store import approve as store_approve
+    from apps.agent.approval_store import approve_and_claim
+    from apps.agent.approval_store import complete_execution
     from apps.agent.approval_store import get_request
     from apps.agent.approval_executor import execute_approved_action
     from apps.agent.audit_log import append_entry as audit_append
 
-    rec_before = get_request(approval_id)
-    if rec_before is None:
-        raise HTTPException(status_code=404, detail="Approval request not found")
-
-    was_pending = rec_before.get("status") == "pending"
-    rec = store_approve(approval_id, decided_by=who)
+    worker_id = f"api:{uuid.uuid4().hex}"
+    rec, claim = approve_and_claim(
+        approval_id,
+        decided_by=principal.audit_id,
+        worker_id=worker_id,
+        lease_seconds=int(
+            getattr(settings, "approval_execution_lease_seconds", 300) or 300
+        ),
+    )
     if rec is None:
         raise HTTPException(status_code=404, detail="Approval request not found")
+    APPROVAL_EXECUTION_CLAIMS_TOTAL.labels(
+        outcome="won" if claim is not None else "not_claimed"
+    ).inc()
+    if (
+        str(getattr(settings, "approval_store_backend", "file") or "file").lower()
+        == "postgres"
+    ):
+        from apps.agent.approval_store_postgres import count_stale_claims
+
+        APPROVAL_STALE_CLAIMS.set(count_stale_claims())
 
     audit_append(
         trace_id=approval_id,
@@ -1136,7 +1141,8 @@ def approve_request(
         args={
             "approval_id": approval_id,
             "approval_request_id": approval_id,
-            "decided_by": who,
+            "decided_by": principal.audit_id,
+            "execution_claimed": claim is not None,
         },
         decision="approve",
         policy_result="n/a",
@@ -1144,8 +1150,16 @@ def approve_request(
     )
 
     execution_result = None
-    if was_pending:
-        execution_result = execute_approved_action(approval_id, rec_before)
+    if claim is not None:
+        execution_result = execute_approved_action(approval_id, rec)
+        completion_recorded = complete_execution(
+            approval_id,
+            claim=claim,
+            result=execution_result,
+        )
+        APPROVAL_EXECUTIONS_TOTAL.labels(
+            outcome=str(execution_result.get("outcome") or "failure")
+        ).inc()
         audit_append(
             trace_id=approval_id,
             incident_id=rec.get("incident_id", ""),
@@ -1153,12 +1167,17 @@ def approve_request(
             tool="execute_restricted",
             args={
                 "approval_id": approval_id,
-                "step_index": rec_before.get("step_index"),
+                "step_index": rec.get("step_index"),
+                "idempotency_key": claim.idempotency_key,
+                "completion_recorded": completion_recorded,
             },
             decision="allow",
             outcome=execution_result.get("outcome", "failure"),
             error_message=execution_result.get("error_message"),
         )
+        refreshed = get_request(approval_id)
+        if refreshed is not None:
+            rec = refreshed
 
     content = {"status": "approved", "approval": rec}
     if execution_result is not None:
@@ -1173,16 +1192,16 @@ def approve_request(
 @app.post("/approvals/{approval_id}/reject")
 def reject_request(
     approval_id: str,
-    who: str = Depends(_approval_identity),
+    principal: ApprovalPrincipal = Depends(_approval_auth),
 ) -> JSONResponse:
     """
     Mark approval request as rejected. Idempotent: already approved/rejected returns 200.
-    Requires X-API-Key or Authorization: Bearer. Optional X-Approval-By for audit 'who'.
+    Audit identity is derived from the verified credential; caller identity headers are ignored.
     """
     from apps.agent.approval_store import reject as store_reject
     from apps.agent.audit_log import append_entry as audit_append
 
-    rec = store_reject(approval_id, decided_by=who)
+    rec = store_reject(approval_id, decided_by=principal.audit_id)
     if rec is None:
         raise HTTPException(status_code=404, detail="Approval request not found")
     audit_append(
@@ -1193,7 +1212,7 @@ def reject_request(
         args={
             "approval_id": approval_id,
             "approval_request_id": approval_id,
-            "decided_by": who,
+            "decided_by": principal.audit_id,
         },
         decision="reject",
         policy_result="n/a",

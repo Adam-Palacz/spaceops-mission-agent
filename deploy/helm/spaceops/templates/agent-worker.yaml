@@ -19,6 +19,10 @@ spec:
       labels:
         {{- include "spaceops.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: agent-worker
+      {{- if .Values.mcpWorkloadIdentity.enabled }}
+      annotations:
+        sidecar.istio.io/inject: "true"
+      {{- end }}
     spec:
       serviceAccountName: {{ include "spaceops.componentServiceAccountName" (dict "root" . "component" "agent-worker") }}
       containers:
@@ -28,6 +32,7 @@ spec:
           command: ["python", "-m", "apps.workers.agent_graph"]
           env:
             {{- include "spaceops.agentWorkerEnv" . | nindent 12 }}
+            {{- include "spaceops.secretEnvOptional" (list . "AUDIT_SIGNING_KEY" "AUDIT_SIGNING_KEY") | nindent 12 }}
           readinessProbe:
             exec:
               command: ["python", "-c", "import sys; sys.exit(0)"]

@@ -1,0 +1,14 @@
+{
+  "completion_recorded": true,
+  "contenders": 8,
+  "database": "temporary local Postgres; no cloud resource",
+  "execution_attempts": 1,
+  "externally_visible_side_effects": 1,
+  "final_execution_status": "succeeded",
+  "generated_at": "2026-11-23T10:31:18.641763+00:00",
+  "repeat_claimed": false,
+  "request_id": "0d0524d8-9003-43df-9237-8aa6e4eb2602",
+  "result": "pass",
+  "schema_version": "pr42.postgres-claim-drill.v1",
+  "winning_claims": 1
+}

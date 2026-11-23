@@ -48,3 +48,44 @@ output "budget_enabled" {
   description = "Whether PS6.9 billing budget alert is managed by Terraform."
   value       = var.enable_budget_alert
 }
+
+output "managed_observability_enabled" {
+  description = "Whether PR4.4 managed logging/tracing resources are enabled."
+  value       = var.enable_managed_observability
+}
+
+output "managed_log_bucket_name" {
+  description = "Managed SpaceOps logging bucket resource name."
+  value = (
+    var.enable_managed_observability
+    ? google_logging_project_bucket_config.spaceops_pilot[0].name
+    : null
+  )
+}
+
+output "observability_service_account_email" {
+  description = "GSA used by the OTel collector through Workload Identity."
+  value = (
+    var.enable_managed_observability
+    ? google_service_account.observability[0].email
+    : null
+  )
+}
+
+output "managed_postgres_connection_name" {
+  description = "Cloud SQL connection name for the temporary PR4.5 source instance."
+  value = (
+    var.enable_managed_postgres_drill
+    ? google_sql_database_instance.spaceops_pilot[0].connection_name
+    : null
+  )
+}
+
+output "managed_postgres_private_ip" {
+  description = "Private address of the temporary PR4.5 source instance."
+  value = (
+    var.enable_managed_postgres_drill
+    ? google_sql_database_instance.spaceops_pilot[0].private_ip_address
+    : null
+  )
+}

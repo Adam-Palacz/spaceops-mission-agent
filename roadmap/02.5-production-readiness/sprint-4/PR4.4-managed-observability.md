@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Closes** | PR2.4 production-pilot gates |
 | **Owner** | SRE / Security |
 | **Depends on** | PR4.3 |
@@ -24,12 +24,12 @@ production-pilot platform.
 
 ## Checklist
 
-- [ ] Managed backend and retention are configured through IaC.
-- [ ] Sanitized log/trace correlation query succeeds.
-- [ ] Unauthorized query/export is denied.
-- [ ] Deletion/expiry behavior is exercised and recorded.
-- [ ] Masking and secret scans pass across evidence outputs.
-- [ ] Temporary resources are removed unless retained by the approved pilot plan.
+- [x] Managed backend and retention are configured through IaC.
+- [x] Sanitized log/trace correlation query succeeds.
+- [x] Unauthorized query/export is denied.
+- [x] Deletion/expiry behavior is exercised and recorded.
+- [x] Masking and secret scans pass across evidence outputs.
+- [x] Temporary resources are removed unless retained by the approved pilot plan.
 
 ## Test requirements
 
@@ -43,3 +43,22 @@ production-pilot platform.
 
 Local Jaeger or an ephemeral in-cluster backend is insufficient. Evidence must come from the
 managed backend selected for the pilot or from an explicitly approved equivalent.
+
+## Completion evidence (2026-11-23)
+
+- Terraform converged a regional Cloud Logging bucket with 30-day retention, a selective sink, and
+  a keyless collector identity with only log-write and trace-agent roles.
+- An authorized operator read one sanitized canary log and one Cloud Trace span carrying the same
+  synthetic correlation identifier.
+- A separate temporary service account without read access received HTTP `403`; the account and
+  its impersonation binding were then removed.
+- Terraform teardown removed the sink, collector identity, and IAM bindings. The log bucket entered
+  the provider `DELETE_REQUESTED` recovery state. No GKE or Cloud SQL runtime was retained.
+- Cloud Trace per-record deletion is not available; the provider-enforced 30-day expiry is recorded
+  as the trace deletion mechanism.
+- Committed evidence contains no project ID, operator contact, credential, or raw payload.
+
+Evidence:
+
+- [Managed observability design and drill](../../../docs/managed_observability_pr44.md)
+- [Sanitized machine-readable result](evidence/PR4.4-managed-observability-2026-11-23.json)

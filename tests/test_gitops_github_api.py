@@ -41,3 +41,37 @@ def test_create_pr_via_github_api_success() -> None:
 
     assert err is None
     assert url == "https://github.com/o/r/pull/1"
+
+
+def test_existing_idempotency_branch_returns_existing_pr_without_new_side_effect() -> (
+    None
+):
+    mock_client = MagicMock()
+    mock_client.get.side_effect = [
+        MagicMock(status_code=200, json=lambda: {"object": {"sha": "abc123"}}),
+        MagicMock(
+            status_code=200,
+            json=lambda: [{"html_url": "https://github.com/o/r/pull/7"}],
+        ),
+    ]
+    mock_client.post.return_value = MagicMock(status_code=422)
+    mock_client.__enter__ = MagicMock(return_value=mock_client)
+    mock_client.__exit__ = MagicMock(return_value=False)
+
+    with patch(
+        "apps.mcp.gitops_server.github_api.httpx.Client", return_value=mock_client
+    ):
+        url, err = create_pr_via_github_api(
+            repo="o/r",
+            token="tok",
+            branch="agent/approval-idempotency-key",
+            base="main",
+            title="GitOps retry",
+            body="body",
+            files=[("ops-config/alerts/x.yaml", "threshold: 1\n")],
+        )
+
+    assert err is None
+    assert url == "https://github.com/o/r/pull/7"
+    mock_client.put.assert_not_called()
+    assert mock_client.post.call_count == 1

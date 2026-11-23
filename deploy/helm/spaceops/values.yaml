@@ -83,6 +83,17 @@ api:
     enabled: false
     # PS6.11: operator retention stub (scripts/checkpoint_retention.py); not enforced in-app yet.
     retentionDays: 30
+  approvalAuth:
+    # api_key is retained for local compatibility. Production must override to oidc.
+    mode: api_key
+    storeBackend: file
+    executionLeaseSeconds: 300
+    issuer: ""
+    audience: ""
+    jwksUrl: ""
+    algorithms: RS256
+    roleClaim: roles
+    requiredRole: spaceops.approver
   persistence:
     data:
       enabled: true
@@ -144,6 +155,10 @@ gitopsMcp:
   githubRepo: ""
 
 observability:
+  managed:
+    enabled: false
+    projectId: ""
+    serviceAccountEmail: ""
   otelCollector:
     enabled: false
     image: otel/opentelemetry-collector-contrib:0.96.0
@@ -161,6 +176,21 @@ observability:
   jaeger:
     enabled: false
     image: jaegertracing/all-in-one:1.55
+  paging:
+    enabled: false
+    image: prom/alertmanager:v0.27.0
+    port: 9093
+    secret:
+      name: ""
+      key: pagerduty-routing-key
+    externalSecretRemoteKey: spaceops-stage-pagerduty-routing-key
+    resources:
+      requests:
+        cpu: 25m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 128Mi
   prometheus:
     enabled: false
     image: prom/prometheus:v3.10.0
@@ -230,6 +260,11 @@ agentWorker:
   checkpoint:
     enabled: true
 
+# PR4.3: Istio workload identity and mTLS authorization for MCP services.
+mcpWorkloadIdentity:
+  enabled: false
+  trustDomain: cluster.local
+
 secrets:
   # Dev/lab only: render a Kubernetes Secret from install-time --set (never commit real keys).
   create: false
@@ -239,6 +274,7 @@ secrets:
   openaiApiKey: ""
   postgresPassword: ""
   approvalApiKey: ""
+  auditSigningKey: ""
   githubToken: ""
   ngcApiKey: ""
   cursorShApiKey: ""
@@ -255,6 +291,7 @@ externalSecrets:
     postgresPassword: spaceops-dev-postgres-password
     openaiApiKey: spaceops-dev-openai-api-key
     approvalApiKey: spaceops-dev-approval-api-key
+    auditSigningKey: spaceops-dev-audit-signing-key
     githubToken: spaceops-dev-github-token
     ngcApiKey: spaceops-dev-ngc-api-key
     cursorShApiKey: spaceops-dev-cursor-sh-api-key

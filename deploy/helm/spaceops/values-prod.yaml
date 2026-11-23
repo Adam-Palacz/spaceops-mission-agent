@@ -16,6 +16,10 @@ postgres:
 
 api:
   replicas: 2
+  approvalAuth:
+    # Issuer, audience, and JWKS URL are mandatory deployment-specific values.
+    mode: oidc
+    storeBackend: postgres
   llm:
     backend: openai
     budgetMode: postgres
@@ -51,11 +55,15 @@ ticketMcp:
 gitopsMcp:
   enabled: true
 
+mcpWorkloadIdentity:
+  enabled: true
+
 externalSecrets:
   remoteRefs:
     postgresPassword: spaceops-prod-postgres-password
     openaiApiKey: spaceops-prod-openai-api-key
     approvalApiKey: spaceops-prod-approval-api-key
+    auditSigningKey: spaceops-prod-audit-signing-key
     githubToken: spaceops-prod-github-token
     ngcApiKey: spaceops-prod-ngc-api-key
     cursorShApiKey: spaceops-prod-cursor-sh-api-key

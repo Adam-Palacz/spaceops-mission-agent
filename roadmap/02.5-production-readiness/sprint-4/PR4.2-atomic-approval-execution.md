@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | In progress |
 | **Closes** | PR23-003 |
 | **Owner** | API / Data |
 | **Depends on** | PR4.1 |
@@ -25,11 +25,11 @@ approved operation more than once.
 
 ## Checklist
 
-- [ ] Schema and migration are implemented.
-- [ ] Transactional claim and idempotency behavior are implemented.
-- [ ] Crash/retry/reconciliation behavior is documented.
-- [ ] Multi-replica concurrency test proves one winning claim.
-- [ ] Downstream side-effect test proves at-most-once externally visible execution.
+- [x] Schema and migration are implemented.
+- [x] Transactional claim and idempotency behavior are implemented.
+- [x] Crash/retry/reconciliation behavior is documented.
+- [x] Multi-replica concurrency test proves one winning claim.
+- [x] Downstream side-effect test proves at-most-once externally visible execution.
 - [ ] PR23-003 closure or waiver is approved by Security and the pilot owner.
 
 ## Test requirements
@@ -44,3 +44,15 @@ approved operation more than once.
 
 Do not mark Done from a mocked repository test alone. The acceptance evidence must use Postgres and
 at least two concurrent execution contenders.
+
+## Implementation evidence
+
+- [Atomic execution design](../../../docs/approval_atomic_execution_pr42.md)
+- [Postgres concurrency drill](evidence/PR4.2-postgres-claim-drill-2026-11-23.json): eight
+  contenders, one winning claim, one externally visible side effect, no repeat claim.
+- Alembic migration `20261123_0004` and runtime store use a unique idempotency key, row lock, claim
+  token, worker fence, lease, attempts, and durable completion state.
+- The GitHub GitOps path returns an existing PR for a replayed deterministic approval branch.
+
+The implementation and executed Postgres evidence are complete. Named Security/pilot-owner
+acceptance remains outstanding, so PR23-003 and this task remain open.

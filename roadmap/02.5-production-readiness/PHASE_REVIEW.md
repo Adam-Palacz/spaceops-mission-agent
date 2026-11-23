@@ -26,6 +26,8 @@ is not satisfied.
   review, and retention/privacy policy.
 - [PR3 sprint review](sprint-3/SPRINT_REVIEW.md) - release gate, local incident/rollback game day,
   production pilot plan, and engineering-book builds.
+- [PR4 pause note](sprint-4/SPRINT_REVIEW.md) - remediation evidence so far, and the reason
+  close-out resumes after 2026-11-27 13:04 UTC.
 - [PR3.1 static gate](sprint-3/evidence/PR3.1-static-ci-2026-11-22.json) and
   [live stage gate](sprint-3/evidence/PR3.1-live-stage-2026-11-22.json).
 - [PR3.2 game day](sprint-3/evidence/PR3.2-game-day-local-2026-11-23.json).
@@ -121,7 +123,7 @@ system of record and no production-pilot data is admitted.
 | Risk | Owner | Current control | Deadline / trigger |
 |---|---|---|---|
 | Managed Postgres HA/PITR not live-proven for the pilot service | Data / SRE | Logical restore evidence; no pilot data | Before next readiness review |
-| Real paging delivery not exercised | On-call lead | Synthetic APIUnavailable game day | BL-006, before pilot |
+| Real paging delivery partially exercised | On-call lead | One synthetic page delivered and acknowledged; BL-006 remains open | BL-006, before pilot |
 | Worker has no standalone metrics endpoint | Mission-agent / platform | API metrics, queue/DLQ and traces | Before Variant A production promotion |
 | Scenario A stage evidence has no citation references | Mission-agent owner | Evidence present; KB boundary documented | Before claims requiring citation precision |
 | No named pilot roster, dates, contacts, or legal approvals | Production-pilot owner | Pilot cannot start | Before re-review |
@@ -164,6 +166,10 @@ The required work is now scheduled in [PR4 - Production Admission Remediation](s
 ## Phase status
 
 The planned PR1-PR3 delivery is complete, including the evidence-backed PR3.4 decision and PR3.5
-publication pipeline. PR4 remediation is scheduled but not started. The phase outcome remains
-**No-go**. Production-pilot admission is blocked until the re-review gates above are met and a new
-decision explicitly grants admission.
+publication pipeline. PR4 remediation is in progress and is paused at the
+[2026-11-23 sprint review](sprint-4/SPRINT_REVIEW.md). PR4.4 has closed the managed-observability
+evidence gap. PR4.6 delivered one acknowledged page, and its escalation, Alertmanager-sender, and
+key-revocation gaps stay open. Close-out resumes after the Cloud SQL network hold, on or after
+2026-11-27 13:04 UTC, because the remaining items need that inventory check plus named acceptances.
+The phase outcome remains **No-go**. Production-pilot admission is blocked until the re-review gates
+above are met and a new decision explicitly grants admission.

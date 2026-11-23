@@ -91,6 +91,7 @@ data:
         sampling_percentage: {{ .Values.observability.otelCollector.samplingPercentage }}
       batch: {}
     exporters:
+      {{- if .Values.observability.jaeger.enabled }}
       otlp/jaeger:
         endpoint: {{ include "spaceops.fullname" . }}-jaeger:4317
         tls:
@@ -100,6 +101,11 @@ data:
           # plaintext-internal and mesh-sidecar both keep app traffic plaintext; mesh mTLS is transparent.
           insecure: true
           {{- end }}
+      {{- end }}
+      {{- if .Values.observability.managed.enabled }}
+      googlecloud:
+        project: {{ .Values.observability.managed.projectId | quote }}
+      {{- end }}
     service:
       extensions: [health_check]
       telemetry:
@@ -109,7 +115,13 @@ data:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, probabilistic_sampler, batch]
-          exporters: [otlp/jaeger]
+          exporters:
+            {{- if .Values.observability.jaeger.enabled }}
+            - otlp/jaeger
+            {{- end }}
+            {{- if .Values.observability.managed.enabled }}
+            - googlecloud
+            {{- end }}
 ---
 apiVersion: v1
 kind: Service

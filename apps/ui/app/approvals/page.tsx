@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { API_BASE_URL, APPROVAL_API_KEY } from "../../lib/config";
+import { API_BASE_URL, LOCAL_APPROVAL_API_KEY } from "../../lib/config";
 
 type ApprovalItem = {
   id: string;
@@ -39,7 +39,7 @@ export default function ApprovalsPage() {
     try {
       const data = await fetchJson<{ approvals: ApprovalItem[] }>(
         `${API_BASE_URL}/approvals`,
-        { headers: { "X-API-Key": APPROVAL_API_KEY } }
+        { headers: { "X-API-Key": LOCAL_APPROVAL_API_KEY } }
       );
       setApprovals(data.approvals || []);
     } catch (err) {
@@ -58,8 +58,7 @@ export default function ApprovalsPage() {
       await fetchJson(`${API_BASE_URL}/approvals/${approvalId}/${decision}`, {
         method: "POST",
         headers: {
-          "X-API-Key": APPROVAL_API_KEY,
-          "X-Approval-By": "ui-operator",
+          "X-API-Key": LOCAL_APPROVAL_API_KEY,
         },
       });
       await loadApprovals();
@@ -80,9 +79,10 @@ export default function ApprovalsPage() {
       <p style={{ marginTop: 0, color: "#a7b4c9" }}>
         API: <code>{API_BASE_URL}</code>
       </p>
-      {!APPROVAL_API_KEY && (
+      {!LOCAL_APPROVAL_API_KEY && (
         <p style={{ color: "#ffd27d" }}>
-          Set <code>NEXT_PUBLIC_APPROVAL_API_KEY</code> to use approval actions.
+          This local UI has no development approval credential. Production
+          approvals require an OIDC-aware client.
         </p>
       )}
 
@@ -118,7 +118,7 @@ export default function ApprovalsPage() {
                     <td style={{ padding: 8 }}>
                       <button
                         type="button"
-                        disabled={busy || !APPROVAL_API_KEY}
+                        disabled={busy || !LOCAL_APPROVAL_API_KEY}
                         onClick={() => void decideApproval(ap.id, "approve")}
                         style={{ marginRight: 8 }}
                       >
@@ -126,7 +126,7 @@ export default function ApprovalsPage() {
                       </button>
                       <button
                         type="button"
-                        disabled={busy || !APPROVAL_API_KEY}
+                        disabled={busy || !LOCAL_APPROVAL_API_KEY}
                         onClick={() => void decideApproval(ap.id, "reject")}
                       >
                         Reject

@@ -1,0 +1,13 @@
+# PR4.4 overlay. Supply real values at deploy time:
+#   --set observability.managed.projectId="$GCP_PROJECT_ID"
+#   --set observability.managed.serviceAccountEmail="$OTEL_GSA_EMAIL"
+observability:
+  managed:
+    enabled: true
+    projectId: REPLACE_AT_DEPLOY
+    serviceAccountEmail: REPLACE_AT_DEPLOY
+  otelCollector:
+    enabled: true
+  # Cloud Trace is the pilot system of record; Jaeger remains optional stage-only.
+  jaeger:
+    enabled: false

@@ -40,6 +40,7 @@ externalSecrets:
     postgresPassword: spaceops-stage-postgres-password
     openaiApiKey: spaceops-stage-openai-api-key
     approvalApiKey: spaceops-stage-approval-api-key
+    auditSigningKey: spaceops-stage-audit-signing-key
     githubToken: spaceops-stage-github-token
     ngcApiKey: spaceops-stage-ngc-api-key
     cursorShApiKey: spaceops-stage-cursor-sh-api-key

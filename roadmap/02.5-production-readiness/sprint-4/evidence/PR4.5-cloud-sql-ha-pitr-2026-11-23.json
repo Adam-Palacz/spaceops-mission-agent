@@ -1,0 +1,99 @@
+{
+  "schema_version": "pr45.cloud-sql-ha-pitr.v1",
+  "result": "pass_with_provider_cleanup_pending",
+  "executed_at": "2026-11-23T12:03:42Z",
+  "provider": "google-cloud-sql-postgresql",
+  "region": "us-central1",
+  "data_classification": "synthetic-internal",
+  "profile": {
+    "database_version": "POSTGRES_15",
+    "tier": "db-custom-1-3840",
+    "availability_type": "REGIONAL",
+    "distinct_primary_standby_zones": true,
+    "disk_type": "PD_SSD",
+    "disk_size_gib": 10,
+    "encryption_at_rest": "provider-managed",
+    "transport_mode": "ENCRYPTED_ONLY",
+    "private_service_access": true,
+    "iam_database_authentication": true,
+    "automated_backups": true,
+    "pitr_enabled": true,
+    "retained_backups": 7,
+    "transaction_log_retention_days": 7
+  },
+  "cost_guardrails": {
+    "maximum_drill_hours": 3,
+    "source_runtime_minutes_lt": 60,
+    "restore_runtime_minutes_lt": 35,
+    "source_instances": 1,
+    "restore_instances": 1,
+    "read_replicas": 0,
+    "final_backup_requested": false
+  },
+  "ha_failover": {
+    "result": "pass",
+    "duration_seconds": 42,
+    "active_zone_changed": true,
+    "post_failover_canary_rows": 2,
+    "application_reconnected": true
+  },
+  "pitr": {
+    "result": "pass",
+    "isolated_restore": true,
+    "provider_operation_seconds": 642,
+    "selected_timestamp_age_at_restore_start_seconds_lt": 180,
+    "pre_boundary_rows": 1,
+    "post_boundary_rows": 0,
+    "boundary_match": true,
+    "alembic_connectivity_smoke": "pass",
+    "rto_target_seconds": 3600,
+    "rto_target_met": true,
+    "rpo_target_seconds": 900,
+    "rpo_target_met": true
+  },
+  "negative_authorization": {
+    "separate_principal": true,
+    "cloud_sql_roles_present": false,
+    "instance_api_http_status": 403,
+    "backup_api_http_status": 403,
+    "database_login": "denied",
+    "temporary_principal_deleted": true,
+    "credential_persisted": false
+  },
+  "teardown": {
+    "cloud_sql_instances_present": 0,
+    "restore_instance_deleted": true,
+    "source_instance_deleted": true,
+    "automated_backups_deleted_with_instances": true,
+    "temporary_proxies_present": 0,
+    "temporary_principals_present": 0,
+    "operator_drill_iam_bindings_present": false,
+    "billable_database_runtime_present": false,
+    "provider_recovery_hold": {
+      "status": "pending",
+      "resources": [
+        "private-service-connection",
+        "allocated-private-range",
+        "empty-vpc"
+      ],
+      "billable_database_runtime": false,
+      "provider_maximum_days": 4,
+      "retry_not_before": "2026-11-27T13:04:00Z",
+      "owner": "SRE",
+      "terraform_state_retained": true
+    }
+  },
+  "sanitization": {
+    "cloud_project_id_included": false,
+    "operator_contact_included": false,
+    "instance_names_included": false,
+    "operation_ids_included": false,
+    "credentials_included": false,
+    "network_addresses_included": false,
+    "raw_payload_included": false
+  },
+  "done_gate": {
+    "status": "blocked",
+    "reason": "Provider recovery hold prevents private-network deletion for up to four days."
+  }
+}

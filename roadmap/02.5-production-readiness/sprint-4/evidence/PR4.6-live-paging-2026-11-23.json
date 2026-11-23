@@ -1,0 +1,67 @@
+{
+  "schema_version": "pr46.live-paging.v1",
+  "result": "pass_with_escalation_and_sender_gaps",
+  "executed_at": "2026-11-23T14:30:00Z",
+  "timezone": "Europe/Warsaw",
+  "provider": "pagerduty-events-api-v2",
+  "data_classification": "synthetic-internal",
+  "delivery": {
+    "sender": "events-api-v2-direct",
+    "alertmanager_emitted_page": false,
+    "trigger_http_status": 202,
+    "incident_number": 1,
+    "dedup_key": "spaceops-pr46-1795444075126",
+    "opened_at": "2026-11-23T14:27:00Z",
+    "notified_at": "2026-11-23T14:27:00Z",
+    "acknowledged_at": "2026-11-23T14:29:00Z",
+    "acknowledge_http_status": 202,
+    "resolved_at": "2026-11-23T14:30:00Z",
+    "resolve_http_status": 202,
+    "duration_minutes": 2,
+    "human_acknowledgement": true
+  },
+  "failed_delivery": {
+    "invalid_routing_key_http_status": 400,
+    "response_echoed_routing_key": false
+  },
+  "escalation": {
+    "policy_levels": 1,
+    "second_responder_available": false,
+    "distinct_person_escalation_verified": false
+  },
+  "secret_path": {
+    "routing_key_committed": false,
+    "helm_reads_key_from_mounted_secret": true,
+    "missing_secret_fails_closed": true
+  },
+  "teardown": {
+    "temporary_service_deleted": true,
+    "service_url_after_delete": "not_found",
+    "post_delete_enqueue_http_status": 202,
+    "post_delete_response_echoed_routing_key": false,
+    "post_delete_key_revocation_proven": false,
+    "post_delete_follow_up_acknowledged_and_resolved": true,
+    "retained_billable_runtime": []
+  },
+  "sanitization": {
+    "account_name_included": false,
+    "operator_contact_included": false,
+    "provider_subdomain_included": false,
+    "routing_key_included": false,
+    "credentials_included": false,
+    "screenshots_included": false
+  },
+  "done_gate": {
+    "status": "blocked",
+    "reasons": [
+      "live-page-was-not-emitted-by-alertmanager",
+      "single-escalation-level-without-a-second-responder",
+      "deleted-integration-key-still-returned-http-202"
+    ]
+  },
+  "limitations": [
+    "The live page was sent directly to Events API v2. The Helm Alertmanager path is present and reads a mounted secret, but it was not the sender.",
+    "The trial account has one on-call user and one escalation level, so escalation to a different person was not possible.",
+    "Deleting the service made its URL return not found, but a later enqueue still returned HTTP 202. That follow-up was acknowledged and resolved immediately."
+  ]
+}

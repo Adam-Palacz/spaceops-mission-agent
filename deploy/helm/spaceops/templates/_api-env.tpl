@@ -18,6 +18,8 @@
   value: {{ .Values.api.llm.budgetSoftWarningRatio | quote }}
 - name: GPU_ACTIVITY_FILE
   value: "/app/var/llm_last_gpu_call_at"
+- name: AUDIT_STDOUT_EXPORT
+  value: {{ .Values.observability.managed.enabled | quote }}
 {{- if .Values.telemetryMcp.enabled }}
 - name: TELEMETRY_MCP_URL
   value: {{ printf "http://%s-telemetry-mcp:%v/mcp" (include "spaceops.fullname" .) .Values.telemetryMcp.port | quote }}
@@ -52,6 +54,24 @@
 {{- include "spaceops.commonAppEnv" . }}
 - name: AGENT_DURABLE_CHECKPOINT_ENABLED
   value: {{ .Values.api.checkpoint.enabled | quote }}
+- name: APPROVAL_AUTH_MODE
+  value: {{ .Values.api.approvalAuth.mode | quote }}
+- name: APPROVAL_STORE_BACKEND
+  value: {{ .Values.api.approvalAuth.storeBackend | quote }}
+- name: APPROVAL_EXECUTION_LEASE_SECONDS
+  value: {{ .Values.api.approvalAuth.executionLeaseSeconds | quote }}
+- name: APPROVAL_OIDC_ISSUER
+  value: {{ .Values.api.approvalAuth.issuer | quote }}
+- name: APPROVAL_OIDC_AUDIENCE
+  value: {{ .Values.api.approvalAuth.audience | quote }}
+- name: APPROVAL_OIDC_JWKS_URL
+  value: {{ .Values.api.approvalAuth.jwksUrl | quote }}
+- name: APPROVAL_OIDC_ALGORITHMS
+  value: {{ .Values.api.approvalAuth.algorithms | quote }}
+- name: APPROVAL_OIDC_ROLE_CLAIM
+  value: {{ .Values.api.approvalAuth.roleClaim | quote }}
+- name: APPROVAL_OIDC_REQUIRED_ROLE
+  value: {{ .Values.api.approvalAuth.requiredRole | quote }}
 {{- range $key, $val := .Values.api.extraEnv }}
 - name: {{ $key }}
   value: {{ $val | quote }}

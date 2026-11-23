@@ -56,6 +56,24 @@ def create_pr_via_github_api(
                 headers=_headers(token),
                 json={"ref": f"refs/heads/{branch}", "sha": base_sha},
             )
+            if branch_resp.status_code == 422:
+                existing_prs = client.get(
+                    f"{base_url}/pulls",
+                    headers=_headers(token),
+                    params={
+                        "state": "all",
+                        "head": f"{owner_name.split('/', 1)[0]}:{branch}",
+                        "base": base,
+                    },
+                )
+                if existing_prs.status_code == 200:
+                    matches = existing_prs.json()
+                    if isinstance(matches, list) and matches:
+                        existing_url = matches[0].get("html_url") or matches[0].get(
+                            "url"
+                        )
+                        if existing_url:
+                            return str(existing_url), None
             if branch_resp.status_code not in (201, 422):
                 return (
                     None,

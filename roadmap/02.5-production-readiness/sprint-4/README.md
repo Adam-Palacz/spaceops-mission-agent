@@ -30,4 +30,5 @@ produce the evidence required for a new production-pilot admission review.
   screenshots.
 - A completed remediation task does not itself change the current No-go decision.
 
-See [BOARD.md](BOARD.md).
+See [BOARD.md](BOARD.md). The 2026-11-23 [sprint review](SPRINT_REVIEW.md) pauses close-out
+until the network hold and the remaining acceptances can be recorded.

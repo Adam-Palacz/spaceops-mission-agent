@@ -24,7 +24,8 @@ cp .env.example .env.local
 Set values:
 
 - `NEXT_PUBLIC_API_BASE_URL` (default: `http://localhost:8000`)
-- `NEXT_PUBLIC_APPROVAL_API_KEY` (must match backend `APPROVAL_API_KEY`)
+- `NEXT_PUBLIC_LOCAL_APPROVAL_API_KEY` (local/dev compatibility only; matches backend
+  `APPROVAL_API_KEY`)
 - `NEXT_PUBLIC_JAEGER_UI_URL` (optional; default `http://localhost:16686` — Jaeger deep links on incident **list** and **detail** when `trace_link` is absent, PS2.5)
 
 ## Run
@@ -47,7 +48,7 @@ docker compose -f infra/docker-compose.yml --project-directory . --profile ui up
 The UI service uses build args:
 
 - `UI_API_BASE_URL` (defaults to `http://localhost:8000`)
-- `APPROVAL_API_KEY` (reused from backend auth)
+- `APPROVAL_API_KEY` (mapped to the UI's explicitly local-only compatibility variable)
 
 Open: `http://localhost:3001`
 
@@ -56,5 +57,8 @@ API health: `http://localhost:8000/health`
 ## Notes
 
 - This is an MVP operator UI, intentionally simple and local-first.
-- `NEXT_PUBLIC_APPROVAL_API_KEY` is exposed to the browser; use only in trusted local/dev environments.
-- For Docker, the same key is baked at build time via `APPROVAL_API_KEY`; rebuild when the key changes.
+- `NEXT_PUBLIC_LOCAL_APPROVAL_API_KEY` is exposed to the browser and is forbidden in stage/prod.
+- Production approval actions require an OIDC-aware client; this local UI deliberately disables
+  controls when the compatibility credential is absent.
+- For local Docker, the same key is baked at build time via `APPROVAL_API_KEY`; rebuild when the key
+  changes.

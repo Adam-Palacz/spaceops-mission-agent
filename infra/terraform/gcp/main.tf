@@ -14,6 +14,12 @@ locals {
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "secretmanager.googleapis.com",
+    "logging.googleapis.com",
+    "cloudtrace.googleapis.com",
+    "monitoring.googleapis.com",
+    "identitytoolkit.googleapis.com",
+    "sqladmin.googleapis.com",
+    "servicenetworking.googleapis.com",
   ]
 }
 

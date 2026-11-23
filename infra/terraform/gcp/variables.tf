@@ -135,3 +135,76 @@ variable "budget_alert_emails" {
     error_message = "budget_alert_emails must be non-empty when enable_budget_alert is true."
   }
 }
+
+# PR4.4 — managed Cloud Logging / Cloud Trace.
+variable "enable_managed_observability" {
+  description = "Create the production-pilot managed logging bucket, sink, and collector identity."
+  type        = bool
+  default     = false
+}
+
+variable "managed_log_bucket_id" {
+  description = "Cloud Logging bucket ID for sanitized SpaceOps pilot/audit records."
+  type        = string
+  default     = "spaceops-pilot"
+}
+
+variable "managed_log_retention_days" {
+  description = "Retention for the managed SpaceOps logging bucket."
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.managed_log_retention_days >= 30
+    error_message = "managed_log_retention_days must be at least the approved 30-day pilot period."
+  }
+}
+
+variable "observability_k8s_namespace" {
+  description = "Kubernetes namespace containing the OTel collector service account."
+  type        = string
+  default     = "spaceops-stage"
+}
+
+variable "observability_k8s_service_account" {
+  description = "Kubernetes service account used by the OTel collector."
+  type        = string
+  default     = "spaceops-otel-collector"
+}
+
+variable "enable_observability_workload_identity_binding" {
+  description = "Bind the OTel Kubernetes service account to its GSA (requires the GKE cluster)."
+  type        = bool
+  default     = true
+}
+
+# PR4.5 — managed PostgreSQL HA/PITR drill.
+variable "enable_managed_postgres_drill" {
+  description = "Create the temporary Cloud SQL PostgreSQL regional HA/PITR drill profile."
+  type        = bool
+  default     = false
+}
+
+variable "managed_postgres_instance_name" {
+  description = "Temporary Cloud SQL source instance name."
+  type        = string
+  default     = "spaceops-pr45-source"
+}
+
+variable "managed_postgres_tier" {
+  description = "Smallest approved dedicated-core Cloud SQL tier that supports regional HA."
+  type        = string
+  default     = "db-custom-1-3840"
+}
+
+variable "managed_postgres_iam_principal" {
+  description = "Optional IAM member (for example user:name@example.com) allowed to connect/login for the drill."
+  type        = string
+  default     = ""
+}
+
+variable "managed_postgres_database_user" {
+  description = "Optional Cloud SQL IAM database username corresponding to the drill principal."
+  type        = string
+  default     = ""
+}

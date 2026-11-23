@@ -12,19 +12,30 @@ BOARD = SPRINT / "BOARD.md"
 REVIEW = PHASE / "PHASE_REVIEW.md"
 
 
-def test_pr4_board_has_ordered_todo_tasks() -> None:
+def test_pr4_board_has_ordered_tasks() -> None:
     board = BOARD.read_text(encoding="utf-8")
     for number in range(1, 8):
         assert f"| PR4.{number} |" in board
-    assert board.count("| Todo |") == 7
+    assert (
+        "| PR4.1 | Verified approval identity and role authorization | In progress |"
+        in board
+    )
+    assert (
+        "| PR4.2 | Atomic approval execution and idempotency | In progress |" in board
+    )
+    assert "| PR4.3 | Audit integrity and MCP workload trust | In progress |" in board
+    assert "| PR4.4 | Managed logging and tracing evidence | Done |" in board
+    assert "| PR4.5 | Managed Postgres HA and PITR drill | In progress |" in board
+    assert "| PR4.6 | Live paging integration drill | In progress |" in board
+    assert board.count("| Todo |") == 1
 
 
-def test_pr4_specs_exist_and_start_todo() -> None:
+def test_pr4_specs_exist_and_have_status() -> None:
     specs = sorted(SPRINT.glob("PR4.*.md"))
     assert len(specs) == 7
     for spec in specs:
         text = spec.read_text(encoding="utf-8")
-        assert "| **Status** | Todo |" in text
+        assert "| **Status** |" in text
         assert "## Requirements" in text
         assert "## Test requirements" in text
 
@@ -49,7 +60,7 @@ def test_pr4_covers_every_no_go_gate() -> None:
 def test_phase_review_schedules_pr4_without_changing_no_go() -> None:
     review = REVIEW.read_text(encoding="utf-8")
     assert "**Decision:** **No-go - remain reference/stage only**" in review
-    assert "PR4 remediation is scheduled but not started" in review
+    assert "PR4 remediation is in progress" in review
     for number in range(1, 8):
         assert f"[PR4.{number}]" in review
 

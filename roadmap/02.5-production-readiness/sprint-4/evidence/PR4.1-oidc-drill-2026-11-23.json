@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-11-23T10:25:33.140969+00:00",
+  "limitations": [
+    "The selected external pilot IdP still requires deployment-specific configuration.",
+    "Security and production-pilot owner sign-off is not automated by this drill."
+  ],
+  "result": "pass",
+  "schema_version": "pr41.oidc-verification-drill.v1",
+  "vectors": [
+    {
+      "actual": "allow",
+      "expected": "allow",
+      "id": "valid_approver",
+      "subject": "oidc:synthetic-operator"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "wrong_issuer"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "wrong_audience"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "expired"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "missing_role"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "invalid_signature"
+    },
+    {
+      "actual": "deny",
+      "expected": "deny",
+      "id": "malformed"
+    }
+  ],
+  "verification": {
+    "caller_identity_header_used": false,
+    "issuer_and_audience_enforced": true,
+    "jwks_transport": "ephemeral HTTP",
+    "private_key_persisted": false,
+    "role_enforced": true,
+    "signature_algorithm": "RS256"
+  }
+}

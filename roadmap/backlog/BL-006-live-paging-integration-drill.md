@@ -14,6 +14,10 @@ Connect stage alert routing to an approved paging destination and prove end-to-e
 acknowledgement, escalation, and resolution without storing personal contact details in the public
 repository.
 
+The 2026-11-23 drill delivered, acknowledged, and resolved one synthetic page. This item stays
+open: Alertmanager did not emit that page, the trial policy has one escalation level, and a key
+checked after service deletion still received HTTP 202.
+
 ## Requirements
 
 - Select managed Alertmanager/PagerDuty-equivalent integration and secret-management path.

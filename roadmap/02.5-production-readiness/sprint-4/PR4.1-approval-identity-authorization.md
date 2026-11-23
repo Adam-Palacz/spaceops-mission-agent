@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | In progress |
 | **Closes** | PR23-002 |
 | **Owner** | Security / API |
 | **Depends on** | None |
@@ -24,11 +24,11 @@ role derived from a cryptographically verified credential.
 
 ## Checklist
 
-- [ ] Threat model and identity trust decision are documented.
-- [ ] Authentication and approver-role authorization are implemented.
-- [ ] Audit attribution uses the verified principal.
-- [ ] Positive and negative authorization tests pass.
-- [ ] A live or production-equivalent token verification drill is recorded.
+- [x] Threat model and identity trust decision are documented.
+- [x] Authentication and approver-role authorization are implemented.
+- [x] Audit attribution uses the verified principal.
+- [x] Positive and negative authorization tests pass.
+- [x] A live or production-equivalent token verification drill is recorded.
 - [ ] PR23-002 closure or waiver is approved by Security and the pilot owner.
 
 ## Test requirements
@@ -43,3 +43,15 @@ role derived from a cryptographically verified credential.
 
 Do not mark Done from unit tests alone. Production-equivalent credential verification, negative
 authorization evidence, and an explicit PR23-002 disposition are required.
+
+## Implementation evidence
+
+- [Identity and authorization decision](../../../docs/approval_identity_authorization_pr41.md)
+- [OIDC/JWKS drill](evidence/PR4.1-oidc-drill-2026-11-23.json): one valid approver allowed; wrong
+  issuer, wrong audience, expired token, missing role, invalid signature, and malformed token
+  denied.
+- `tests/test_production_readiness_pr41_approval_identity.py` covers cryptographic claims,
+  fail-closed behavior, API-key rejection in OIDC mode, and forged identity headers.
+
+The selected provider is Google Cloud Identity Platform. External-provider stage configuration and
+named Security/pilot-owner acceptance remain outstanding, so PR23-002 and this task remain open.

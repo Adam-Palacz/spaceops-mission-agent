@@ -47,8 +47,10 @@ Route labels in rules are intentionally simple:
 - `cost`: LLM budget exhaustion.
 - `synthetic`: explicit alert drill.
 
-PR1.2 does not deploy Alertmanager yet. The labels are ready for Alertmanager or managed monitoring
-routing in a later PR task.
+PR1.2 does not deploy Alertmanager by default. PR4.6 adds an opt-in Alertmanager receiver that
+reads a PagerDuty routing key from a mounted secret. The 2026-11-23 live page was sent directly to
+Events API v2; BL-006 stays open until Alertmanager is the sender and escalation has a second
+target or an approved exception.
 
 ## Deferred production dashboards
 

@@ -85,6 +85,7 @@ def test_stage_prod_render_external_secret_without_plaintext_secret(
         "postgres-password",
         "OPENAI_API_KEY",
         "APPROVAL_API_KEY",
+        "AUDIT_SIGNING_KEY",
         "GITHUB_TOKEN",
         "NGC_API_KEY",
         "CURSOR_SH_API_KEY",

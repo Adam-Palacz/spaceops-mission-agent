@@ -27,6 +27,12 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[runbooks/incident_oncall_game_day_pr32.md](runbooks/incident_oncall_game_day_pr32.md)** — PR3.2 incident classes, on-call roles, escalation, communication templates, and game-day drill.
 - **[production_pilot_plan_pr33.md](production_pilot_plan_pr33.md)** — PR3.3 bounded production-pilot charter, owners, integrations, safety limits, success metrics, and exit criteria.
 - **[book/README.md](book/README.md)** — PR3.5 English engineering-book source, private/public editions, redaction, screenshots, and HTML/PDF/EPUB build commands.
+- **[approval_identity_authorization_pr41.md](approval_identity_authorization_pr41.md)** — PR4.1 OIDC/JWKS approval identity, approver-role enforcement, threat model, and drill evidence.
+- **[approval_atomic_execution_pr42.md](approval_atomic_execution_pr42.md)** — PR4.2 Postgres approval state, transactional claims, downstream idempotency, and concurrency drill.
+- **[audit_mcp_trust_pr43.md](audit_mcp_trust_pr43.md)** — PR4.3 signed audit chain, Istio MCP workload identity, and platform write-boundary disposition.
+- **[managed_observability_pr44.md](managed_observability_pr44.md)** — PR4.4 Cloud Logging/Trace IaC, access-denial proof, retention, deletion semantics, and live drill evidence.
+- **[managed_postgres_ha_pitr_pr45.md](managed_postgres_ha_pitr_pr45.md)** — PR4.5 Cloud SQL regional failover, PITR boundary, IAM denial, cost guardrails, and teardown evidence.
+- **[live_paging_pr46.md](live_paging_pr46.md)** — PR4.6 PagerDuty delivery, acknowledgement, resolution, and the remaining escalation and key-revocation gaps.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).

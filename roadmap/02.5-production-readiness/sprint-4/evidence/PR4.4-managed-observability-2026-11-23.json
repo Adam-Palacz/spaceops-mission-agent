@@ -1,0 +1,69 @@
+{
+  "schema_version": "pr44.managed-observability.v1",
+  "result": "pass",
+  "executed_at": "2026-11-23T11:40:00Z",
+  "provider": "google-cloud",
+  "region": "us-central1",
+  "data_classification": "synthetic-internal",
+  "infrastructure": {
+    "terraform_validate": "pass",
+    "terraform_convergence": "no_changes",
+    "log_bucket_retention_days": 30,
+    "log_sink_scope": "marked-canary-and-signed-audit-only",
+    "collector_authentication": "workload-identity-no-static-key",
+    "collector_roles": [
+      "logging-log-writer",
+      "cloud-trace-agent"
+    ]
+  },
+  "authorized_query": {
+    "operator": "authenticated-project-operator-redacted",
+    "log_records_found": 1,
+    "trace_spans_found": 1,
+    "correlation_present": true,
+    "canary_id_sha256": "b54278f29997c9537578d11b057c08f216aff192f7a9dd44ca93f3cf52dd5e5c",
+    "trace_id_sha256": "4cdfd9ca0db4776643ad0624288fe53d2a23b4686ddb6eb182f77dee0f91f462",
+    "eventual_consistency_observed": true
+  },
+  "denied_query": {
+    "principal": "temporary-service-account-redacted",
+    "separate_from_authorized_operator": true,
+    "logging_viewer_role_present": false,
+    "http_status": 403,
+    "result": "denied",
+    "principal_deleted": true,
+    "token_persisted": false
+  },
+  "deletion_expiry": {
+    "terraform_destroy": "pass",
+    "log_sink_after_destroy": "not_found",
+    "log_bucket_lifecycle_after_destroy": "DELETE_REQUESTED",
+    "log_bucket_provider_recovery_window_days": 7,
+    "trace_expiry_days": 30,
+    "individual_trace_deletion_supported": false,
+    "application_backup_copy": false
+  },
+  "teardown": {
+    "gke_clusters_present": 0,
+    "cloud_sql_api_enabled": false,
+    "collector_service_accounts_present": 0,
+    "temporary_denied_principals_present": 0,
+    "retained_billable_runtime": [],
+    "retained_non_runtime_resources": [
+      "provider-managed-log-bucket-deletion-tombstone",
+      "enabled-service-apis"
+    ]
+  },
+  "sanitization": {
+    "cloud_project_id_included": false,
+    "operator_contact_included": false,
+    "credentials_included": false,
+    "raw_payload_included": false,
+    "screenshots_included": false
+  },
+  "limitations": [
+    "The drill exercised provider APIs directly because no GKE runtime was retained.",
+    "Cloud Trace uses provider-managed expiry rather than per-trace immediate deletion.",
+    "The Logging bucket remains in the provider recovery state before permanent deletion."
+  ]
+}

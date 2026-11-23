@@ -1,0 +1,51 @@
+{{- if .Values.mcpWorkloadIdentity.enabled }}
+{{- $root := . }}
+{{- $ns := include "spaceops.namespace" . }}
+{{- $trust := .Values.mcpWorkloadIdentity.trustDomain }}
+{{- $apiSa := include "spaceops.componentServiceAccountName" (dict "root" . "component" "api") }}
+{{- $workerSa := include "spaceops.componentServiceAccountName" (dict "root" . "component" "agent-worker") }}
+{{- $allowed := list (printf "%s/ns/%s/sa/%s" $trust $ns $apiSa) (printf "%s/ns/%s/sa/%s" $trust $ns $workerSa) }}
+{{- $components := list }}
+{{- if .Values.telemetryMcp.enabled }}{{- $components = append $components "telemetry-mcp" }}{{- end }}
+{{- if .Values.kbMcp.enabled }}{{- $components = append $components "kb-mcp" }}{{- end }}
+{{- if .Values.ticketMcp.enabled }}{{- $components = append $components "ticket-mcp" }}{{- end }}
+{{- if .Values.gitopsMcp.enabled }}{{- $components = append $components "gitops-mcp" }}{{- end }}
+{{- range $component := $components }}
+---
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: {{ include "spaceops.fullname" $root }}-{{ $component }}-strict-mtls
+  namespace: {{ $ns }}
+  labels:
+    {{- include "spaceops.labels" $root | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "spaceops.selectorLabels" $root | nindent 6 }}
+      app.kubernetes.io/component: {{ $component }}
+  mtls:
+    mode: STRICT
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ include "spaceops.fullname" $root }}-{{ $component }}-callers
+  namespace: {{ $ns }}
+  labels:
+    {{- include "spaceops.labels" $root | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "spaceops.selectorLabels" $root | nindent 6 }}
+      app.kubernetes.io/component: {{ $component }}
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals:
+              {{- range $principal := $allowed }}
+              - {{ $principal | quote }}
+              {{- end }}
+{{- end }}
+{{- end }}

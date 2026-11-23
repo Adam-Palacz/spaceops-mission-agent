@@ -211,15 +211,59 @@ class Settings(BaseSettings):
         default="",
         description="Path to append-only audit NDJSON; empty = data/audit.ndjson",
     )
+    audit_signing_key: str = Field(
+        default_factory=lambda: get_secret("AUDIT_SIGNING_KEY", ""),
+        description="Optional HMAC key for independently verifiable audit-chain entries.",
+    )
+    audit_stdout_export: bool = Field(
+        default=False,
+        description="Emit signed audit entries as structured stdout JSON for managed collection.",
+    )
 
     # S2.5 Approval API: storage and auth
     approval_store_path: str = Field(
         default="",
         description="Directory for approval request JSON files; empty = data/approvals",
     )
+    approval_store_backend: str = Field(
+        default="file",
+        description="Approval persistence backend: file for local compatibility or postgres.",
+    )
+    approval_execution_lease_seconds: int = Field(
+        default=300,
+        description="Lease duration for a claimed approved-action execution.",
+    )
     approval_api_key: str = Field(
         default_factory=lambda: get_secret("APPROVAL_API_KEY", ""),
-        description="API key for approve/reject (header X-API-Key or Authorization: Bearer <key>). Required for POST approve/reject.",
+        description="Legacy local-only approval API key. Production-pilot deployments must use OIDC.",
+    )
+    approval_auth_mode: str = Field(
+        default="api_key",
+        description="Approval authentication mode: api_key for local compatibility or oidc.",
+    )
+    approval_oidc_issuer: str = Field(
+        default="",
+        description="Exact trusted OIDC issuer for approval bearer tokens.",
+    )
+    approval_oidc_audience: str = Field(
+        default="",
+        description="Required audience for approval bearer tokens.",
+    )
+    approval_oidc_jwks_url: str = Field(
+        default="",
+        description="HTTPS JWKS endpoint used to verify approval bearer-token signatures.",
+    )
+    approval_oidc_algorithms: str = Field(
+        default="RS256",
+        description="Comma-separated allowlist of JWT signature algorithms.",
+    )
+    approval_oidc_role_claim: str = Field(
+        default="roles",
+        description="JWT claim containing approval roles.",
+    )
+    approval_oidc_required_role: str = Field(
+        default="spaceops.approver",
+        description="Role required to list, approve, or reject approval requests.",
     )
 
     # S1.12 NF6: token/rate limits and timeouts; on limit or timeout → escalation
