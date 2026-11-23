@@ -1,0 +1,37 @@
+schema_version: spaceops.engineering-book.v1
+book_version: 0.1.0
+title: SpaceOps Mission Agent Lab - Engineering Book
+subtitle: Decisions, implementation, operational proof, and limitations
+language: en
+
+chapters:
+  - chapters/00-preface-and-goals.md
+  - chapters/01-architecture-and-agent.md
+  - chapters/02-evidence-safety-and-evals.md
+  - chapters/03-data-and-observability.md
+  - chapters/04-kubernetes-and-cloud.md
+  - chapters/05-production-readiness-and-operations.md
+  - chapters/06-decisions-lessons-and-limitations.md
+  - chapters/90-evidence-and-adr-index.md
+
+evidence:
+  - ../../roadmap/02.5-production-readiness/sprint-1/evidence/PR1.4-pilot-short-2026-06-23.json
+  - ../../roadmap/02.5-production-readiness/sprint-2/evidence/PR2.2-live-gsm-rotation-2026-11-20.json
+  - ../../roadmap/02.5-production-readiness/sprint-2/evidence/PR2.3-security-review-2026-09-26.json
+  - ../../roadmap/02.5-production-readiness/sprint-3/evidence/PR3.1-static-ci-2026-11-22.json
+  - ../../roadmap/02.5-production-readiness/sprint-3/evidence/PR3.1-live-stage-2026-11-22.json
+  - ../../roadmap/02.5-production-readiness/sprint-3/evidence/PR3.2-game-day-local-2026-11-23.json
+
+public_redactions:
+  - name: gcp_project_id
+    pattern: 'spaceops-project-[0-9]+'
+    replacement: '[redacted-project]'
+  - name: ipv4_address
+    pattern: '(?<![0-9])(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![0-9])'
+    replacement: '[redacted-address]'
+  - name: windows_user_path
+    pattern: '(?i)[A-Z]:\\Users\\[^\\\s]+\\[^\s`"]+'
+    replacement: '[redacted-local-path]'
+  - name: email_address
+    pattern: '(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b'
+    replacement: '[redacted-email]'

@@ -1,0 +1,101 @@
+﻿{
+    "schema_version":  "pr32.game-day.v1",
+    "result":  "pass",
+    "environment":  "local-kind",
+    "context":  "kind-spaceops-dev",
+    "namespace":  "spaceops-dev",
+    "operator":  "adamp",
+    "started_at":  "2026-11-23T06:42:46.5226953Z",
+    "finished_at":  "2026-11-23T06:43:21.2329601Z",
+    "incident_class":  "api_outage",
+    "severity":  "SEV-2",
+    "detection":  {
+                      "signal":  "synthetic APIUnavailable",
+                      "available_replicas":  0,
+                      "fired":  true
+                  },
+    "escalation":  {
+                       "primary_on_call":  "platform",
+                       "incident_commander":  "production-readiness lead",
+                       "communications":  "simulated status update using the PR3.2 template"
+                   },
+    "rollback":  {
+                     "baseline_revision":  1,
+                     "incident_revision":  2,
+                     "command":  "helm rollback spaceops 1 -n spaceops-dev --wait",
+                     "duration_seconds":  15.46,
+                     "api_health_after":  "ok",
+                     "marker_removed":  true
+                 },
+    "triage":  {
+                   "command":  "kubectl get deployment,pods -l app.kubernetes.io/component=api",
+                   "output_retained":  false,
+                   "output_length":  620
+               },
+    "timeline":  [
+                     {
+                         "at":  "2026-11-23T06:42:48.3357160Z",
+                         "phase":  "prepare",
+                         "event":  "Baseline revision and API health verified",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:04.8584824Z",
+                         "phase":  "inject",
+                         "event":  "Deployed game-day marker revision 2",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:05.3143419Z",
+                         "phase":  "detect",
+                         "event":  "Synthetic APIUnavailable signal: available replicas = 0",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:05.5363959Z",
+                         "phase":  "triage",
+                         "event":  "Primary on-call captured API deployment and pod state",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:05.5363959Z",
+                         "phase":  "escalate",
+                         "event":  "Incident commander declared SEV-2 and selected Helm rollback",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:21.0056730Z",
+                         "phase":  "mitigate",
+                         "event":  "Rolled back to revision 1; API health restored",
+                         "result":  "pass"
+                     },
+                     {
+                         "at":  "2026-11-23T06:43:21.2329601Z",
+                         "phase":  "verify",
+                         "event":  "Game-day marker removed and rollback state verified",
+                         "result":  "pass"
+                     }
+                 ],
+    "action_items":  [
+                         {
+                             "id":  "PR3.2-A1",
+                             "action":  "Automate game-day evidence and keep it CI-safe",
+                             "owner":  "platform",
+                             "status":  "done",
+                             "evidence":  "scripts/pr32_game_day.ps1"
+                         },
+                         {
+                             "id":  "PR3.2-A2",
+                             "action":  "Exercise alert-manager delivery with a real paging integration",
+                             "owner":  "on-call lead",
+                             "status":  "backlog",
+                             "target":  "before production pilot",
+                             "tracking":  "roadmap/backlog/BL-006-live-paging-integration-drill.md"
+                         }
+                     ],
+    "safety":  {
+                   "production_traffic":  false,
+                   "cloud_cost":  false,
+                   "secrets_in_evidence":  false
+               }
+}

@@ -6,6 +6,10 @@ Production Scale and deep Next-Gen Autonomy.
 
 Source strategy: [`../02.5-production-readiness.md`](../02.5-production-readiness.md).
 
+**Current review:** [No-go - reference/stage only](PHASE_REVIEW.md) (2026-11-23). Planned PR1-PR3
+delivery is complete. [PR4](sprint-4/) is the remediation and re-review sprint for the remaining
+security, managed-service, and paging admission gates.
+
 ---
 
 ## Sprint map
@@ -15,6 +19,7 @@ Source strategy: [`../02.5-production-readiness.md`](../02.5-production-readines
 | **PR1** | [sprint-1/](sprint-1/) | Observability, SLOs, stage operating policy, soak/failure tests. |
 | **PR2** | [sprint-2/](sprint-2/) | Data durability, secrets rotation, security review, trace/log retention. |
 | **PR3** | [sprint-3/](sprint-3/) | Release/incident gates, pilot plan, engineering book, final go/no-go review. |
+| **PR4** | [sprint-4/](sprint-4/) | Admission remediation, managed-service drills, live paging, and re-review. |
 
 ---
 
@@ -30,7 +35,7 @@ Source strategy: [`../02.5-production-readiness.md`](../02.5-production-readines
 
 ## Definition of done for the phase
 
-- All PR1-PR3 boards are Done.
+- All PR1-PR4 boards are Done.
 - Production readiness review exists and records go/no-go status.
 - Stage/prod promotion runbook references the new gates.
 - Residual risks are either accepted with owners or converted to follow-up tasks.

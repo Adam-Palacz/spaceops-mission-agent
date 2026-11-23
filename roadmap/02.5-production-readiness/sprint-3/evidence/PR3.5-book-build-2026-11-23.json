@@ -1,0 +1,83 @@
+{
+  "schema_version": "pr35.engineering-book-build.v1",
+  "result": "pass",
+  "book_version": "0.1.0",
+  "generated_at": "2026-11-23T00:00:00+00:00",
+  "git_commit": "5a75be2a8a69511e46b9f517bc8afa46cb31a5d0",
+  "source_date_epoch": 1795392000,
+  "toolchain": {
+    "assembler": "scripts/book_build.py",
+    "document_converter": "pandoc",
+    "pdf_engine": "weasyprint",
+    "screenshot_collector": "scripts/book_screenshots.py"
+  },
+  "artifacts": [
+    {
+      "edition": "private",
+      "format": "html",
+      "bytes": 30976,
+      "sha256": "f0ad5790c2f108aa78f922f3ccf3c1cdd36bce7f8322518dffed619b9f16fba0"
+    },
+    {
+      "edition": "private",
+      "format": "pdf",
+      "bytes": 45485,
+      "sha256": "0dd0abbe0e446e9b8ca25122a38d1c69447ae9e472e67caa063315632a60cc02"
+    },
+    {
+      "edition": "private",
+      "format": "epub",
+      "bytes": 18751,
+      "sha256": "cb9809d987b24e76db0ebe879827750b419a06b872f8cb3a16d5fafdba382bf9"
+    },
+    {
+      "edition": "private",
+      "format": "manifest",
+      "bytes": 3080,
+      "sha256": "c8d96e2394d6eadbc774a4cb67a917e817c95450f4d22103d1f0c8c4870a5f13"
+    },
+    {
+      "edition": "public",
+      "format": "html",
+      "bytes": 30709,
+      "sha256": "54304477e4d674d52cd8411c58760676c701797fc1155bf1a24b3fedf174bbf3"
+    },
+    {
+      "edition": "public",
+      "format": "pdf",
+      "bytes": 45323,
+      "sha256": "d25d55c7f6076e037841426c41a04d12a9ad9784cb72f27ec6a488f4b2a6856d"
+    },
+    {
+      "edition": "public",
+      "format": "epub",
+      "bytes": 18628,
+      "sha256": "3033d747a55984b8e16a0801223f28e45d808094cd8dc561f4999372b90eb7b0"
+    },
+    {
+      "edition": "public",
+      "format": "manifest",
+      "bytes": 3206,
+      "sha256": "963b8af4434ef08ce492b6f97aba7293638c70b6c542e1cabe728aa1088b752d"
+    }
+  ],
+  "verification": {
+    "private_blocks_removed_from_public": 1,
+    "public_secret_scan": "pass",
+    "chapter_link_validation": "pass",
+    "evidence_hash_manifest": "pass",
+    "deterministic_metadata": "pass",
+    "screenshot_workflow": "dry-run pass; four captioned targets unavailable",
+    "cloud_console_automation": false,
+    "targeted_tests": "28 passed",
+    "ruff": "pass",
+    "ide_lints": "pass",
+    "git_diff_check": "pass"
+  },
+  "publication": {
+    "automatic_public_release": false,
+    "human_editorial_security_review_required": true,
+    "generated_binaries_committed": false,
+    "ci_artifact_workflow": ".github/workflows/engineering-book.yml"
+  }
+}

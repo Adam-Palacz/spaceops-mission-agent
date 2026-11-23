@@ -23,6 +23,10 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[runbooks/secrets_rotation_pr22.md](runbooks/secrets_rotation_pr22.md)** — PR2.2 secret inventory, local ESO rotation proof, controlled ESO/GSM live procedure, leak checks, and rollback.
 - **[security_control_review_pr23.md](security_control_review_pr23.md)** — PR2.3 focused review of OPA, approvals, MCP, audit, platform ops, and LLM gateway controls.
 - **[data_retention_privacy_pr24.md](data_retention_privacy_pr24.md)** — PR2.4 retention, classification, redaction, managed trace/log backend, export, and deletion policy.
+- **[runbooks/release_promotion_gate_pr31.md](runbooks/release_promotion_gate_pr31.md)** — PR3.1 blocking CI/stage promotion gate, release evidence, failure behavior, and rollback snapshots.
+- **[runbooks/incident_oncall_game_day_pr32.md](runbooks/incident_oncall_game_day_pr32.md)** — PR3.2 incident classes, on-call roles, escalation, communication templates, and game-day drill.
+- **[production_pilot_plan_pr33.md](production_pilot_plan_pr33.md)** — PR3.3 bounded production-pilot charter, owners, integrations, safety limits, success metrics, and exit criteria.
+- **[book/README.md](book/README.md)** — PR3.5 English engineering-book source, private/public editions, redaction, screenshots, and HTML/PDF/EPUB build commands.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
@@ -136,7 +140,7 @@ The **docs/** directory holds project documentation that supports both humans an
 | Field | Value |
 |-------|--------|
 | **Document version** | 1.1 |
-| **Last updated** | 2026-09-26 |
+| **Last updated** | 2026-11-20 |
 
 ### Instructions for AI when working in `docs/`
 

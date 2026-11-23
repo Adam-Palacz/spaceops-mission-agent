@@ -9,6 +9,7 @@ Pool of ideas/specs. **Disposition** (not sprint status) — see [TRIAGE.md](TRI
 | BL-003 | MCP servers in Docker Compose | **Done** (compose has telemetry-mcp, kb-mcp) | — | [BL-003](BL-003-mcp-docker-compose.md) |
 | BL-004 | Smart resource management (multi-cloud burst) | Done via PS7.7 | [ADR 0010](../../docs/adr/0010-multicloud-burst-routing.md) | [BL-004](BL-004-smart-resource-management-multicloud-burst.md) |
 | BL-005 | AI-assisted incident triage (platform ops) | Done via PS7.8 | `scripts/platform_ops_triage.py` | [BL-005](BL-005-ai-assisted-incident-triage.md) |
+| BL-006 | Live paging integration drill | Scheduled as PR4.6; owner: on-call lead, before production pilot | PR3.2-A2 | [BL-006](BL-006-live-paging-integration-drill.md) |
 
 ---
 

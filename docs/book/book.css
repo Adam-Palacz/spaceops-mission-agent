@@ -1,0 +1,43 @@
+body {
+  color: #172033;
+  font-family: Inter, "Segoe UI", sans-serif;
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 58rem;
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  color: #102a43;
+  line-height: 1.2;
+}
+
+code, pre {
+  background: #f3f6fa;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+pre {
+  border-left: 4px solid #486581;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #bcccdc;
+  padding: 0.45rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+blockquote {
+  border-left: 4px solid #d64545;
+  color: #334e68;
+  margin-left: 0;
+  padding-left: 1rem;
+}

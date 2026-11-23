@@ -82,6 +82,14 @@ Details: [local_k8s_dev.md](../runbooks/local_k8s_dev.md).
 
 Terraform + GKE stage: [gcp_stage_deploy.md](../runbooks/gcp_stage_deploy.md) (requires live GCP).
 Teardown: [gcp_stage_teardown.md](../runbooks/gcp_stage_teardown.md) (`make gcp-stage-down`).
+Blocking CI/stage promotion evidence:
+[release_promotion_gate_pr31.md](../runbooks/release_promotion_gate_pr31.md).
+Incident response and local game-day proof:
+[incident_oncall_game_day_pr32.md](../runbooks/incident_oncall_game_day_pr32.md).
+Bounded pilot scope and admission/exit criteria:
+[production_pilot_plan_pr33.md](../production_pilot_plan_pr33.md).
+Private/public English engineering-book source and build:
+[book/README.md](../book/README.md).
 
 ---
 

@@ -51,14 +51,14 @@ Each substantial chapter should answer:
 
 ## Checklist
 
-- [ ] Book toolchain and `docs/book/` structure selected and documented.
-- [ ] Initial English chapters generated and editorially reviewed.
-- [ ] Private HTML/PDF/EPUB build is repeatable.
-- [ ] Public edition redaction and secret scan pass.
-- [ ] Evidence/ADR/sprint-review indexes are generated or validated.
-- [ ] Screenshot collector produces deterministic, captioned assets where environments are available.
-- [ ] CI or release workflow stores the generated artifacts.
-- [ ] Maintenance policy requires book updates at sprint/phase closure.
+- [x] Book toolchain and `docs/book/` structure selected and documented.
+- [x] Initial English chapters generated and editorially reviewed.
+- [x] Private HTML/PDF/EPUB build is repeatable.
+- [x] Public edition redaction and secret scan pass.
+- [x] Evidence/ADR/sprint-review indexes are generated or validated.
+- [x] Screenshot collector produces deterministic, captioned plans and optional live assets.
+- [x] CI or release workflow stores the generated artifacts.
+- [x] Maintenance policy requires book updates at sprint/phase closure.
 
 ## Test requirements
 
@@ -77,4 +77,31 @@ Each substantial chapter should answer:
 
 ## Status
 
-Todo.
+Done.
+
+## Implementation
+
+- `docs/book/book.yml` defines the versioned table of contents, evidence manifest, and configured
+  public redactions.
+- Eight English chapters follow the why/decision/implementation/verification/evidence/limitations/
+  lessons pattern and link back to canonical repository sources.
+- `scripts/book_build.py` assembles private/public editions, validates links, removes private
+  blocks, applies public redactions, scans common secret patterns, hashes evidence, and invokes
+  Pandoc for HTML/PDF/EPUB.
+- `scripts/book_screenshots.py` provides deterministic UI/Grafana/Prometheus/Jaeger capture plans
+  and optional Playwright live capture without cloud-console automation.
+- `make book`, `book-private`, `book-public`, `book-verify`, and
+  `book-screenshots-dry-run` provide repeatable entry points.
+- `.github/workflows/engineering-book.yml` builds and uploads private/public artifacts without
+  automatically publishing them.
+
+## Build evidence
+
+[PR3.5 build evidence](evidence/PR3.5-book-build-2026-11-23.json) records successful private and
+public HTML/PDF/EPUB outputs with SHA-256 hashes. Public verification removed one private block,
+passed the secret/redaction scan, validated local chapter links, and produced deterministic
+source/evidence manifests.
+
+The screenshot workflow passed in dry-run mode with four captioned targets. No services were
+available, so no PNG is claimed. CI builds both editions and uploads artifacts; publication still
+requires a human editorial/security review.

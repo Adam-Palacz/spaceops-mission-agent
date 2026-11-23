@@ -15,12 +15,12 @@ decision.
 
 ## Definition of done
 
-- [ ] PR3 board is complete.
-- [ ] Release gate is documented and exercised.
-- [ ] Incident drill and rollback drill evidence exists.
-- [ ] Production pilot plan exists.
-- [ ] Engineering book pipeline builds private/public artifacts and validates redaction.
-- [ ] Phase review records go/no-go.
+- [x] PR3 board is complete.
+- [x] Release gate is documented and exercised.
+- [x] Incident drill and rollback drill evidence exists.
+- [x] Production pilot plan exists.
+- [x] Engineering book pipeline builds private/public artifacts and validates redaction.
+- [x] Phase review records go/no-go.
 
-See [BOARD.md](BOARD.md).
+See [BOARD.md](BOARD.md) and [SPRINT_REVIEW.md](SPRINT_REVIEW.md).
 

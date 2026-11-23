@@ -32,7 +32,8 @@ POSTGRES_PASSWORD ?= spaceops
 	gitops-status gitops-rollout-demo gitops-handoff terraform-gcp-validate cloud-scale-down-check k8s-checkpoint-demo \
 	gcp-stage-up gcp-stage-down gcp-stage-deploy gcp-stage-smoke gcp-stage-demo gcp-stage-status \
 	gcp-stage-images gcp-terraform-ar gcp-kube-credentials gcp-stage-destroy pr14-stage-test-pack \
-	terraform-gcp-pr14-plan
+	terraform-gcp-pr14-plan release-gate-pr31 book book-private book-public book-verify \
+	book-screenshots-dry-run
 
 help: ## Show this help (default goal)
 	@echo SpaceOps Makefile - targets mirror CI where practical.
@@ -242,3 +243,26 @@ PR14_ARGS ?= --profile dry-run --mode dry-run
 
 pr14-stage-test-pack: ## PR1.4 CI-safe soak/load/failure plan and report generator
 	$(PYTHON_RUN) scripts/stage_pr14.py $(PR14_ARGS)
+
+RELEASE_GATE_ARGS ?= --mode dry-run
+
+release-gate-pr31: ## PR3.1 blocking release gate (dry-run by default)
+	$(PYTHON_RUN) scripts/release_gate_pr31.py $(RELEASE_GATE_ARGS)
+
+BOOK_OUTPUT ?= build/book
+
+book: book-private book-public ## PR3.5 build private and public HTML/PDF/EPUB editions
+
+book-private: ## PR3.5 build private engineering-book artifacts
+	$(PYTHON_RUN) scripts/book_build.py --edition private --output-root $(BOOK_OUTPUT)
+
+book-public: ## PR3.5 build redacted public engineering-book artifacts
+	$(PYTHON_RUN) scripts/book_build.py --edition public --output-root $(BOOK_OUTPUT)
+
+book-verify: ## PR3.5 verify links, public redaction, evidence hashes, and manifests
+	$(PYTHON_RUN) scripts/book_build.py --edition private --output-root $(BOOK_OUTPUT) --verify-only
+	$(PYTHON_RUN) scripts/book_build.py --edition public --output-root $(BOOK_OUTPUT) --verify-only
+	$(PYTHON_RUN) scripts/book_screenshots.py --mode dry-run --output $(BOOK_OUTPUT)/screenshots
+
+book-screenshots-dry-run: ## PR3.5 deterministic screenshot capture plan without live services
+	$(PYTHON_RUN) scripts/book_screenshots.py --mode dry-run --output $(BOOK_OUTPUT)/screenshots

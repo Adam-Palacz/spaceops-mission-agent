@@ -12,7 +12,7 @@ This folder holds the **execution plan**: phases, sprints, and task-level specs.
 | **[01-foundation-mvp/02-hardening/](01-foundation-mvp/02-hardening/)** | Phase 4: docs, runbooks, expanded evals, optional UI. |
 | **[0x-publication-roadmap.md](0x-publication-roadmap.md)** | Simplified publication plan (technical + product narrative + OSS visibility), independent from sprint execution. |
 | **[02.5-production-readiness.md](02.5-production-readiness.md)** | Strategy for production readiness between Production Scale and deep L3/L4 autonomy. |
-| **[02.5-production-readiness/](02.5-production-readiness/)** | Execution: PR1-PR3 sprints for observability, durability, security, release, and operations. |
+| **[02.5-production-readiness/](02.5-production-readiness/)** | Execution: PR1-PR4 sprints; current [phase review](02.5-production-readiness/PHASE_REVIEW.md) is No-go/reference-stage only, with PR4 remediation scheduled. |
 | **[03-next-gen-autonomy.md](03-next-gen-autonomy.md)** | Vision for L3/L4 autonomy (themes 1–5). |
 | **[03-next-gen-autonomy/](03-next-gen-autonomy/)** | Execution: NG1–NG5 sprints (multi-agent, HITL, compliance, edge SLM, GraphRAG). |
 | **[02-production-scale/](02-production-scale/)** | Post-MVP productionization (PS1–PS7). |
@@ -41,7 +41,7 @@ Each phase contains **sprint folders** (e.g. `01-foundation-mvp/01-core/sprint-1
 | Field | Value |
 |-------|--------|
 | **Version** | 1.0 |
-| **Last updated** | 2026-06-21 |
+| **Last updated** | 2026-11-23 |
 
 ### Instructions for AI
 

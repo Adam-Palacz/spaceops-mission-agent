@@ -1,0 +1,153 @@
+{
+  "blocking": true,
+  "environment": "ci",
+  "finished_at": "2026-11-22T13:51:14+00:00",
+  "generated_at": "2026-11-22T13:49:09+00:00",
+  "mode": "ci",
+  "operator": "cursor-agent",
+  "release_id": "pr31-5101260278813f9c",
+  "result": "pass",
+  "schema_version": "pr31.release-gate.v1",
+  "steps": [
+    {
+      "command": [
+        "ruff",
+        "check",
+        "."
+      ],
+      "finished_at": "2026-11-22T13:49:10+00:00",
+      "id": "lint",
+      "output_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "output_tail": "All checks passed!\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:49:09+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "mypy",
+        "-m",
+        "apps.agent",
+        "-m",
+        "apps.api",
+        "-m",
+        "config",
+        "-m",
+        "evals",
+        "--ignore-missing-imports"
+      ],
+      "finished_at": "2026-11-22T13:49:28+00:00",
+      "id": "typecheck",
+      "output_sha256": "71144743c83babea384888a735db0c4daba3d4d7b7942b6839984bd5c21b52bb",
+      "output_tail": "Success: no issues found in 4 source files\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:49:10+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "tests/",
+        "-q"
+      ],
+      "finished_at": "2026-11-22T13:50:54+00:00",
+      "id": "tests",
+      "output_sha256": "8f8898b7a9a5a276992fff7891c2ae357d4ed2e3e0a12fc5ba7e31a2eadda2bc",
+      "output_tail": "........................................................................ [ 14%]\n.........................................s.............................. [ 29%]\n......................................s................................. [ 44%]\n........................................................................ [ 59%]\n..........................s.......................s..................... [ 74%]\n........................................................................ [ 88%]\n......................................................                   [100%]\n482 passed, 4 skipped in 73.91s (0:01:13)\nTransient error StatusCode.UNAVAILABLE encountered while exporting traces to localhost:4317, retrying in 0.92s.\nFailed to export traces to localhost:4317, error code: StatusCode.UNAVAILABLE\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:49:28+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_act_opa_policy.py",
+        "tests/test_opa_client.py",
+        "tests/test_guardrails_ps17.py",
+        "tests/test_api.py",
+        "-q"
+      ],
+      "finished_at": "2026-11-22T13:51:09+00:00",
+      "id": "approval_opa_fail_closed",
+      "output_sha256": "449a7c1e9015f6cf17c3a1ec6ac989c4f67f2571dd64ee9466fdd1c1c2b2293a",
+      "output_tail": ".........s.......................................                        [100%]\n48 passed, 1 skipped in 12.43s\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:50:54+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "helm",
+        "lint",
+        "deploy/helm/spaceops",
+        "-f",
+        "deploy/helm/spaceops/values-stage.yaml"
+      ],
+      "finished_at": "2026-11-22T13:51:10+00:00",
+      "id": "helm_lint_stage",
+      "output_sha256": "e0665276e57564d69f106e6f66bdd018ec10e58009bafe61914a3bafb14b04db",
+      "output_tail": "==> Linting deploy/helm/spaceops\n[INFO] Chart.yaml: icon is recommended\n\n1 chart(s) linted, 0 chart(s) failed\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:51:09+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "helm",
+        "lint",
+        "deploy/helm/spaceops",
+        "-f",
+        "deploy/helm/spaceops/values-prod.yaml"
+      ],
+      "finished_at": "2026-11-22T13:51:12+00:00",
+      "id": "helm_lint_prod",
+      "output_sha256": "e0665276e57564d69f106e6f66bdd018ec10e58009bafe61914a3bafb14b04db",
+      "output_tail": "==> Linting deploy/helm/spaceops\n[INFO] Chart.yaml: icon is recommended\n\n1 chart(s) linted, 0 chart(s) failed\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:51:10+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "helm",
+        "template",
+        "spaceops",
+        "deploy/helm/spaceops",
+        "-f",
+        "deploy/helm/spaceops/values-stage.yaml",
+        "--set",
+        "secrets.postgresPassword=release-gate-placeholder"
+      ],
+      "finished_at": "2026-11-22T13:51:13+00:00",
+      "id": "helm_template_stage",
+      "output_sha256": "848504e8d5ed820ae2ed8704157ec802a25917906d0552fdf9ee69931746c546",
+      "output_tail": "  app.kubernetes.io/name: spaceops\n      app.kubernetes.io/instance: spaceops\n      app.kubernetes.io/component: telemetry-persister\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/name: spaceops\n        app.kubernetes.io/instance: spaceops\n        app.kubernetes.io/component: telemetry-persister\n    spec:\n      serviceAccountName: spaceops-telemetry-persister\n      containers:\n        - name: telemetry-persister\n          image: spaceops-api:local\n          imagePullPolicy: IfNotPresent\n          command: [\"python\", \"-m\", \"apps.workers.telemetry_persister\"]\n          env:\n            - name: POSTGRES_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: spaceops-stage-secrets\n                  key: postgres-password\n            - name: DATABASE_URL\n              value: \"postgresql://spaceops:$(POSTGRES_PASSWORD)@spaceops-postgres:5432/spaceops\"\n            - name: NATS_URL\n              value: \"nats://spaceops-nats:4222\"\n          readinessProbe:\n            exec:\n              command: [\"python\", \"-c\", \"import sys; sys.exit(0)\"]\n            initialDelaySeconds: 5\n            periodSeconds: 10\n          livenessProbe:\n            exec:\n              command: [\"python\", \"-c\", \"import sys; sys.exit(0)\"]\n            initialDelaySeconds: 15\n            periodSeconds: 20\n          resources:\n            limits:\n              cpu: 500m\n              memory: 256Mi\n            requests:\n              cpu: 50m\n              memory: 128Mi\n\n---\n# Source: spaceops/templates/postgres.yaml\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: spaceops-postgres\n  namespace: spaceops-stage\n  labels:\n    helm.sh/chart: spaceops-0.1.0\n    app.kubernetes.io/name: spaceops\n    app.kubernetes.io/instance: spaceops\n    app.kubernetes.io/version: \"0.1.0\"\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/component: postgres\nspec:\n  serviceName: spaceops-postgres\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/name: spaceops\n      app.kubernetes.io/instance: spaceops\n      app.kubernetes.io/component: postgres\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/name: spaceops\n        app.kubernetes.io/instance: spaceops\n        app.kubernetes.io/component: postgres\n    spec:\n      serviceAccountName: spaceops-postgres\n      containers:\n        - name: postgres\n          image: pgvector/pgvector:pg15\n          imagePullPolicy: IfNotPresent\n          ports:\n            - name: postgres\n              containerPort: 5432\n          env:\n            # GCE PD (and some CSI volumes) place lost+found at the mount root; initdb requires a subdir.\n            - name: PGDATA\n              value: \"/var/lib/postgresql/data/pgdata\"\n            - name: POSTGRES_USER\n              value: \"spaceops\"\n            - name: POSTGRES_DB\n              value: \"spaceops\"\n            - name: POSTGRES_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: spaceops-stage-secrets\n                  key: postgres-password\n          readinessProbe:\n            exec:\n              command:\n                - pg_isready\n                - -U\n                - spaceops\n                - -d\n                - spaceops\n            initialDelaySeconds: 5\n            periodSeconds: 5\n          livenessProbe:\n            exec:\n              command:\n                - pg_isready\n                - -U\n                - spaceops\n                - -d\n                - spaceops\n            initialDelaySeconds: 15\n            periodSeconds: 10\n          resources:\n            limits:\n              cpu: \"1\"\n              memory: 1Gi\n            requests:\n              cpu: 100m\n              memory: 256Mi\n          volumeMounts:\n            - name: data\n              mountPath: /var/lib/postgresql/data\n  volumeClaimTemplates:\n    - metadata:\n        name: data\n      spec:\n        accessModes: [\"ReadWriteOnce\"]\n        resources:\n          requests:\n            storage: 10Gi\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:51:12+00:00",
+      "status": "pass"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head",
+        "--sql"
+      ],
+      "finished_at": "2026-11-22T13:51:14+00:00",
+      "id": "migration_offline_sql",
+      "output_sha256": "381d4ce6974d6b8baf8707d4dd10fb3fa7fb0366dbe0d02e907d7921d16c8e46",
+      "output_tail": " ON audit_log (incident_id, timestamp);\n\nCREATE INDEX ix_audit_log_trace_id ON audit_log (trace_id);\n\nCREATE OR REPLACE FUNCTION prevent_mutation_append_only()\n        RETURNS trigger AS $$\n        BEGIN\n            RAISE EXCEPTION 'append-only table: % is immutable', TG_TABLE_NAME;\n        END;\n        $$ LANGUAGE plpgsql;;\n\nCREATE TRIGGER trg_telemetry_events_no_update\n        BEFORE UPDATE OR DELETE ON telemetry_events\n        FOR EACH ROW EXECUTE FUNCTION prevent_mutation_append_only();;\n\nCREATE TRIGGER trg_audit_log_no_update\n        BEFORE UPDATE OR DELETE ON audit_log\n        FOR EACH ROW EXECUTE FUNCTION prevent_mutation_append_only();;\n\nCOMMENT ON TABLE telemetry_events IS 'TelemetryEventV1 append-only event stream.';;\n\nCOMMENT ON COLUMN telemetry_events.event_id IS 'TelemetryEventV1.event_id';;\n\nCOMMENT ON COLUMN telemetry_events.ts IS 'TelemetryEventV1.ts (UTC timestamp).';;\n\nCOMMENT ON COLUMN telemetry_events.source IS 'TelemetryEventV1.source';;\n\nCOMMENT ON COLUMN telemetry_events.channel IS 'TelemetryEventV1.channel';;\n\nCOMMENT ON COLUMN telemetry_events.value IS 'TelemetryEventV1.value';;\n\nCOMMENT ON COLUMN telemetry_events.unit IS 'TelemetryEventV1.unit';;\n\nCOMMENT ON COLUMN telemetry_events.payload IS 'Raw source payload snapshot for debugging.';;\n\nCOMMENT ON TABLE incidents IS 'IncidentV1 records and lifecycle status.';;\n\nCOMMENT ON COLUMN incidents.incident_id IS 'IncidentV1.incident_id';;\n\nCOMMENT ON COLUMN incidents.payload IS 'IncidentV1 payload JSON.';;\n\nCOMMENT ON TABLE runs IS 'Execution metadata for each agent run.';;\n\nCOMMENT ON COLUMN runs.run_id IS 'Stable run identifier (UUID/trace-correlated).';;\n\nCOMMENT ON COLUMN runs.metadata IS 'Replay and observability metadata.';;\n\nCOMMENT ON TABLE audit_log IS 'Append-only audit trail for human and agent decisions.';;\n\nCOMMENT ON COLUMN audit_log.args_hash IS 'Hash of action arguments as in audit schema.';;\n\nINSERT INTO alembic_version (version_num) VALUES ('20260501_0001') RETURNING alembic_version.version_num;\n\n-- Running upgrade 20260501_0001 -> 20260505_0002\n\nCREATE TABLE dlq_events (\n    id BIGSERIAL NOT NULL, \n    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, \n    event_id TEXT NOT NULL, \n    reason TEXT NOT NULL, \n    retry_count INTEGER NOT NULL, \n    next_retry_at TIMESTAMP WITH TIME ZONE, \n    last_error TEXT DEFAULT '' NOT NULL, \n    last_error_hash TEXT NOT NULL, \n    run_id TEXT, \n    incident_id TEXT, \n    subject TEXT, \n    payload JSONB, \n    PRIMARY KEY (id)\n);\n\nCREATE INDEX ix_dlq_events_created_at ON dlq_events (created_at);\n\nCREATE INDEX ix_dlq_events_event_id ON dlq_events (event_id);\n\nCREATE INDEX ix_dlq_events_reason_created_at ON dlq_events (reason, created_at);\n\nCOMMENT ON TABLE dlq_events IS 'PS3.3 dead-letter queue rows for failed telemetry processing.';;\n\nUPDATE alembic_version SET version_num='20260505_0002' WHERE alembic_version.version_num = '20260501_0001';\n\n-- Running upgrade 20260505_0002 -> 20260603_0003\n\nCREATE TABLE llm_usage_ledger (\n    usage_date DATE NOT NULL, \n    tokens_used BIGINT DEFAULT 0 NOT NULL, \n    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, \n    PRIMARY KEY (usage_date)\n);\n\nCOMMENT ON TABLE llm_usage_ledger IS 'PS7.6 UTC-day token totals for LLM_BUDGET_MODE=postgres shared org cap.';;\n\nUPDATE alembic_version SET version_num='20260603_0003' WHERE alembic_version.version_num = '20260505_0002';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 20260501_0001, PS1.3 baseline schema: telemetry/incidents/runs/audit.\nINFO  [alembic.runtime.migration] Running upgrade 20260501_0001 -> 20260505_0002, PS3.3: DLQ table for telemetry persister retries.\nINFO  [alembic.runtime.migration] Running upgrade 20260505_0002 -> 20260603_0003, PS7.6: shared daily LLM token ledger for postgres budget mode.\n",
+      "returncode": 0,
+      "started_at": "2026-11-22T13:51:13+00:00",
+      "status": "pass"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+name: Engineering book
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/book/**"
+      - "docs/**/*.md"
+      - "roadmap/**/*.md"
+      - "roadmap/**/evidence/*.json"
+      - "scripts/book_build.py"
+      - "scripts/book_screenshots.py"
+      - "tests/test_production_readiness_pr35_engineering_book.py"
+      - ".github/workflows/engineering-book.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "docs/book/**"
+      - "docs/**/*.md"
+      - "roadmap/**/*.md"
+      - "roadmap/**/evidence/*.json"
+      - "scripts/book_build.py"
+      - "scripts/book_screenshots.py"
+      - "tests/test_production_readiness_pr35_engineering_book.py"
+      - ".github/workflows/engineering-book.yml"
+  workflow_dispatch:
+
+jobs:
+  build-book:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1795392000"
+      BOOK_PDF_ENGINE: weasyprint
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install book toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc weasyprint
+          pip install pyyaml pytest
+
+      - name: Verify source, links, redaction, and manifests
+        run: make book-verify PYTHON=python
+
+      - name: Build private and public HTML/PDF/EPUB
+        run: make book PYTHON=python
+
+      - name: Test publication pipeline
+        run: pytest tests/test_production_readiness_pr35_engineering_book.py -q
+
+      - name: Upload private engineering edition
+        uses: actions/upload-artifact@v4
+        with:
+          name: spaceops-engineering-book-private-${{ github.sha }}
+          path: build/book/private/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload publication-ready public edition
+        uses: actions/upload-artifact@v4
+        with:
+          name: spaceops-engineering-book-public-${{ github.sha }}
+          path: |
+            build/book/public/
+            build/book/screenshots/screenshots.json
+          if-no-files-found: error
+          retention-days: 30

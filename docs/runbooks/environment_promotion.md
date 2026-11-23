@@ -24,6 +24,10 @@ Do **not** commit secret values. Stage/prod never use laptop `.env` files on nod
 
 ## Promotion checklist
 
+PR3.1 makes the checklist executable. A promotion requires matching, passing CI and stage JSON
+artifacts from the [release promotion gate](release_promotion_gate_pr31.md). A dry-run report is not
+release evidence.
+
 ### Any change → stage
 
 - [ ] Default CI green (unit, integration, manifest lint when PS6.2 ships)
@@ -49,6 +53,8 @@ Changes that **do not** modify:
 
 ### stage → prod
 
+- [ ] PR3.1 release gate returned `pass` for the immutable release candidate; evidence retained under
+  `artifacts/release-gates/`
 - [ ] All stage gates above satisfied on current release candidate
 - [ ] [Rollout / rollback](k8s_rollout_rollback.md) exercised on stage (PS6.4)
 - [ ] Demo scenarios A (report + evidence) and B (escalation) documented and rehearsed

@@ -89,5 +89,5 @@ The project is not yet mature enough for:
 Close Production Scale and proceed through the dedicated
 [Production Readiness](../02.5-production-readiness/) track before deep L3/L4 autonomy promotion.
 NG1-NG2 may start in local or stage-lab scope, but NG3+ and any production-pilot claim should wait
-for PR1-PR3 hard gates. Next-Gen Autonomy must preserve the existing OPA, HITL, audit, evidence,
-eval, and fail-closed guarantees.
+for PR4 remediation and an explicit Go or Conditional go decision. Next-Gen Autonomy must preserve
+the existing OPA, HITL, audit, evidence, eval, and fail-closed guarantees.

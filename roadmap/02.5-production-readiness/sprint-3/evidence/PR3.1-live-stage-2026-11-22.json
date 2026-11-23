@@ -1,0 +1,89 @@
+{
+  "schema_version": "pr31.release-gate.live.v1",
+  "release_id": "pr31-5101260278813f9c",
+  "operator": "adamp",
+  "environment": "stage",
+  "blocking": true,
+  "generated_at": "2026-11-22T14:11:04.7847330Z",
+  "finished_at": "2026-11-22T14:11:50.5050558Z",
+  "static_evidence": "roadmap/02.5-production-readiness/sprint-3/evidence/PR3.1-static-ci-2026-11-22.json",
+  "result": "pass",
+  "infrastructure": {
+    "project": "spaceops-project-498213",
+    "cluster": "spaceops-stage",
+    "region": "us-central1",
+    "node_profile": "1 x e2-standard-4, non-preemptible",
+    "cleanup_verified": true
+  },
+  "steps": [
+    {
+      "id": "stage_health",
+      "status": "pass",
+      "response_status": "ok"
+    },
+    {
+      "id": "stage_ingest",
+      "status": "pass",
+      "http_status": 202
+    },
+    {
+      "id": "stage_scenario_a",
+      "status": "pass",
+      "run_id": "ce5a03892e054c2eaf2275a30b882514",
+      "has_executive_summary": true,
+      "evidence_count": 1,
+      "citation_count": 0
+    },
+    {
+      "id": "stage_scenario_b",
+      "status": "pass",
+      "run_id": "284ed6134adc434299ff1b9ce43c8ede",
+      "escalated": true,
+      "reason": "no_evidence"
+    },
+    {
+      "id": "dlq_threshold",
+      "status": "pass",
+      "observed_rows": 0,
+      "maximum_rows": 0
+    },
+    {
+      "id": "queue_stream_status",
+      "status": "pass",
+      "returncode": 0,
+      "output_sha256": "c9cb4116cee8e0ed3413a4727230abae6026f99afbc62446a41f7b01016fc839"
+    },
+    {
+      "id": "rollback_helm_snapshot",
+      "status": "pass",
+      "returncode": 0,
+      "output_sha256": "dc79a5c874a9fd7ac7e366891aed291d68d4ef249f5870d674618c262757ad95",
+      "output_tail": "[redacted; SHA-256 only]"
+    },
+    {
+      "id": "rollback_image_snapshot",
+      "status": "pass",
+      "returncode": 0,
+      "output_sha256": "2fb9dffea2adab80ed8b508dab8a63e4357adec407998b89a60a2164f4ebdc58",
+      "image": "us-central1-docker.pkg.dev/spaceops-project-498213/spaceops/api:pr31-5101260278813f9c"
+    }
+  ],
+  "cleanup": {
+    "gke_clusters": 0,
+    "artifact_registry_repositories": 0,
+    "compute_instances": 0,
+    "persistent_disks": 0,
+    "forwarding_rules": 0,
+    "reserved_addresses": 0,
+    "gsm_secrets": 0,
+    "terraform_retained": [
+      "billing budget",
+      "budget email notification channel",
+      "billing and monitoring APIs"
+    ]
+  },
+  "safety": {
+    "raw_secret_values_in_evidence": false,
+    "helm_values_output_retained": false
+  }
+}

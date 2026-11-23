@@ -5,7 +5,14 @@ autonomy — per [03-next-gen-autonomy.md](../03-next-gen-autonomy.md).
 
 **Entry:** PS6 (minimum) + recommended PS7.1 (stage cloud) for demos in a prod-like environment.
 For production-pilot or NG3+ promotion, complete [Production Readiness](../02.5-production-readiness/)
-PR1-PR3 hard gates first. NG1-NG2 may run in parallel when scoped to local or stage-lab proof.
+PR4 remediation and receive an explicit Go or Conditional go decision first.
+NG1-NG2 may run in parallel when scoped to local or stage-lab proof.
+
+**Current readiness decision (2026-11-23):**
+[No-go - reference/stage only](../02.5-production-readiness/PHASE_REVIEW.md). NG1-NG2 may continue
+locally or in isolated synthetic stage. NG3 masking research may proceed locally, but NG3+
+production-like promotion, real pilot data, NG4, and NG5 remain blocked until a new readiness review
+closes or explicitly accepts the listed gates.
 
 **Phase analysis:** [PHASE_ANALYSIS.md](PHASE_ANALYSIS.md).
 

@@ -24,6 +24,10 @@ data/replay/runs/*
 !data/replay/runs/README.md
 data/replay/golden/reports/
 data/audit.ndjson
+# PR3.1 — generated release-gate evidence is retained by CI/release storage
+artifacts/release-gates/
+# PR3.5 — generated engineering-book artifacts
+build/book/
 
 # PS6.6 — SOPS decrypted artifacts and local secret exports
 deploy/secrets/decrypted/

@@ -21,7 +21,7 @@ def test_production_readiness_phase_exists() -> None:
 
 
 def test_production_readiness_sprints_and_boards_exist() -> None:
-    for sprint in ("sprint-1", "sprint-2", "sprint-3"):
+    for sprint in ("sprint-1", "sprint-2", "sprint-3", "sprint-4"):
         sprint_dir = PHASE_DIR / sprint
         assert (sprint_dir / "README.md").is_file()
         assert (sprint_dir / "BOARD.md").is_file()
@@ -34,7 +34,7 @@ def test_production_readiness_has_full_task_set() -> None:
         for path in task_files
         if path.name not in {"README.md", "BOARD.md", "SPRINT_REVIEW.md"}
     ]
-    assert len(task_specs) == 13
+    assert len(task_specs) == 20
 
 
 def test_pr35_engineering_book_is_tracked() -> None:
@@ -42,7 +42,7 @@ def test_pr35_engineering_book_is_tracked() -> None:
     board = (PHASE_DIR / "sprint-3" / "BOARD.md").read_text(encoding="utf-8")
     text = task.read_text(encoding="utf-8")
     assert task.is_file()
-    assert "| PR3.5 | Engineering book and publication pipeline | Todo |" in board
+    assert "| PR3.5 | Engineering book and publication pipeline | Done |" in board
     for required in (
         "English-language engineering book",
         "Private engineering edition",
@@ -60,7 +60,7 @@ def test_phase_links_are_indexed_and_ng_dependency_is_explicit() -> None:
     ng_text = NG_README.read_text(encoding="utf-8")
     assert "Production Readiness" in ps7_text
     assert "NG1" in ps7_text and "NG3+" in ps7_text
-    assert "PR1-PR3" in ng_text
+    assert "PR4 remediation" in ng_text
     assert "NG1-NG2 may run in parallel" in ng_text
 
 
