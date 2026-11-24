@@ -1,6 +1,6 @@
 # Roadmap — SpaceOps Mission Agent Lab
 
-This folder holds the **execution plan**: phases, sprints, and task-level specs. Use it to implement work in order and track status. Canonical high-level sources: [goals.md](goals.md), [01-foundation-mvp.md](01-foundation-mvp.md), [02-production-scale.md](02-production-scale.md), [02.5-production-readiness.md](02.5-production-readiness.md), and [03-next-gen-autonomy.md](03-next-gen-autonomy.md).
+This folder holds the **execution plan**: phases, sprints, and task-level specs. Use it to implement work in order and track status. Canonical high-level sources: [MASTER.md](MASTER.md), [goals.md](goals.md), [01-foundation-mvp.md](01-foundation-mvp.md), [02-production-scale.md](02-production-scale.md), and [02.5-production-readiness.md](02.5-production-readiness.md). The old next-gen vision is the deprecated archive [deprecated-03-next-gen-autonomy.md](deprecated-03-next-gen-autonomy.md).
 
 ---
 
@@ -13,8 +13,15 @@ This folder holds the **execution plan**: phases, sprints, and task-level specs.
 | **[0x-publication-roadmap.md](0x-publication-roadmap.md)** | Simplified publication plan (technical + product narrative + OSS visibility), independent from sprint execution. |
 | **[02.5-production-readiness.md](02.5-production-readiness.md)** | Strategy for production readiness between Production Scale and deep L3/L4 autonomy. |
 | **[02.5-production-readiness/](02.5-production-readiness/)** | Execution: PR1-PR4 sprints; current [phase review](02.5-production-readiness/PHASE_REVIEW.md) is No-go/reference-stage only, with PR4 remediation scheduled. |
-| **[03-next-gen-autonomy.md](03-next-gen-autonomy.md)** | Vision for L3/L4 autonomy (themes 1–5). |
-| **[03-next-gen-autonomy/](03-next-gen-autonomy/)** | Execution: NG1–NG5 sprints (multi-agent, HITL, compliance, edge SLM, GraphRAG). |
+| **[deprecated-03-next-gen-autonomy.md](deprecated-03-next-gen-autonomy.md)** | Deprecated historical vision for L3/L4 autonomy. Not phase 03. |
+| **[MASTER.md](MASTER.md)** | Current sequence: finish PR4, then mission data and benchmarks. Next-gen is deferred. |
+| **[03-real-world-mission-data/](03-real-world-mission-data/)** | Planned historical telemetry and cited incidents. Not started. |
+| **[04-anomaly-detection-validation/](04-anomaly-detection-validation/)** | Planned detection and agent-evaluation study. Not started. |
+| **[05-mission-control-integration/](05-mission-control-integration/)** | Planned read-only Yamcs and public stream. Not started. |
+| **[06-edge-ai-hardware/](06-edge-ai-hardware/)** | Research measurements and offline model. Not flight readiness. |
+| **[07-external-validation/](07-external-validation/)** | Paper, review, and a pilot that stays behind admission. |
+| **[08-next-gen-autonomy/](08-next-gen-autonomy/)** | Deferred L3/L4 dispositions. Not the next build. |
+| **[deprecated-03-next-gen-autonomy/](deprecated-03-next-gen-autonomy/)** | Deprecated historical NG1-NG5 specifications. Formerly numbered 03. |
 | **[02-production-scale/](02-production-scale/)** | Post-MVP productionization (PS1–PS7). |
 | **[backlog/](backlog/)** | Idea pool + [TRIAGE.md](backlog/TRIAGE.md); schedule into PS/NG sprints. |
 
@@ -41,7 +48,7 @@ Each phase contains **sprint folders** (e.g. `01-foundation-mvp/01-core/sprint-1
 | Field | Value |
 |-------|--------|
 | **Version** | 1.0 |
-| **Last updated** | 2026-11-23 |
+| **Last updated** | 2026-11-24 |
 
 ### Instructions for AI
 

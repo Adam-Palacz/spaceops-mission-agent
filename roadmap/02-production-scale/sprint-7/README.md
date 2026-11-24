@@ -53,4 +53,4 @@ Hard scope is PS7.1, PS7.2, PS7.4, and PS7.5. PS7.3 and PS7.6–PS7.8 were PS7b/
 ## Upstream / downstream
 
 - **Upstream:** PS6 closed (Helm, Terraform skeleton, portfolio).
-- **Downstream:** [NG sprint 1](../../03-next-gen-autonomy/sprint-1/) — multi-agent can start locally; stage/cloud optional.
+- **Downstream:** historical NG specs now live in [deprecated-03-next-gen-autonomy/sprint-1](../../deprecated-03-next-gen-autonomy/sprint-1/). Execution is deferred; see [phase 08](../../08-next-gen-autonomy/).

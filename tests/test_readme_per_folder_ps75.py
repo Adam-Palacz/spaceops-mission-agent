@@ -49,7 +49,7 @@ REQUIRED_README_DIRS = [
     "infra/grafana/provisioning/datasources",
     "roadmap/02-production-scale",
     "roadmap/02.5-production-readiness",
-    "roadmap/03-next-gen-autonomy",
+    "roadmap/deprecated-03-next-gen-autonomy",
 ]
 
 MIN_README_CHARS = 40

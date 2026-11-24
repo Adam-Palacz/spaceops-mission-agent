@@ -10,6 +10,7 @@ Pool of ideas/specs. **Disposition** (not sprint status) — see [TRIAGE.md](TRI
 | BL-004 | Smart resource management (multi-cloud burst) | Done via PS7.7 | [ADR 0010](../../docs/adr/0010-multicloud-burst-routing.md) | [BL-004](BL-004-smart-resource-management-multicloud-burst.md) |
 | BL-005 | AI-assisted incident triage (platform ops) | Done via PS7.8 | `scripts/platform_ops_triage.py` | [BL-005](BL-005-ai-assisted-incident-triage.md) |
 | BL-006 | Live paging integration drill | Scheduled as PR4.6; owner: on-call lead, before production pilot | PR3.2-A2 | [BL-006](BL-006-live-paging-integration-drill.md) |
+| BL-007 | Mission-data and benchmark roadmap | Scheduled as the 2026-11-24 master roadmap. Not implemented. | [MASTER.md](../MASTER.md) | [MASTER.md](../MASTER.md) |
 
 ---
 

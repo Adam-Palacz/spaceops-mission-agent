@@ -5,7 +5,7 @@
 - [Project goals](../../../roadmap/goals.md)
 - [Production Scale strategy](../../../roadmap/02-production-scale.md)
 - [Production Readiness strategy](../../../roadmap/02.5-production-readiness.md)
-- [Next-Gen Autonomy strategy](../../../roadmap/03-next-gen-autonomy.md)
+- [Deprecated next-gen vision](../../../roadmap/deprecated-03-next-gen-autonomy.md)
 - [ADR index](../../adr/README.md)
 - [Documentation index](../../README.md)
 

@@ -32,3 +32,16 @@ produce the evidence required for a new production-pilot admission review.
 
 See [BOARD.md](BOARD.md). The 2026-11-23 [sprint review](SPRINT_REVIEW.md) pauses close-out
 until the network hold and the remaining acceptances can be recorded.
+
+## Additional admission inputs
+
+These tasks do not change the 2026-11-23 No-go decision. PR4.7 must cite evidence or an explicit
+waiver for each of them:
+
+- [PR4.8](PR4.8-supply-chain-evidence.md) SBOM, vulnerability scan, and image signing.
+- [PR4.9](PR4.9-api-authorization-data-isolation.md) API authorization and data-isolation gaps.
+- [PR4.10](PR4.10-authorized-boundary-test.md) authorized boundary test.
+- [PR4.11](PR4.11-engineering-book-ci-verification.md) current engineering-book workflow run.
+- [PR4.12](PR4.12-deployment-reproducibility.md) clean-checkout deployment drill.
+
+They are part of this sprint, not a new infrastructure phase.

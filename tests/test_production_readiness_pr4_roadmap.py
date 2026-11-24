@@ -27,12 +27,12 @@ def test_pr4_board_has_ordered_tasks() -> None:
     assert "| PR4.4 | Managed logging and tracing evidence | Done |" in board
     assert "| PR4.5 | Managed Postgres HA and PITR drill | In progress |" in board
     assert "| PR4.6 | Live paging integration drill | In progress |" in board
-    assert board.count("| Todo |") == 1
+    assert board.count("| Todo |") == 6
 
 
 def test_pr4_specs_exist_and_have_status() -> None:
     specs = sorted(SPRINT.glob("PR4.*.md"))
-    assert len(specs) == 7
+    assert len(specs) == 12
     for spec in specs:
         text = spec.read_text(encoding="utf-8")
         assert "| **Status** |" in text

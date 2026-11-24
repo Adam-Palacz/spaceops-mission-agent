@@ -1,18 +1,27 @@
+**Deprecated.** This is the preserved NG1-NG5 specification set, formerly numbered 03. It is not the current phase 03. Current phase 03 is [Real-World Mission Data](../03-real-world-mission-data/). Do not start these sprints.
+
+**Execution priority (2026-11-24):** deferred. Do not start these sprints.
+The preserved specifications below stay the design reference. Current disposition and entry
+gates: [phase 08](../08-next-gen-autonomy/README.md) and the [master roadmap](../MASTER.md).
+NG4's execution path, when it is started, is [EA2](../06-edge-ai-hardware/sprint-2/README.md),
+not a second offline-model design.
+
 # Phase: Next-Gen Autonomy (L3–L4)
 
 Extend SpaceOps from **L1/L2** (MVP + production scale) toward **L3 assisted** and **L4 supervised**
-autonomy — per [03-next-gen-autonomy.md](../03-next-gen-autonomy.md).
+autonomy — per [deprecated-03-next-gen-autonomy.md](../deprecated-03-next-gen-autonomy.md).
 
-**Entry:** PS6 (minimum) + recommended PS7.1 (stage cloud) for demos in a prod-like environment.
-For production-pilot or NG3+ promotion, complete [Production Readiness](../02.5-production-readiness/)
-PR4 remediation and receive an explicit Go or Conditional go decision first.
-NG1-NG2 may run in parallel when scoped to local or stage-lab proof.
+**Historical entry rule (2026-11-23), superseded by the banner above:** PS6 (minimum) plus
+recommended PS7.1 for a prod-like demo. For production-pilot or NG3+ promotion, complete
+[Production Readiness](../02.5-production-readiness/) PR4 remediation and receive an explicit Go or
+Conditional go first. The review text said NG1-NG2 may run in parallel when scoped to local or
+stage-lab proof. Do not start that work now.
 
 **Current readiness decision (2026-11-23):**
-[No-go - reference/stage only](../02.5-production-readiness/PHASE_REVIEW.md). NG1-NG2 may continue
-locally or in isolated synthetic stage. NG3 masking research may proceed locally, but NG3+
-production-like promotion, real pilot data, NG4, and NG5 remain blocked until a new readiness review
-closes or explicitly accepts the listed gates.
+[No-go - reference/stage only](../02.5-production-readiness/PHASE_REVIEW.md). The review text said
+NG1-NG2 may continue locally or in isolated synthetic stage. The 2026-11-24 deferral withdraws that
+permission. NG3+ production-like promotion, real pilot data, NG4, and NG5 remain blocked until a
+new readiness review closes or explicitly accepts the listed gates.
 
 **Phase analysis:** [PHASE_ANALYSIS.md](PHASE_ANALYSIS.md).
 
@@ -64,5 +73,5 @@ Estimate: **~2 weeks per sprint**, 3–4 tasks each.
 ## How to work
 
 - Tasks: `NGx.y-*.md`, status in sprint `BOARD.md`.
-- Vision detail: [03-next-gen-autonomy.md](../03-next-gen-autonomy.md) (themes 1–5).
+- Vision detail: [deprecated-03-next-gen-autonomy.md](../deprecated-03-next-gen-autonomy.md) (themes 1–5).
 - Project goals: [goals.md](../goals.md).

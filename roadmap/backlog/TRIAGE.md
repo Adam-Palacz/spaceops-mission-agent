@@ -57,4 +57,14 @@ Backlog = **pool**; closure = TRIAGE update + task **Done** on sprint BOARD.
 - [x] TRIAGE.md (this file)
 - [x] After PS7.4 / PS7.5 start — update rows in [items.md](items.md) (Disposition column)
 - [ ] After PR1 — update this file with production-readiness evidence links
-- [ ] After NG1 — consider moving Theme 1–5 detail from [03-next-gen-autonomy.md](../03-next-gen-autonomy.md) into sprint links (vision file remains)
+- [ ] After NG1 — consider moving Theme 1–5 detail from [deprecated-03-next-gen-autonomy.md](../deprecated-03-next-gen-autonomy.md) into sprint links (vision file remains)
+
+## 2026-11-24 execution change
+
+| ID | Verdict | Rationale | Scheduled in |
+|----|---------|-----------|--------------|
+| **BL-006** | Still open | Live paging is not closed. PR4.6 remains the owner. | PR4.6 |
+| **BL-007** | Scheduled, not done | The master roadmap is the plan for mission data, benchmarks, mission control, edge research, and deferred autonomy. | [MASTER.md](../MASTER.md) |
+
+Next-gen specs stay in [deprecated-03-next-gen-autonomy](../deprecated-03-next-gen-autonomy/). Their execution is
+deferred in [08-next-gen-autonomy](../08-next-gen-autonomy/).

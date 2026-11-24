@@ -6,10 +6,11 @@ Agent for satellite / ground segment anomaly triage: **ingest -> triage -> inves
 
 | Doc | Description |
 |-----|-------------|
+| [**roadmap/MASTER.md**](./roadmap/MASTER.md) | Current sequence after 2026-11-24: finish production admission, then cited mission data and benchmarks. Next-gen autonomy is deferred. |
 | [**roadmap/goals.md**](./roadmap/goals.md) | Goals, assumptions, requirements (F1–F10, NF1–NF9), policy, MoE/MoP, production-ready criteria, audit log schema (§4.6). |
 | [**roadmap/01-foundation-mvp.md**](./roadmap/01-foundation-mvp.md) | Foundation/MVP storyline: core agent, MCPs, evals, and escalation. |
 | [**roadmap/02-production-scale.md**](./roadmap/02-production-scale.md) | Post-MVP productionisation: streaming, safety gates, LLM backends, K8s/cloud. |
-| [**roadmap/03-next-gen-autonomy.md**](./roadmap/03-next-gen-autonomy.md) | Next-gen autonomy (L3/L4): Flight Director multi-agent pattern, collaborative planning, compliance gateway, edge SLMs, GraphRAG. |
+| [**roadmap/deprecated-03-next-gen-autonomy.md**](./roadmap/deprecated-03-next-gen-autonomy.md) | Deprecated historical next-gen vision. Current disposition is phase 08 in [MASTER.md](./roadmap/MASTER.md). |
 | [**roadmap/README.md**](./roadmap/README.md) | Execution plan: phases, sprints, task specs. |
 | [**docs/README.md**](./docs/README.md) | Index of Mermaid diagrams (pipeline, architecture, state flow, Act flow, repo structure). |
 | [**docs/portfolio/README.md**](./docs/portfolio/README.md) | **Portfolio bundle (PS6.10):** one-page overview, demo scenarios A/B, runbook index, reviewer checklist. |

@@ -19,7 +19,7 @@ SPEC = (
     / "PR3.4-production-readiness-review.md"
 )
 BOARD = ROOT / "roadmap" / "02.5-production-readiness" / "sprint-3" / "BOARD.md"
-NG_README = ROOT / "roadmap" / "03-next-gen-autonomy" / "README.md"
+NG_README = ROOT / "roadmap" / "deprecated-03-next-gen-autonomy" / "README.md"
 
 
 def test_review_records_explicit_no_go_and_phase_status() -> None:

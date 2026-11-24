@@ -195,3 +195,32 @@ The main runtime path (see also `docs/workflow/end_to_end_pipeline.mmd`):
 - **Execution plan:** `roadmap/01-foundation-mvp.md`, `roadmap/01-foundation-mvp/01-core/README.md`.
 - **Diagrams index:** `docs/README.md` (`architecture/`, `workflow/`, `agent/` sections).
 
+---
+
+## Target validation path
+
+This diagram is a plan, not a description of running code. The implemented system remains the
+diagram at the top of this file. See [the master roadmap](../roadmap/MASTER.md).
+
+```mermaid
+flowchart LR
+    subgraph Planned["Planned, not implemented"]
+        Files["Cited historical datasets"]
+        Adapt["Telemetry adapters and provenance"]
+        Det["Detector baselines"]
+        Yamcs["Local read-only Yamcs"]
+    end
+    subgraph Now["Implemented"]
+        Ingest["Ingest and NATS"]
+        Agent["Single-agent graph"]
+        Policy["OPA and approvals"]
+    end
+    Files --> Adapt --> Ingest --> Agent --> Policy
+    Det --> Ingest
+    Yamcs --> Adapt
+```
+
+Detectors, Yamcs, and historical datasets are specified in phases 03 through 05. They are not
+importable modules in this revision. Next-gen multi-agent routing is deferred and is not on
+this path.
+

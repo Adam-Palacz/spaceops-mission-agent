@@ -173,3 +173,22 @@ key-revocation gaps stay open. Close-out resumes after the Cloud SQL network hol
 2026-11-27 13:04 UTC, because the remaining items need that inventory check plus named acceptances.
 The phase outcome remains **No-go**. Production-pilot admission is blocked until the re-review gates
 above are met and a new decision explicitly grants admission.
+
+## Additional admission inputs (2026-11-24)
+
+These rows do not change the decision above. The next review must cite evidence or an explicit
+waiver for each:
+
+| Input | Task |
+|---|---|
+| SBOM, vulnerability scan, and image signing | [PR4.8](sprint-4/PR4.8-supply-chain-evidence.md) |
+| API route authentication and data-isolation gap | [PR4.9](sprint-4/PR4.9-api-authorization-data-isolation.md) |
+| Authorized boundary test | [PR4.10](sprint-4/PR4.10-authorized-boundary-test.md) |
+| Current engineering-book workflow run | [PR4.11](sprint-4/PR4.11-engineering-book-ci-verification.md) |
+| Clean-checkout deployment drill | [PR4.12](sprint-4/PR4.12-deployment-reproducibility.md) |
+
+## Execution priority after this review
+
+The 2026-11-24 [master roadmap](../MASTER.md) defers next-gen implementation. The next-gen
+sentences in this review remain the historical rule. They are not an instruction to start NG1.
+Domain-validation work is specified under phases 03 and 04 and does not admit a pilot.

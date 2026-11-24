@@ -12,7 +12,7 @@ ROADMAP_INDEX = REPO_ROOT / "roadmap" / "README.md"
 PS7_REVIEW = (
     REPO_ROOT / "roadmap" / "02-production-scale" / "sprint-7" / "SPRINT_REVIEW.md"
 )
-NG_README = REPO_ROOT / "roadmap" / "03-next-gen-autonomy" / "README.md"
+NG_README = REPO_ROOT / "roadmap" / "deprecated-03-next-gen-autonomy" / "README.md"
 
 
 def test_production_readiness_phase_exists() -> None:
@@ -34,7 +34,7 @@ def test_production_readiness_has_full_task_set() -> None:
         for path in task_files
         if path.name not in {"README.md", "BOARD.md", "SPRINT_REVIEW.md"}
     ]
-    assert len(task_specs) == 20
+    assert len(task_specs) == 25
 
 
 def test_pr35_engineering_book_is_tracked() -> None:

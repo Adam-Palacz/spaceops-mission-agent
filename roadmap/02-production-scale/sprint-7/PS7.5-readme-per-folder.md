@@ -20,6 +20,8 @@ Add short README.md files in uncovered folders (priority: `data/`, `kb/`, `evals
 | **infra/** | root, `opa/`, `sql/`, `k8s/`, `k8s/local/`, `terraform/`, `terraform/gcp/`, `grafana/` + provisioning subfolders |
 | **roadmap/** | `02-production-scale/`, `03-next-gen-autonomy/` (sprint subfolders already covered) |
 
+The folder named `roadmap/03-next-gen-autonomy/` in this completed task was renamed on 2026-11-24 to `roadmap/deprecated-03-next-gen-autonomy/`. The checklist above records the name at the time the task was done.
+
 ## Acceptance
 
 - [x] Folder list in task checklist matches repo.

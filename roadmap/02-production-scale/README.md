@@ -24,7 +24,7 @@ Source strategy: [`../02-production-scale.md`](../02-production-scale.md).
 
 **Production readiness bridge:** [02.5-production-readiness/](../02.5-production-readiness/) (PR1-PR3).
 
-**Next autonomy phase (L3/L4):** [03-next-gen-autonomy/](../03-next-gen-autonomy/) (NG1-NG5).
+**Deprecated next-gen specs (formerly numbered 03):** [deprecated-03-next-gen-autonomy/](../deprecated-03-next-gen-autonomy/). Current disposition: [08-next-gen-autonomy/](../08-next-gen-autonomy/).
 
 ---
 

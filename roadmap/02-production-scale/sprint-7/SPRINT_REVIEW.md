@@ -167,7 +167,7 @@ are integrated, tested, and documented.
 observability, backup/restore, secrets, security, release gates, and operational drills before any
 production-pilot claim.
 
-**Parallel autonomy work:** [NG sprint 1](../../03-next-gen-autonomy/sprint-1/) may start for local
+**Parallel autonomy work:** [NG sprint 1](../../deprecated-03-next-gen-autonomy/sprint-1/) may start for local
 or stage-lab proof of the multi-agent supervisor (ADR 0011). NG3+ and production-pilot promotion
 should wait for Production Readiness hard gates.
 

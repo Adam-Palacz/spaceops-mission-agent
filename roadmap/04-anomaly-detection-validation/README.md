@@ -1,0 +1,34 @@
+# Phase 04: Anomaly Detection and Scientific Validation
+
+**Status:** Planned. Not started.
+**Priority:** P1. Starts after RD1, and uses RD2 or RD3 data only under that phase's isolation rules.
+**Strategy:** [04-anomaly-detection-validation.md](../04-anomaly-detection-validation.md)
+**Master roadmap:** [MASTER.md](../MASTER.md)
+
+Measure detection and agent reasoning separately. Publish a comparison that is allowed to show the agent is not better than a simpler baseline.
+
+## Sprint map
+
+| Sprint | Folder | Goal |
+|--------|--------|------|
+| **AV1** | [sprint-1/](sprint-1/) | Benchmark method |
+| **AV2** | [sprint-2/](sprint-2/) | Statistical and classical baselines |
+| **AV3** | [sprint-3/](sprint-3/) | Representative learned detectors |
+| **AV4** | [sprint-4/](sprint-4/) | Detection pipeline |
+| **AV5** | [sprint-5/](sprint-5/) | Agent reasoning benchmark |
+| **AV6** | [sprint-6/](sprint-6/) | Comparative study |
+
+## Exit gate
+
+- A reproducible report compares the named baselines on a frozen test split.
+- Detection, localisation, root cause, agent reasoning, and action planning are separate tables.
+- The report states limitations, including leakage and any case where a simpler baseline wins.
+- No model or prompt is selected by looking at the official test split.
+
+## Non-goals
+
+- Implementing every architecture in the literature.
+- Declaring an operational detector ready for a spacecraft.
+- Using the production-admission review as a substitute for this report.
+
+Passing this gate does not change the production-admission decision and does not declare flight readiness.

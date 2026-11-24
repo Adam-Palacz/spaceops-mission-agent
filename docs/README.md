@@ -2,7 +2,7 @@
 
 This file is the **index and entry point** for documentation in `docs/`. Mermaid diagrams are stored as **.mmd** files in subfolders by domain. Use a Mermaid-compatible viewer (VS Code Mermaid extension, GitHub/GitLab, [Mermaid Live](https://mermaid.live)) to render them.
 
-**Repository:** [README](../README.md) · [portfolio/README.md](portfolio/README.md) (PS6.10) · [roadmap/goals.md](../roadmap/goals.md) · [roadmap/01-foundation-mvp.md](../roadmap/01-foundation-mvp.md) · [roadmap/02-production-scale.md](../roadmap/02-production-scale.md) · [roadmap/README.md](../roadmap/README.md)
+**Repository:** [README](../README.md) · [portfolio/README.md](portfolio/README.md) (PS6.10) · [roadmap/MASTER.md](../roadmap/MASTER.md) · [roadmap/goals.md](../roadmap/goals.md) · [roadmap/01-foundation-mvp.md](../roadmap/01-foundation-mvp.md) · [roadmap/02-production-scale.md](../roadmap/02-production-scale.md) · [roadmap/README.md](../roadmap/README.md)
 
 ---
 

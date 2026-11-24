@@ -25,11 +25,12 @@ security, managed-service, and paging admission gates.
 
 ## Autonomy dependency rule
 
-- **NG1-NG2** may start in parallel when scoped to local or stage-lab proof.
-- **NG3+** should wait for PR1 and PR2 hard gates, because compliance, edge mode, and GraphRAG need
-  trustworthy observability, backup, secrets, and audit foundations.
-- Any NG task that touches production-like deployment paths must inherit this phase's SLO, audit,
-  release, and security gates.
+Next-gen execution is deferred by the [master roadmap](../MASTER.md). The 2026-11-23 review
+rule is preserved in [deprecated-03-next-gen-autonomy/README.md](../deprecated-03-next-gen-autonomy/README.md):
+NG1-NG2 local proof is no longer the next build, and NG3+ production-like promotion stays blocked.
+Any later autonomy task that touches a production-like path still inherits this phase's SLO,
+audit, release, and security gates. PR4.8 through PR4.12 are additional admission inputs inside
+[sprint 4](sprint-4/README.md), not a new phase.
 
 ---
 

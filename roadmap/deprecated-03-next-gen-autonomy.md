@@ -1,3 +1,5 @@
+**Deprecated historical vision.** This file was `03-next-gen-autonomy.md`. It is not phase 03. Phase 03 is [real-world mission data](03-real-world-mission-data.md). The current disposition is [phase 08](08-next-gen-autonomy.md).
+
 # SpaceOps Mission Agent Lab — Phase 8 / Next-Gen Autonomy (L3–L4)
 
 **Purpose:** extend SpaceOps from L1/L2 automation (MVP + productionisation) to **L3/L4 autonomy**
@@ -10,7 +12,7 @@ phase is **not** for current delivery; it is a forward-looking design for:
 - edge autonomy with air‑gapped SLMs,
 - and next‑gen knowledge retrieval (GraphRAG).
 
-Use this file as **vision**; concrete work is tracked in **[03-next-gen-autonomy/](03-next-gen-autonomy/)**
+Use this file as **vision**; concrete work is tracked in **[deprecated-03-next-gen-autonomy/](deprecated-03-next-gen-autonomy/)**
 (NG1–NG5 sprints with `BOARD.md`). Schedule after **PS6** (minimum) and preferably **PS7** (live stage).
 
 **Backlog triage:** [backlog/TRIAGE.md](backlog/TRIAGE.md) — which BL-xxx items are still relevant.
@@ -180,8 +182,10 @@ issues, which then affect propulsion).
 
 ## How to use this document
 
-- **Execution:** [03-next-gen-autonomy/README.md](03-next-gen-autonomy/README.md) — sprint map NG1→NG5.
+- **Execution:** [deprecated-03-next-gen-autonomy/README.md](deprecated-03-next-gen-autonomy/README.md) — sprint map NG1→NG5.
 - **Do not pull L3/L4 into S1/S2 or PS1–PS4** without explicit re-scope.
 - **Cloud stretch** (live GKE, billing) stays in [02-production-scale/sprint-7/](02-production-scale/sprint-7/) (PS7), not NG.
 - Keep aligned with `01-foundation-mvp.md`, `02-production-scale.md`, [goals.md](goals.md).
+
+**Execution status (2026-11-24):** deferred. Historical sprint specs remain in [deprecated-03-next-gen-autonomy/](deprecated-03-next-gen-autonomy/). The disposition and entry gates are [08-next-gen-autonomy/](08-next-gen-autonomy/). This vision is not a commitment to build it next.
 

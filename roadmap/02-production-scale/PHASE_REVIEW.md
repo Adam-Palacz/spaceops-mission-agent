@@ -27,7 +27,7 @@ formal SLOs, alerting/on-call, live secret rotation, and long-running stage/prod
   - [PS5](sprint-5/SPRINT_REVIEW.md)
   - [PS6](sprint-6/SPRINT_REVIEW.md)
   - [PS7](sprint-7/SPRINT_REVIEW.md)
-- The phase README points to the next phase: [Next-Gen Autonomy](../03-next-gen-autonomy/).
+- The phase README points to the next phase: [Next-Gen Autonomy](../deprecated-03-next-gen-autonomy/).
 - The latest collection check found 416 pytest tests collected.
 
 ## Sprint outcomes
