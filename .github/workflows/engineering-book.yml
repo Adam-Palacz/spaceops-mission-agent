@@ -11,6 +11,10 @@ on:
       - "scripts/book_build.py"
       - "scripts/book_screenshots.py"
       - "tests/test_production_readiness_pr35_engineering_book.py"
+      - "tests/conftest.py"
+      - "config.py"
+      - "apps/common/secrets.py"
+      - "requirements.txt"
       - ".github/workflows/engineering-book.yml"
   pull_request:
     branches: [main]
@@ -22,6 +26,10 @@ on:
       - "scripts/book_build.py"
       - "scripts/book_screenshots.py"
       - "tests/test_production_readiness_pr35_engineering_book.py"
+      - "tests/conftest.py"
+      - "config.py"
+      - "apps/common/secrets.py"
+      - "requirements.txt"
       - ".github/workflows/engineering-book.yml"
   workflow_dispatch:
 
@@ -44,7 +52,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc weasyprint
-          pip install pyyaml pytest
+          # Shared tests/conftest.py imports config at collection time.
+          # Keep this lightweight subset aligned with requirements.txt.
+          python -m pip install PyYAML==6.0.2 pytest==8.3.4 pydantic==2.13.3 pydantic-settings==2.14.0 python-dotenv==1.2.2
 
       - name: Verify source, links, redaction, and manifests
         run: make book-verify PYTHON=python
@@ -53,7 +63,7 @@ jobs:
         run: make book PYTHON=python
 
       - name: Test publication pipeline
-        run: pytest tests/test_production_readiness_pr35_engineering_book.py -q
+        run: python -m pytest tests/test_production_readiness_pr35_engineering_book.py -q
 
       - name: Upload private engineering edition
         uses: actions/upload-artifact@v4
