@@ -40,7 +40,7 @@ jobs:
       SOURCE_DATE_EPOCH: "1795392000"
       BOOK_PDF_ENGINE: weasyprint
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
