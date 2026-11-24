@@ -13,6 +13,10 @@ The lab can already ingest, store, retrieve, and reason over synthetic telemetry
 
 `TelemetryEventV1.metadata` can carry provenance without a breaking field, but the contract has no mission, dataset, or license identity. `data/telemetry/telemetry.ndjson` stays the CI fixture. OPSSAT-AD (Zenodo 10.5281/zenodo.12588359, CC BY 4.0) is 2123 labeled univariate segments from nine channels, split 1594/529 by the `train` flag in the released CSV. That split is stratified random, not a chronological holdout. The re-entry UHF campaign (1-22 May 2024, [ESA UHF telemetry analysis](https://opssat.esa.int/ops-sat-1/docs/tm_analysis.html)) is a separate physical recording and its license was not stated on the analysis page during this pass. ESA-AD (Zenodo 10.5281/zenodo.12528696, CC BY 3.0 IGO) contains three anonymized missions; the published benchmark uses two. Rare nominal events are not anomalies, and telecommands are not anomaly labels.
 
+## Historical model processing
+
+Use the [planned public-data egress policy](03-real-world-mission-data/LLM_DATA_POLICY.md). Local-only is the default for real data; a reviewed public-only allowlist may permit an external model for an isolated historical experiment. Stage and production gates are unchanged.
+
 ## Exit gate
 
 - Replay cited historical telemetry from at least two distinct missions through the existing ingest and telemetry MCP path. Both OPS-SAT products count as one mission. Record the mission IDs, replay run IDs, and agent analysis for each mission.

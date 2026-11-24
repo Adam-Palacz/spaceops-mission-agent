@@ -25,6 +25,7 @@ Gaps for this task:
 - Agent tools used at investigation time cannot read ground truth.
 - Evaluation tools can read ground truth only after the prediction is stored.
 - Isolation key is dataset id plus mission id, not mission name alone. Two products from OPS-SAT stay distinct.
+- Specify and enforce the minimum historical-public-data model egress control in [LLM_DATA_POLICY.md](../LLM_DATA_POLICY.md), including default deny, per-version/provider approval, field allowlist, no external embeddings or fallback in local-only mode, and sanitized audit.
 
 ## Functional and non-functional requirements
 
@@ -32,6 +33,7 @@ Gaps for this task:
 - Agent tools used at investigation time cannot read ground truth.
 - Evaluation tools can read ground truth only after the prediction is stored.
 - Isolation key is dataset id plus mission id, not mission name alone. Two products from OPS-SAT stay distinct.
+- Specify and enforce the minimum historical-public-data model egress control in [LLM_DATA_POLICY.md](../LLM_DATA_POLICY.md), including default deny, per-version/provider approval, field allowlist, no external embeddings or fallback in local-only mode, and sanitized audit.
 
 - Non-functional: reproducible from a clean checkout, bounded cost, no secrets in git, and no claim that a plan or a unit test is operational evidence.
 
@@ -49,6 +51,7 @@ Gaps for this task:
 - [ ] Specify the ground-truth record and the tool allowlist.
 - [ ] Add a negative test that an investigation tool cannot see labels.
 - [ ] Document the two OPS-SAT dataset ids that must never share labels.
+- [ ] Implement the minimal egress decision and negative tests from the policy before an external historical model call.
 
 ## Test requirements
 
@@ -67,12 +70,13 @@ Gaps for this task:
 - Ground truth is untrusted as an operator instruction. It is an evaluation artifact.
 - No prompt template may interpolate label fields.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria
 
 - A reviewer can show that the agent path and the scorer path use different stores or views.
+- Approved synthetic test requests pass and unapproved requests fail closed; local-only runs cannot reach external model services.
 
 ## Required execution evidence
 

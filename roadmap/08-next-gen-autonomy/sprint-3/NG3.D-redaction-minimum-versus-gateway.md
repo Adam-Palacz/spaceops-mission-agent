@@ -21,13 +21,13 @@ Gaps for this task:
 
 ## Requirements
 
-- RD2.3, AV5, AV6, and MC3 must fail closed to a non-external path when redaction is not accepted.
+- RD2.3, AV5 and AV6 use the default-deny historical public-data egress policy; MC3 live data remains local-only absent separate security approval. Fail closed unless the applicable control is implemented and approved.
 - Building the full scrubber remains NG3 and stays Todo.
 - ITAR or EAR data is not imported under this roadmap.
 
 ## Functional and non-functional requirements
 
-- RD2.3, AV5, AV6, and MC3 must fail closed to a non-external path when redaction is not accepted.
+- RD2.3, AV5 and AV6 use the default-deny historical public-data egress policy; MC3 live data remains local-only absent separate security approval. Fail closed unless the applicable control is implemented and approved.
 - Building the full scrubber remains NG3 and stays Todo.
 - ITAR or EAR data is not imported under this roadmap.
 
@@ -60,7 +60,7 @@ Gaps for this task:
 
 - No task in this restructuring authorizes export-controlled technical data.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria

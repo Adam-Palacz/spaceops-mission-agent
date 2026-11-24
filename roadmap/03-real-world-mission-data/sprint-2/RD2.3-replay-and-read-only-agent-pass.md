@@ -64,15 +64,15 @@ Gaps for this task:
 
 ## Security and safety requirements
 
-- Real samples stay on the machine that holds the dataset. This pass does not call an external LLM with those samples unless redaction from the deferred NG3 design has been accepted for this use.
-- Default the real pass to the existing non-LLM evidence path if redaction is not accepted.
+- Real samples stay local unless the narrow public historical exception in [LLM_DATA_POLICY.md](../LLM_DATA_POLICY.md) has been implemented, tested and approved for this exact dataset and provider. A full NG3 gateway is not a prerequisite.
+- Use an explicitly local model with external egress disabled if no exception is approved. If unavailable, record a non-LLM replay as plumbing evidence only; the actual model-backed agent run remains pending.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria
 
-- One stored report shows the dataset id, the channels queried, and zero write-tool calls.
+- One stored model-backed report on licensed real data shows the dataset id, model and policy revision, channels queried, verified citations, and zero write-tool calls. A synthetic run or non-LLM replay alone is insufficient.
 
 ## Required execution evidence
 

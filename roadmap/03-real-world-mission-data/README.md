@@ -16,6 +16,10 @@ Move analysis from the synthetic fixture to cited, isolated historical mission d
 | **RD3** | [sprint-3/](sprint-3/) | ESA-ADB import |
 | **RD4** | [sprint-4/](sprint-4/) | Historical incident knowledge |
 
+## Model egress gate
+
+See [LLM_DATA_POLICY.md](LLM_DATA_POLICY.md). RD1.3 owns the minimal control and RD2.3 exercises it. A local non-LLM replay verifies ingestion only; actual model-backed read-only analysis is required for the agent evidence.
+
 ## Exit gate
 
 - Replay cited historical telemetry from at least two distinct missions through the existing ingest and telemetry MCP path. Both OPS-SAT products count as one mission. Record the mission IDs, replay run IDs, and agent analysis for each mission.

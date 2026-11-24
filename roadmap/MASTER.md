@@ -49,6 +49,11 @@ Dependabot and the Docker build are not an SBOM or a signed image.
 - The engineering-book workflow already exists and PR3.5 is Done. PR4.11 verifies the current run. It does not assume a failure.
 - Phase 08 was already the title of `roadmap/deprecated-03-next-gen-autonomy.md`. The execution folder stays as the historical spec. New disposition files live in `roadmap/08-next-gen-autonomy/`.
 
+## Public historical data and benchmark integrity
+
+- Follow the [model egress policy](03-real-world-mission-data/LLM_DATA_POLICY.md): external processing is denied by default, with a narrow reviewed approval path for versioned public historical fields in isolated local/dev experiments. Local-only model execution is the fallback; a non-LLM replay is not an agent benchmark. No stage or pilot admission changes.
+- Historical cases may be memorized by pretrained LLMs. AV5 distinguishes public-report reconstruction from evidence-grounded generalization using blinded cases, identity-only and no-evidence controls, and separate reporting of synthetic or perturbed cases. No public case score proves unseen-event performance.
+
 ## Four different readiness words
 
 | Word | Meaning | Where it is decided |
@@ -79,6 +84,7 @@ flowchart TD
   RD4["03 RD4 cited cases"]
   AV1["04 AV1 method"]
   AV2["04 AV2 baselines"]
+  AV5["04 AV5 agent reasoning"]
   AV6["04 AV6 report"]
   MC1["05 Yamcs read-only"]
   EA2["06 EA2 offline model"]
@@ -92,7 +98,9 @@ flowchart TD
   RD2 --> AV1
   AV1 --> AV2
   AV2 --> AV6
-  RD4 --> AV6
+  RD4 --> AV5
+  RD2 --> AV5
+  AV5 --> AV6
   RD1 --> MC1
   AV6 --> NG
   AV6 --> EV4
@@ -103,7 +111,7 @@ flowchart TD
 The admission path is PR4.1 through PR4.7, plus a disposition of PR4.8 through PR4.12.
 Close-out of the existing drills still waits for the network hold recorded in the PR4 sprint
 review. The evidence path is RD1, then the labeled OPSSAT-AD release,
-then AV1 and the baselines, then AV6. Mission-control and edge work can slip without blocking
+then AV1 and the baselines. The independent agent path is RD4.3 plus RD2.3, then AV5; it can start before AV2-AV4 finish. AV6 joins the two paths. Mission-control and edge work can slip without blocking
 that report. Next-gen work waits on the AV6.2 paragraph.
 
 ## Optional research

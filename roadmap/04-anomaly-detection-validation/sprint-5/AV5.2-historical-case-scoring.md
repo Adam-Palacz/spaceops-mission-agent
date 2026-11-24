@@ -23,12 +23,14 @@ Gaps for this task:
 - Run the agent metric suite on RD4 cases that have a known cause, and separately list cases with unknown cause.
 - Do not compute root-cause accuracy on OPSSAT-AD or ESA-AD anomaly flags.
 - The prediction is stored before the hidden reference is opened.
+- Freeze named public, blinded public, and synthetic/perturbed cohorts and case families before model/prompt tuning. Run an identity-only/no-telemetry baseline on named cases to estimate recall of public reports, and a matched no-evidence control on blinded cases. Compare full-evidence and no-evidence runs using the same model, prompt version and scoring rubric. Record model/version, exposure risk, case counts, paired metric deltas and uncertainty; report separate cohort metrics. Public-case recall may reflect memorization; do not claim unseen-event generalization.
 
 ## Functional and non-functional requirements
 
 - Run the agent metric suite on RD4 cases that have a known cause, and separately list cases with unknown cause.
 - Do not compute root-cause accuracy on OPSSAT-AD or ESA-AD anomaly flags.
 - The prediction is stored before the hidden reference is opened.
+- Freeze named public, blinded public, and synthetic/perturbed cohorts and case families before model/prompt tuning. Run an identity-only/no-telemetry baseline on named cases to estimate recall of public reports, and a matched no-evidence control on blinded cases. Compare full-evidence and no-evidence runs using the same model, prompt version and scoring rubric. Record model/version, exposure risk, case counts, paired metric deltas and uncertainty; report separate cohort metrics. Public-case recall may reflect memorization; do not claim unseen-event generalization.
 
 - Non-functional: reproducible from a clean checkout, bounded cost, no secrets in git, and no claim that a plan or a unit test is operational evidence.
 
@@ -45,22 +47,25 @@ Gaps for this task:
 
 - [ ] Execute the order: predict, store, then score.
 - [ ] Publish counts of known-cause and unknown-cause cases.
+- [ ] Execute and report the memorization controls and paired comparisons, including negative results and limitations.
 
 ## Test requirements
 
 - Opening the hidden file before the prediction is stored fails the test.
 - An OPSSAT-AD label cannot satisfy the root-cause metric.
+- An identity-only run receives no telemetry, tools, or ground truth; a blinded no-evidence run has no mission identity or evidence. A transformed case cannot be counted as a real historical case.
 
 ## Testing requirements
 
 - Opening the hidden file before the prediction is stored fails the test.
 - An OPSSAT-AD label cannot satisfy the root-cause metric.
+- An identity-only run receives no telemetry, tools, or ground truth; a blinded no-evidence run has no mission identity or evidence. A transformed case cannot be counted as a real historical case.
 
 ## Security and safety requirements
 
-- External LLM calls on real cases remain disabled unless a reviewed redaction control exists.
+- External LLM calls on real cases remain disabled unless the specific historical public-data exception in the planned egress policy has been implemented, tested and approved. Local-only model runs are otherwise required.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria
