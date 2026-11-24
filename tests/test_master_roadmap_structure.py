@@ -108,3 +108,22 @@ def test_new_roadmap_links_resolve() -> None:
             if not (doc.parent / target).resolve().exists():
                 missing.append(f"{doc}: {target}")
     assert not missing, missing
+
+
+def test_historical_validation_tracks_and_egress_policy() -> None:
+    master = (ROADMAP / "MASTER.md").read_text(encoding="utf-8")
+    assert "RD4 --> AV5" in master
+    assert "AV5 --> AV6" in master
+    assert "before AV2-AV4 finish" in master
+    phase = ROADMAP / "03-real-world-mission-data"
+    policy = (phase / "LLM_DATA_POLICY.md").read_text(encoding="utf-8")
+    assert "stage remains synthetic-only" in policy
+    assert "External denied" in policy
+    assert "No exception under this policy" in policy
+    assert "Ground truth, hidden references" in policy
+    assert "cloud fallback" in policy
+    av5 = ROADMAP / "04-anomaly-detection-validation" / "sprint-5"
+    scoring = (av5 / "AV5.2-historical-case-scoring.md").read_text(encoding="utf-8")
+    assert "identity-only/no-telemetry baseline" in scoring
+    assert "no-evidence control" in scoring
+    assert "do not claim unseen-event generalization" in scoring

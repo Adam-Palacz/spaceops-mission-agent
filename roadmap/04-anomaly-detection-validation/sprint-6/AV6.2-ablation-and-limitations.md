@@ -62,8 +62,12 @@ Gaps for this task:
 
 - Do not add a backend credential to the report.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
+
+## Exposure and generalization limitations
+
+Report AV5 identity-only and blinded no-evidence controls and full-evidence deltas by cohort. State that pretrained-model exposure cannot be ruled out on public historical reports. Distinguish answer retrieval, historical reconstruction and evidence-grounded reasoning. Do not infer generalization from public-report scores alone.
 
 ## Acceptance criteria
 

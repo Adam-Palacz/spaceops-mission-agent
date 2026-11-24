@@ -22,13 +22,13 @@ Gaps for this task:
 
 - B0 is rules and thresholds. B1 is the selected classical detector. B2 is a telemetry summary sent to an LLM without MCP or KB. B3 is the current agent with MCP, KB, and policy. B4 is B1 followed by B3.
 - Detectors are compared on detection metrics. Agents are compared on AV5 metrics. End-to-end rows use the same scenario list.
-- B2 on real samples is allowed only with the redaction gate, otherwise B2 runs on the synthetic scenario list only and the report says so.
+- All model variants on real samples use the same eligible data policy and matched model access. Use local models if external approval is absent; if no eligible model is available, report unavailable variants, not synthetic scores as real-data comparisons.
 
 ## Functional and non-functional requirements
 
 - B0 is rules and thresholds. B1 is the selected classical detector. B2 is a telemetry summary sent to an LLM without MCP or KB. B3 is the current agent with MCP, KB, and policy. B4 is B1 followed by B3.
 - Detectors are compared on detection metrics. Agents are compared on AV5 metrics. End-to-end rows use the same scenario list.
-- B2 on real samples is allowed only with the redaction gate, otherwise B2 runs on the synthetic scenario list only and the report says so.
+- All model variants on real samples use the same eligible data policy and matched model access. Use local models if external approval is absent; if no eligible model is available, report unavailable variants, not synthetic scores as real-data comparisons.
 
 - Non-functional: reproducible from a clean checkout, bounded cost, no secrets in git, and no claim that a plan or a unit test is operational evidence.
 
@@ -50,18 +50,20 @@ Gaps for this task:
 ## Test requirements
 
 - Each variant has a registry id.
+- Agent comparisons retain the AV5 exposure-control cohorts and matched no-evidence controls; synthetic scores are not compared as if they used the real test set.
 - A missing variant is a blank cell with a reason, not an imputed win.
 
 ## Testing requirements
 
 - Each variant has a registry id.
+- Agent comparisons retain the AV5 exposure-control cohorts and matched no-evidence controls; synthetic scores are not compared as if they used the real test set.
 - A missing variant is a blank cell with a reason, not an imputed win.
 
 ## Security and safety requirements
 
 - B2 must not become a backdoor that sends unlabeled real telemetry to an external model.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria

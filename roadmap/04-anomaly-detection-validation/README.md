@@ -18,6 +18,10 @@ Measure detection and agent reasoning separately. Publish a comparison that is a
 | **AV5** | [sprint-5/](sprint-5/) | Agent reasoning benchmark |
 | **AV6** | [sprint-6/](sprint-6/) | Comparative study |
 
+## Independent evaluation tracks
+
+AV5.1 may start on synthetic scorer cases while RD4 is being prepared. The historical AV5 runs require RD4.3, the RD2.3 read-only profile and an eligible model path, not AV2-AV4. AV6 combines the independent detector and agent tracks. Public-report reconstruction and blinded/perturbed reasoning cohorts must be reported separately with memorization controls; no public historical score proves unseen-event generalization.
+
 ## Exit gate
 
 - A reproducible report compares the named baselines on a frozen test split.

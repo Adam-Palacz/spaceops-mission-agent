@@ -13,6 +13,10 @@ A mission-ops demo that cannot be scored against a fixed split and a dumb baseli
 
 The repository has semantic evals, golden replays, and behavior metrics for the lab agent. It has no detector interface, no MLflow tracking, no Isolation Forest, and no ESA metric implementation. OPSSAT-AD's official comparison split is the `train` flag: 1594 train and 529 test segments, counted from the released CSV. That split is stratified random, so a score on it is not a chronological-operations claim. ESA-ADB publishes its own operational metrics and currently treats rare nominal events as anomalies in its algorithm runner. SpaceOps reports that convention separately and does not adopt it as the only score. Agent diagnosis is scored only on RD4 cases with a known cause, never on a binary segment label.
 
+## Independent evaluation tracks
+
+AV5.1 may start on synthetic scorer cases while RD4 is being prepared. The historical AV5 runs require RD4.3, the RD2.3 read-only profile and an eligible model path, not AV2-AV4. AV6 combines the independent detector and agent tracks. Public-report reconstruction and blinded/perturbed reasoning cohorts must be reported separately with memorization controls; no public historical score proves unseen-event generalization.
+
 ## Exit gate
 
 - A reproducible report compares the named baselines on a frozen test split.

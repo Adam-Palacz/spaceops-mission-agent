@@ -24,6 +24,8 @@ Gaps for this task:
 - The hidden file is not indexed by KB MCP and is not mounted into the agent run.
 - Cases must say whether a root cause is actually known. Unknown cause is an allowed label.
 - OPSSAT-AD segment labels are not valid hidden root causes.
+- Record public-report exposure risk and evidence availability at the incident cutoff. Freeze separate cohorts: named public reconstructions, blinded/aliased versions (remove nonessential mission names, dates, distinctive wording and source URLs from model-visible inputs), and separately labeled synthetic or physically plausible perturbed cases. Preserve real evidence and provenance in the evaluator. Do not claim blinded public cases are guaranteed unseen by the model.
+- Keep post-incident root-cause reports out of the diagnosis retrieval index; keep only material available at the case cutoff. Evaluate answer retrieval separately, if needed.
 
 ## Functional and non-functional requirements
 
@@ -31,6 +33,8 @@ Gaps for this task:
 - The hidden file is not indexed by KB MCP and is not mounted into the agent run.
 - Cases must say whether a root cause is actually known. Unknown cause is an allowed label.
 - OPSSAT-AD segment labels are not valid hidden root causes.
+- Record public-report exposure risk and evidence availability at the incident cutoff. Freeze separate cohorts: named public reconstructions, blinded/aliased versions (remove nonessential mission names, dates, distinctive wording and source URLs from model-visible inputs), and separately labeled synthetic or physically plausible perturbed cases. Preserve real evidence and provenance in the evaluator. Do not claim blinded public cases are guaranteed unseen by the model.
+- Keep post-incident root-cause reports out of the diagnosis retrieval index; keep only material available at the case cutoff. Evaluate answer retrieval separately, if needed.
 
 - Non-functional: reproducible from a clean checkout, bounded cost, no secrets in git, and no claim that a plan or a unit test is operational evidence.
 
@@ -49,24 +53,27 @@ Gaps for this task:
 - [ ] Define the split file layout.
 - [ ] Test that KB search and the telemetry tool cannot read the hidden file.
 - [ ] Include one synthetic case in CI and keep real cases out of git if their text is restricted.
+- [ ] Freeze case families/cohort assignments together and audit model-visible packets, KB, tool output and metadata for identifying cues and future evidence.
 
 ## Test requirements
 
 - Agent-visible search misses the hidden answer.
 - The scorer can read it after the prediction is saved.
 - A case with unknown cause does not require a guessed subsystem.
+- Blinded packets and retrieval results omit prohibited identifiers and future reports while retaining evidence necessary for the task; transformed cases are identified as such in the scorer.
 
 ## Testing requirements
 
 - Agent-visible search misses the hidden answer.
 - The scorer can read it after the prediction is saved.
 - A case with unknown cause does not require a guessed subsystem.
+- Blinded packets and retrieval results omit prohibited identifiers and future reports while retaining evidence necessary for the task; transformed cases are identified as such in the scorer.
 
 ## Security and safety requirements
 
 - Hidden files follow the same redaction rule as evidence notes.
 
-- Do not send real or historical mission samples to an external LLM until a reviewed redaction control exists. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
+- External model processing is default-deny. For isolated historical public-data experiments only, follow the reviewed minimal egress/redaction control in `roadmap/03-real-world-mission-data/LLM_DATA_POLICY.md`. All other data retains the stricter existing restrictions. The synthetic CI fixture is the only telemetry that may enter existing eval jobs.
 - Restricted actions stay behind OPA and the approval API. This task adds no command uplink.
 
 ## Acceptance criteria

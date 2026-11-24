@@ -17,7 +17,7 @@ The vision file `roadmap/deprecated-03-next-gen-autonomy.md` is already titled a
 
 - NG1 starts only if AV6.2 documents a measured cross-subsystem miss that a single agent fails and a specialist split is expected to fix.
 - NG2 starts only after EV3 or MC4.2 has operator feedback that approve/reject cannot express.
-- NG3's full gateway stays deferred. Real-sample redaction is tracked where the data leaves the machine.
+- NG3's full gateway stays deferred. The reviewed minimum egress/redaction control for isolated historical public-data experiments is tracked in RD1.3/RD2.3; all stricter live, confidential and pilot gates remain in force.
 - NG4 is implemented, if at all, as EA2, and the NG4 board is updated only when EA2 is actually done.
 - NG5 starts only if AV6 shows a cited retrieval failure that vector search cannot answer.
 
