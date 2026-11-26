@@ -33,6 +33,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[managed_observability_pr44.md](managed_observability_pr44.md)** — PR4.4 Cloud Logging/Trace IaC, access-denial proof, retention, deletion semantics, and live drill evidence.
 - **[managed_postgres_ha_pitr_pr45.md](managed_postgres_ha_pitr_pr45.md)** — PR4.5 Cloud SQL regional failover, PITR boundary, IAM denial, cost guardrails, and teardown evidence.
 - **[live_paging_pr46.md](live_paging_pr46.md)** — PR4.6 PagerDuty delivery, acknowledgement, resolution, and the remaining escalation and key-revocation gaps.
+- **[architecture_roadmap_review_2026_11_26.md](architecture_roadmap_review_2026_11_26.md)** — Architecture and roadmap review notes (2026-11-26): governance vs. domain balance, API/graph refactoring candidates, and strategic alignment checkpoint scheduled in `RD2.4`.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
@@ -146,7 +147,7 @@ The **docs/** directory holds project documentation that supports both humans an
 | Field | Value |
 |-------|--------|
 | **Document version** | 1.1 |
-| **Last updated** | 2026-11-20 |
+| **Last updated** | 2026-11-26 |
 
 ### Instructions for AI when working in `docs/`
 
