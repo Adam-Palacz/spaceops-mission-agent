@@ -1,6 +1,6 @@
 # RD2 - OPS-SAT historical products
 
-**Status:** In progress. RD2.1 is Done; RD2.2, RD2.3, and RD2.4 are Todo.
+**Status:** In progress. RD2.1 and RD2.2 are Done. RD2.2 keeps the real UHF campaign unread. RD2.3 and RD2.4 are Todo.
 
 **Goal:** Import two cited OPS-SAT products through the RD1 adapters and read one replay with the current agent, without training a model.
 

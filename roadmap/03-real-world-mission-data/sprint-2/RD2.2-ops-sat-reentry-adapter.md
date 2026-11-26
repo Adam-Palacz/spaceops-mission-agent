@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. `apps/mission_data/opssat_reentry.py` maps the public columns and refuses the real file. |
 
 ## Objective and rationale
 
@@ -50,9 +50,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Write the column map and the ground-receipt-time caveat.
-- [ ] Block the real import behind a license record.
-- [ ] Add a fixture test that a re-entry row cannot receive an OPSSAT-AD label.
+- [x] Write the column map and the ground-receipt-time caveat.
+- [x] Block the real import behind a license record.
+- [x] Add a fixture test that a re-entry row cannot receive an OPSSAT-AD label.
 
 ## Test requirements
 
@@ -86,4 +86,4 @@ Gaps for this task:
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+Done for the license gate: the column map, the refusal tests, and [evidence/RD2.2-reentry-license-gate-2026-11-26.json](evidence/RD2.2-reentry-license-gate-2026-11-26.json) are in place. The real campaign is still unread. This does not change the 2026-11-23 No-go decision, and phase exit still cannot count the campaign as a second imported product.

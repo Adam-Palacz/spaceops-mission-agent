@@ -183,8 +183,10 @@ def test_synthetic_and_opssat_channels_do_not_collide() -> None:
     synthetic = registry.channels_for_mission("lab-synthetic")
     opssat = registry.channels_for_mission("ops-sat")
     assert synthetic.isdisjoint(opssat)
-    assert opssat == OPSSAT_CHANNELS
+    reentry = registry.channels_for_dataset("opssat-reentry-uhf")
     assert registry.channels_for_dataset("opssat-ad") == OPSSAT_CHANNELS
+    assert reentry.isdisjoint(OPSSAT_CHANNELS)
+    assert opssat == OPSSAT_CHANNELS | reentry
     assert "temp_plate_1" not in registry.channels_for_dataset("opssat-ad")
     assert "CADC0872" not in registry.channels_for_dataset("lab-synthetic-telemetry")
     lab = registry.require("lab-synthetic", "lab-synthetic-telemetry", "temp_plate_1")

@@ -157,6 +157,239 @@
                   "unit": null,
                   "kind": "numeric",
                   "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "ADCS_mode",
+                  "source_name": "ADCS_mode",
+                  "unit": null,
+                  "kind": "categorical",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "X_Coarse_Spin",
+                  "source_name": "X_Coarse_Spin",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "Y_Coarse_Spin",
+                  "source_name": "Y_Coarse_Spin",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "Z_Coarse_Spin",
+                  "source_name": "Z_Coarse_Spin",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD1_CSS_theta",
+                  "source_name": "PD1_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD2_CSS_theta",
+                  "source_name": "PD2_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD3_CSS_theta",
+                  "source_name": "PD3_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD4_CSS_theta",
+                  "source_name": "PD4_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD5_CSS_theta",
+                  "source_name": "PD5_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PD6_CSS_theta",
+                  "source_name": "PD6_CSS_theta",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "ACU2_Temp",
+                  "source_name": "ACU2_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "EPS",
+              "channels": [
+                {
+                  "channel_id": "Battery_Voltage",
+                  "source_name": "Battery_Voltage",
+                  "unit": "V",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "Battery_Temp",
+                  "source_name": "Battery_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "PDU_Channels_Status",
+                  "source_name": "PDU_Channels_Status",
+                  "unit": null,
+                  "kind": "categorical",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "COMMS",
+              "channels": [
+                {
+                  "channel_id": "NanoCom_Temp",
+                  "source_name": "NanoCom_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "Background_RSSI",
+                  "source_name": "Background_RSSI",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "Last_RSSI",
+                  "source_name": "Last_RSSI",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "OBC",
+              "channels": [
+                {
+                  "channel_id": "NanoMind_Temp",
+                  "source_name": "NanoMind_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "PAYLOAD",
+              "channels": [
+                {
+                  "channel_id": "HD_Cam_Temp",
+                  "source_name": "HD_Cam_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "SDR_Temp",
+                  "source_name": "SDR_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                },
+                {
+                  "channel_id": "SEPP_Temp",
+                  "source_name": "SEPP_Temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "role": "sensor",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "ORBIT",
+              "channels": [
+                {
+                  "channel_id": "Days_Elapsed",
+                  "source_name": "Days_Elapsed",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "derived",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored. Derived field, not a spacecraft sensor."
+                },
+                {
+                  "channel_id": "Altitude",
+                  "source_name": "Altitude",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "derived",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored. Derived field, not a spacecraft sensor."
+                },
+                {
+                  "channel_id": "Bstar_drag",
+                  "source_name": "Bstar_drag",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "derived",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored. Derived field, not a spacecraft sensor."
+                },
+                {
+                  "channel_id": "lat",
+                  "source_name": "lat",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "derived",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored. Derived field, not a spacecraft sensor."
+                },
+                {
+                  "channel_id": "lng",
+                  "source_name": "lng",
+                  "unit": null,
+                  "kind": "numeric",
+                  "role": "derived",
+                  "sampling": "UHF re-entry column. Timestamp is ground receipt time, not necessarily onboard generation time. No calibration is stored. Derived field, not a spacecraft sensor."
                 }
               ]
             }
@@ -197,6 +430,76 @@
             "CADC0890",
             "CADC0892",
             "CADC0894"
+          ]
+        },
+        {
+          "dataset_id": "opssat-reentry-uhf",
+          "license_spdx": "UNRECORDED",
+          "source_url": "https://opssat.esa.int/ops-sat-1/docs/tm_analysis.html",
+          "citation": "OPS-SAT re-entry UHF campaign column names only. No machine-readable license is recorded, and no campaign file is stored.",
+          "sample_kind": "real",
+          "channel_ids": [
+            "Battery_Voltage",
+            "Battery_Temp",
+            "PDU_Channels_Status",
+            "ADCS_mode",
+            "X_Coarse_Spin",
+            "Y_Coarse_Spin",
+            "Z_Coarse_Spin",
+            "PD1_CSS_theta",
+            "PD2_CSS_theta",
+            "PD3_CSS_theta",
+            "PD4_CSS_theta",
+            "PD5_CSS_theta",
+            "PD6_CSS_theta",
+            "ACU2_Temp",
+            "NanoCom_Temp",
+            "Background_RSSI",
+            "Last_RSSI",
+            "NanoMind_Temp",
+            "HD_Cam_Temp",
+            "SDR_Temp",
+            "SEPP_Temp",
+            "Days_Elapsed",
+            "Altitude",
+            "Bstar_drag",
+            "lat",
+            "lng"
+          ]
+        },
+        {
+          "dataset_id": "opssat-reentry-uhf-lookalike",
+          "license_spdx": "LicenseRef-SpaceOps-Synthetic",
+          "source_url": "fixture:tests/fixtures/opssat_reentry_lookalike",
+          "citation": "Synthetic CI lookalike for the re-entry column map (RD2.2). Not spacecraft telemetry.",
+          "sample_kind": "synthetic",
+          "channel_ids": [
+            "Battery_Voltage",
+            "Battery_Temp",
+            "PDU_Channels_Status",
+            "ADCS_mode",
+            "X_Coarse_Spin",
+            "Y_Coarse_Spin",
+            "Z_Coarse_Spin",
+            "PD1_CSS_theta",
+            "PD2_CSS_theta",
+            "PD3_CSS_theta",
+            "PD4_CSS_theta",
+            "PD5_CSS_theta",
+            "PD6_CSS_theta",
+            "ACU2_Temp",
+            "NanoCom_Temp",
+            "Background_RSSI",
+            "Last_RSSI",
+            "NanoMind_Temp",
+            "HD_Cam_Temp",
+            "SDR_Temp",
+            "SEPP_Temp",
+            "Days_Elapsed",
+            "Altitude",
+            "Bstar_drag",
+            "lat",
+            "lng"
           ]
         }
       ]

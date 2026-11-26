@@ -25,6 +25,7 @@ class ChannelEntry(BaseModel):
     source_name: str = Field(..., min_length=1)
     unit: str | None = None
     kind: Literal["numeric", "categorical"]
+    role: Literal["sensor", "derived"] = "sensor"
     sampling: str = Field(..., min_length=1)
 
     @field_validator("channel_id", "source_name", "sampling")
@@ -123,6 +124,7 @@ class RegisteredChannel(BaseModel):
     source_name: str
     unit: str | None
     kind: Literal["numeric", "categorical"]
+    role: Literal["sensor", "derived"] = "sensor"
     sampling: str
     sample_kind: Literal["real", "synthetic"]
 
@@ -172,6 +174,7 @@ class MissionRegistry:
                                 source_name=channel.source_name,
                                 unit=channel.unit,
                                 kind=channel.kind,
+                                role=channel.role,
                                 sampling=channel.sampling,
                                 sample_kind=dataset.sample_kind or mission.sample_kind,
                             )
