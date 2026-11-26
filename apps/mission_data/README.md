@@ -11,3 +11,4 @@ Source-agnostic telemetry adapters, provenance validation, mission/channel regis
 - **`egress.py`** — Default-deny historical public-data model egress evaluation, derived-summary restriction inheritance, redaction rules, strict loopback verification, and direct-call/local-only transport guards (RD1.3).
 - **`opssat_ad.py`** — Offline `OPSSATADAdapter`, Zenodo MD5 manifest loader, and separated telemetry/ground-truth importer for OPSSAT-AD (`opssat-ad` and synthetic CI `opssat-ad-lookalike`, RD2.1).
 - **`opssat_reentry.py`** — Offline re-entry column map (RD2.2). Real UHF rows stay unread until a license and file checksums are recorded. The synthetic lookalike is `opssat-reentry-uhf-lookalike` and it does not write ground truth.
+- **`readonly_pass.py`** — RD2.3 read-only lookalike query and channel-citation check. It does not call a model and does not mark the task Done.
