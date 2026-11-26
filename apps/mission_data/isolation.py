@@ -48,6 +48,14 @@ EVALUATION_TOOL_ALLOWLIST: frozenset[str] = frozenset(
     }
 )
 
+READONLY_TOOL_PROFILE = "read_only"
+
+
+def readonly_profile_denies(action_type: str, *, safe: bool) -> bool:
+    """Read-only passes may keep a safe report step and nothing that writes."""
+    return (not safe) or action_type.strip().lower() != "report"
+
+
 INVESTIGATION_TOP_LEVEL_KEYS: frozenset[str] = frozenset(
     {
         "event_id",

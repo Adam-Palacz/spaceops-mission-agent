@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | In progress |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Partial. The read-only profile and the lookalike plumbing pass exist. A model-backed report on licensed real data does not. |
 
 ## Objective and rationale
 
@@ -46,9 +46,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Configure a read-only tool profile.
-- [ ] Run one recorded pass on the lookalike in CI and, if the file is available locally, one pass on the real dataset.
-- [ ] Save a sanitized report excerpt.
+- [x] Configure a read-only tool profile.
+- [x] Run one recorded pass on the lookalike in CI. The real OPSSAT-AD file is not in this checkout, and the re-entry license gate is closed, so that pass was not run.
+- [x] Save a sanitized plumbing excerpt: [evidence/RD2.3-readonly-lookalike-2026-11-26.json](evidence/RD2.3-readonly-lookalike-2026-11-26.json). The model-backed report is still pending.
 
 ## Test requirements
 
@@ -81,4 +81,4 @@ Gaps for this task:
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+Stays In progress. The read-only profile, the lookalike plumbing pass, and the sanitized excerpt exist. Done still requires one stored model-backed report on licensed real data. This does not change the 2026-11-23 No-go decision.

@@ -58,6 +58,7 @@ class AgentState(TypedDict, total=False):
     # S2.3 Act: results of safe actions; restricted steps pending approval
     act_results: list[dict]
     approval_requests: list[dict]
+    tool_profile: str
     report: dict
     escalated: bool
     escalation_packet: EscalationPacket

@@ -1,0 +1,31 @@
+{
+  "schema_version": "rd2.readonly-lookalike.v1",
+  "date": "2026-11-26",
+  "tasks": ["RD2.3"],
+  "result": "plumbing_only",
+  "model_backed": false,
+  "model": null,
+  "versions": {
+    "policy_revision": "2026-11-26.v1",
+    "telemetry_contract_version": "v1",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "ops-sat",
+    "dataset_id": "opssat-ad-lookalike",
+    "license_spdx": "LicenseRef-SpaceOps-Synthetic",
+    "time_range_start": "2021-06-14T08:00:00Z",
+    "time_range_end": "2021-06-14T08:31:00Z",
+    "channels_queried": ["CADC0872", "CADC0873", "CADC0884"],
+    "real_opssat_ad_file_present": false,
+    "reentry_included": false,
+    "reentry_reason": "license unrecorded"
+  },
+  "write_tool_calls": 0,
+  "report_excerpt": "Dataset opssat-ad-lookalike. Queried channels: CADC0872, CADC0873, CADC0884. opssat-reentry-uhf is excluded because its license is unrecorded. No model was called. Write tools were not called.",
+  "command": "python -m pytest tests/test_mission_data_rd23.py tests/test_act_opa_policy.py tests/test_mission_data_rd22.py tests/test_master_roadmap_structure.py -q",
+  "tests": "16 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson and evals/",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

@@ -1,6 +1,6 @@
 # Phase 03: Real-World Mission Data
 
-**Status:** In progress (RD1 Done; RD2 underway — RD2.1 and RD2.2 Done, RD2.3–RD2.4 Todo). The real re-entry file stays unread.
+**Status:** In progress (RD1 Done; RD2 underway — RD2.1 and RD2.2 Done, RD2.3 In progress on lookalike plumbing, RD2.4 Todo). The real re-entry file stays unread.
 **Priority:** P0 for RD1-RD2, then P1 for RD3-RD4
 **Strategy:** [03-real-world-mission-data.md](../03-real-world-mission-data.md)
 **Master roadmap:** [MASTER.md](../MASTER.md)

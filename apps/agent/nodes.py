@@ -37,6 +37,10 @@ from prompts.registry import (
     TRIAGE_PROMPT_ID,
     get_prompt,
 )
+from apps.mission_data.isolation import (
+    READONLY_TOOL_PROFILE,
+    readonly_profile_denies,
+)
 from apps.contracts.output_validation import (
     OUTPUT_SCHEMA_VIOLATION,
     OutputSchemaViolation,
@@ -1115,6 +1119,32 @@ def act(state: AgentState) -> dict:
         safe = step.get("safe", True)
         action_type = (step.get("action_type") or "report").strip().lower()
         action_text = step.get("action", "") or ""
+
+        if (
+            state.get("tool_profile") or ""
+        ) == READONLY_TOOL_PROFILE and readonly_profile_denies(
+            action_type, safe=bool(safe)
+        ):
+            blocked_tool = action_type if safe else "approval_request"
+            audit_append(
+                trace_id=trace_id,
+                incident_id=incident_id,
+                actor="agent",
+                tool=blocked_tool,
+                args={"step_index": i},
+                decision="deny",
+                policy_result="deny",
+                outcome="skipped",
+            )
+            act_results.append(
+                {
+                    "step_index": i,
+                    "tool": blocked_tool,
+                    "outcome": "failure",
+                    "result": {"blocked": READONLY_TOOL_PROFILE},
+                }
+            )
+            continue
 
         if safe and action_type == "create_ticket":
             with tracer.start_as_current_span("mcp.create_ticket") as sp:

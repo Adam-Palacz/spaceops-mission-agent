@@ -120,3 +120,9 @@ fi
 
 - Confirm a matching **`run_*.json`** or **`incident_*.json`** exists under `data/incidents/` (same machine / `DATA_DIR` as the API).
 - If there is no **`run_id`** on the file, ensure **`incident_id`** and **`payload`** match **`payload_hash`** in `data/replay/runs/<run_id>.json` (canonical SHA256 of the `payload` object).
+
+## OPS-SAT read-only pass (RD2.3)
+
+`apps.mission_data.readonly_pass.run_opssat_ad_lookalike_pass` replays the OPSSAT-AD lookalike through `InvestigationTelemetryView` for `2021-06-14T08:00:00Z`–`2021-06-14T08:31:00Z`. The report may name only channels that query returned. Set `tool_profile` to `read_only` on the agent state so Act cannot create a ticket, a pull request, or an approval.
+
+This CI pass does not call a model and does not include `opssat-reentry-uhf`, because that license is unrecorded. It is plumbing evidence. It does not retarget the synthetic eval jobs under `evals/`, and it does not finish RD2.3.
