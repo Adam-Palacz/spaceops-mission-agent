@@ -1,0 +1,43 @@
+{
+  "schema_version": "rd1.isolation-egress.v1",
+  "date": "2026-11-26",
+  "tasks": ["RD1.3"],
+  "result": "pass",
+  "versions": {
+    "policy_revision": "2026-11-26.v1",
+    "egress_approvals_schema_version": "1",
+    "telemetry_contract_version": "v1",
+    "python_version": "3.12"
+  },
+  "isolation": {
+    "key": ["mission_id", "dataset_id"],
+    "opssat_distinct_dataset_ids": ["opssat-ad", "opssat-reentry-uhf"],
+    "investigation_tool_allowlist": [
+      "query_telemetry",
+      "search_runbooks",
+      "search_postmortems"
+    ],
+    "evaluation_tool_allowlist": [
+      "read_ground_truth",
+      "join_predictions_to_labels"
+    ],
+    "ground_truth_store_separate": true
+  },
+  "egress_policy": {
+    "default_decision": "deny",
+    "committed_approvals_count": 0,
+    "local_only_blocks_external_and_fallback": true,
+    "direct_call_bypass_guarded": [
+      "apps/llm_backends/http_common.py",
+      "apps/llm_backends/nim_client.py",
+      "apps/common/reranker.py",
+      "apps/mcp/kb_server/main.py",
+      "apps/mcp/kb_server/index_kb.py"
+    ]
+  },
+  "command": "python -m pytest tests/test_mission_data_rd13.py tests/test_mission_data_rd1.py tests/test_contracts_v1.py tests/test_mcp_telemetry.py tests/test_reranker.py tests/test_llm_gateway.py tests/test_llm_gateway_ps51.py tests/test_llm_openai_adapter_ps52.py tests/test_llm_gpu_adapter_ps53.py tests/test_llm_backend_resilience_ps54.py tests/test_llm_cost_guardrails_ps56.py tests/test_master_roadmap_structure.py tests/test_readme_per_folder_ps75.py tests/test_portfolio_ps610.py tests/test_production_readiness_pr4_roadmap.py -q",
+  "tests": "135 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

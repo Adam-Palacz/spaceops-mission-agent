@@ -18,6 +18,7 @@ from pgvector.psycopg2 import register_vector
 
 from config import settings
 from apps.common.reranker import rerank_chunks
+from apps.mission_data.egress import enforce_transport_egress_guard
 from apps.telemetry import get_tracer
 from apps.tracing import extract_w3c_context_from_headers
 
@@ -74,6 +75,7 @@ mcp = FastMCP(
     transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
 )
 _embeddings = None
+_embeddings_base_url: str | None = None
 
 
 def _extract_headers_from_ctx(ctx: Context | None) -> dict[str, str]:
@@ -87,8 +89,16 @@ def _extract_headers_from_ctx(ctx: Context | None) -> dict[str, str]:
 
 
 def _get_embeddings():
-    global _embeddings
-    if _embeddings is None:
+    global _embeddings, _embeddings_base_url
+    base_url = (
+        getattr(settings, "openai_base_url", "") or ""
+    ).strip() or "https://api.openai.com"
+    enforce_transport_egress_guard(
+        endpoint_url=base_url,
+        processing_kind="embeddings",
+        local_only_setting=bool(getattr(settings, "llm_local_only_mode", False)),
+    )
+    if _embeddings is None or _embeddings_base_url != base_url:
         if not settings.openai_api_key:
             raise RuntimeError(
                 "OPENAI_API_KEY is required; set it in .env or environment."
@@ -96,7 +106,9 @@ def _get_embeddings():
         _embeddings = OpenAIEmbeddings(
             model="text-embedding-3-small",
             openai_api_key=settings.openai_api_key,
+            base_url=base_url,
         )
+        _embeddings_base_url = base_url
     return _embeddings
 
 
