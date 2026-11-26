@@ -1,0 +1,27 @@
+{
+  "schema_version": "rd3.esa-ad-slice.v1",
+  "date": "2026-11-26",
+  "tasks": ["RD3.1"],
+  "result": "in_progress",
+  "versions": {
+    "zenodo_doi": "10.5281/zenodo.12528696",
+    "license_spdx": "CC-BY-3.0-IGO",
+    "code_license_spdx": "MIT",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "esa-ad",
+    "benchmark_members": ["esa-ad-mission1", "esa-ad-mission2"],
+    "held_out": "esa-ad-mission3",
+    "checksums_pinned": false,
+    "archives_downloaded": false,
+    "layout_confirmed": ["ESA-Mission1.zip"],
+    "experiment_artifacts_gib": 512,
+    "minimum_ram_gib": 32
+  },
+  "command": "python -m pytest tests/test_mission_data_rd31.py tests/test_master_roadmap_structure.py tests/test_mission_data_rd1.py -q",
+  "tests": "33 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

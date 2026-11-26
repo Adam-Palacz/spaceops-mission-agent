@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | In progress |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Partial. A streaming lookalike and the Mission3 holdout exist. The Zenodo archives were not downloaded, so checksums are not pinned. |
 
 ## Objective and rationale
 
@@ -46,9 +46,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Document the Zenodo layout and checksums after download.
-- [ ] Implement a streaming reader that can be tested on a tiny generated slice.
-- [ ] Record disk and runtime budgets before any full import.
+- [ ] Document the Zenodo layout and checksums after download. The 2026-11-26 listing confirmed `ESA-Mission1.zip` and then stopped. Checksums are not pinned. See [evidence/RD3.1-esa-ad-slice-2026-11-26.json](evidence/RD3.1-esa-ad-slice-2026-11-26.json).
+- [x] Implement a streaming reader that can be tested on a tiny generated slice.
+- [x] Record disk and runtime budgets before any full import. The benchmark README's 512 GB artifact budget and 32 GB RAM floor are in the manifest. Full import stays refused.
 
 ## Test requirements
 
@@ -81,4 +81,4 @@ Gaps for this task:
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+Stays In progress until the Zenodo checksums are pinned from a local download. The slice reader, the three contexts, and the Mission3 holdout are in place. This does not change the 2026-11-23 No-go decision.

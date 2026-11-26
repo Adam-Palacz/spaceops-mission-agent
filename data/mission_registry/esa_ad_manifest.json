@@ -1,0 +1,41 @@
+{
+  "schema_version": "1",
+  "mission_id": "esa-ad",
+  "license_spdx": "CC-BY-3.0-IGO",
+  "license_note": "Zenodo record 12528696 states CC BY 3.0 IGO. The benchmark code at kplabs-pl/ESA-ADB is MIT and is not vendored.",
+  "source_url": "https://doi.org/10.5281/zenodo.12528696",
+  "code_url": "https://github.com/kplabs-pl/ESA-ADB",
+  "code_license_spdx": "MIT",
+  "checksums_pinned": false,
+  "full_import_allowed": false,
+  "experiment_artifacts_gib": 512,
+  "minimum_ram_gib": 32,
+  "disk_budget_note": "The ESA-ADB README recommends at least 512 GB free for experiment artifacts and 32 GB RAM. This repo does not download the archive.",
+  "layout_note": "A 2026-11-26 Zenodo listing showed ESA-Mission1.zip with channels/channel_N.zip, labels.csv, anomaly_types.csv, and telecommands/telecommand_N.zip. The listing stopped before later archives, so Mission2 and Mission3 checksums and archive names are not pinned. The benchmark README names folders ESA-Mission1 and ESA-Mission2 only.",
+  "missions": [
+    {
+      "key": "mission1",
+      "dataset_id": "esa-ad-mission1",
+      "folder_name": "ESA-Mission1",
+      "archive_name": "ESA-Mission1.zip",
+      "layout_confirmed": true,
+      "in_published_benchmark": true
+    },
+    {
+      "key": "mission2",
+      "dataset_id": "esa-ad-mission2",
+      "folder_name": "ESA-Mission2",
+      "archive_name": null,
+      "layout_confirmed": true,
+      "in_published_benchmark": true
+    },
+    {
+      "key": "mission3",
+      "dataset_id": "esa-ad-mission3",
+      "folder_name": null,
+      "archive_name": null,
+      "layout_confirmed": false,
+      "in_published_benchmark": false
+    }
+  ]
+}

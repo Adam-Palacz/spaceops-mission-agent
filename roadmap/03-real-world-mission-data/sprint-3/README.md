@@ -1,6 +1,6 @@
 # RD3 - ESA-ADB import
 
-**Status:** Todo. Not started.
+**Status:** In progress. RD3.1 streams a lookalike and holds Mission3 out of the published benchmark. The Zenodo archives are not downloaded. RD3.2 and RD3.3 are Todo.
 
 **Goal:** Import the ESA anomaly dataset at its real volume, keeping missions, rare nominal events, and telecommands distinct.
 
