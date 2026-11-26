@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. The decision is metadata-only, so the model and schema export are unchanged. |
 
 ## Objective and rationale
 
@@ -45,9 +45,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Record the compatibility decision.
-- [ ] Update tests for both old and new events.
-- [ ] Regenerate the schema only if the model changes.
+- [x] Record the compatibility decision.
+- [x] Update tests for both old and new events.
+- [x] Regenerate the schema only if the model changes.
 
 ## Test requirements
 
@@ -75,9 +75,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD1-adapter-registry-2026-11-24.json](evidence/RD1-adapter-registry-2026-11-24.json). Decision: reserved metadata keys only (`mission_id`, `dataset_id`, `license`, `sample_kind`, `segment_id`). `TelemetryEventV1` did not change, so the schema was not regenerated. If `RD1.3` introduces any additional reserved key, reopen `RD1.4` and update the evidence record.
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The checklist, tests, and sanitized evidence note are in place. This does not change the 2026-11-23 No-go decision. The model did not change.

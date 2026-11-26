@@ -227,6 +227,17 @@ def write_manifest(
     return manifest
 
 
+def resolve_pdf_engine() -> str:
+    """Use the requested engine, otherwise the first one installed locally."""
+    chosen = os.getenv("BOOK_PDF_ENGINE", "").strip()
+    if chosen:
+        return chosen
+    for candidate in ("weasyprint", "typst"):
+        if shutil.which(candidate):
+            return candidate
+    return "weasyprint"
+
+
 def run_pandoc(
     markdown: Path,
     output_dir: Path,
@@ -242,6 +253,7 @@ def run_pandoc(
     css_target = output_dir / "book.css"
     shutil.copyfile(css_source, css_target)
     base = output_dir / f"spaceops-engineering-book-{output_dir.name}"
+    pdf_engine = resolve_pdf_engine()
     for output_format in formats:
         target = base.with_suffix(f".{output_format}")
         command = [
@@ -254,15 +266,18 @@ def run_pandoc(
             f"--metadata=lang:{config.get('language', 'en')}",
             f"--output={target}",
         ]
-        if output_format in {"html", "epub", "pdf"}:
+        if output_format in {"html", "epub"} or (
+            output_format == "pdf" and pdf_engine == "weasyprint"
+        ):
             command.append(f"--css={css_target}")
         if output_format == "html":
             command.extend(["--section-divs"])
         if output_format == "pdf":
-            command.append(f"--pdf-engine={os.getenv('BOOK_PDF_ENGINE', 'weasyprint')}")
+            command.append(f"--pdf-engine={pdf_engine}")
         proc = subprocess.run(command, cwd=DEFAULT_CONFIG.parent, check=False)
         if proc.returncode != 0:
-            raise RuntimeError(f"pandoc {output_format} build failed")
+            detail = f" using {pdf_engine}" if output_format == "pdf" else ""
+            raise RuntimeError(f"pandoc {output_format} build failed{detail}")
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:

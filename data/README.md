@@ -10,6 +10,7 @@ Reproducible fixtures and output from `POST /ingest` and run triggers. Same fixt
 | **events/** | Event NDJSON (ts, event_type, subsystem, message). Fixture: `events.ndjson`. Ingest writes `ingest_*.ndjson`. |
 | **ground_logs/** | Ground segment log NDJSON (ts, source, level, message). Fixture: `ground_logs.ndjson`. Ingest writes `ingest_*.ndjson`. |
 | **incidents/** | Run trigger payloads and incident artifacts (from `POST /runs`). |
+| **mission_registry/** | Git-versioned mission, spacecraft, subsystem, and channel registry ([mission_registry/README.md](mission_registry/README.md)). |
 
 ## Fixture schema (minimal)
 

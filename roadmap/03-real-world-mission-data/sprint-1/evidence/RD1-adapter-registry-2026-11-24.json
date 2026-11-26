@@ -1,0 +1,21 @@
+{
+  "schema_version": "rd1.adapter-registry.v1",
+  "date": "2026-11-24",
+  "updated": "2026-11-26",
+  "tasks": ["RD1.1", "RD1.2", "RD1.4"],
+  "result": "pass",
+  "versions": {
+    "registry_schema_version": "1",
+    "telemetry_contract_version": "v1",
+    "python_version": "3.12"
+  },
+  "decision": "TelemetryEventV1 stays unchanged. Provenance uses reserved metadata keys mission_id, dataset_id, license, sample_kind, and segment_id. No anomaly label was added. Reopen RD1.4 if RD1.3 introduces any additional reserved key.",
+  "license": {
+    "lab-synthetic-telemetry": "LicenseRef-SpaceOps-Synthetic",
+    "opssat-ad": "CC-BY-4.0 cited for channel names only; the Zenodo files were not downloaded"
+  },
+  "command": "python -m pytest tests/test_mission_data_rd1.py tests/test_contracts_v1.py -q",
+  "tests": "29 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "torn_down": "none"
+}

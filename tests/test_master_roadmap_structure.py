@@ -52,13 +52,14 @@ def test_master_roadmap_keeps_admission_and_corrections() -> None:
     assert "stratified random" in text
 
 
-def test_new_phases_have_boards_and_no_done_tasks() -> None:
+def test_new_phases_have_consistent_boards_and_evidenced_done_tasks() -> None:
+    allowed_statuses = {"Todo", "In progress", "Done", "Blocked"}
     for name in PHASE_DIRS:
         phase = ROADMAP / name
         assert (phase / "README.md").is_file()
         for board in phase.glob("sprint-*/BOARD.md"):
             body = board.read_text(encoding="utf-8")
-            assert "| Todo |" in body
+            board_statuses: dict[str, str] = {}
             for line in body.splitlines():
                 if (
                     not line.startswith("| ")
@@ -67,13 +68,40 @@ def test_new_phases_have_boards_and_no_done_tasks() -> None:
                 ):
                     continue
                 cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-                if len(cells) >= 3:
-                    assert cells[2] != "Done", line
+                if len(cells) < 4:
+                    continue
+                status = cells[2]
+                assert status in allowed_statuses, f"{board}: {line}"
+                spec_name = re.search(r"\(([^)]+\.md)\)", cells[3])
+                assert spec_name, f"{board}: {line}"
+                board_statuses[spec_name.group(1)] = status
+                spec_body = (board.parent / spec_name.group(1)).read_text(
+                    encoding="utf-8"
+                )
+                if status == "Done":
+                    assert "| **Status** | Done |" in spec_body, f"{board}: {line}"
+                    evidence = re.search(r"\((evidence/[^)]+)\)", spec_body)
+                    assert evidence, spec_body
+                    assert (board.parent / evidence.group(1)).is_file()
+            assert board_statuses, f"{board}: no task rows found"
+            for spec in board.parent.glob("*-*.md"):
+                if spec.name in {"README.md", "BOARD.md"}:
+                    continue
+                spec_body = spec.read_text(encoding="utf-8")
+                if "| **Status** | Done |" in spec_body:
+                    assert (
+                        board_statuses.get(spec.name) == "Done"
+                    ), f"{spec} is Done but not marked Done in {board}"
         for spec in phase.glob("sprint-*/*-*.md"):
             if spec.name in {"README.md", "BOARD.md"}:
                 continue
             body = spec.read_text(encoding="utf-8")
-            assert "| **Status** | Todo |" in body
+            assert re.search(
+                r"\| \*\*Status\*\* \| (Todo|In progress|Done|Blocked) \|", body
+            )
+            if "| **Status** | Done |" in body:
+                evidence = re.search(r"\((evidence/[^)]+)\)", body)
+                assert evidence and (spec.parent / evidence.group(1)).is_file(), spec
             for heading in REQUIRED:
                 assert heading in body, f"{spec}: missing {heading}"
 

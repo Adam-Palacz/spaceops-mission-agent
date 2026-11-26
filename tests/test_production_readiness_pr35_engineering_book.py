@@ -174,3 +174,66 @@ def test_built_artifacts_when_toolchain_has_run() -> None:
             artifact = directory / f"spaceops-engineering-book-{edition}.{extension}"
             assert artifact.is_file()
             assert artifact.stat().st_size > 500
+
+
+def test_resolve_pdf_engine_prefers_env_then_weasyprint_then_typst(monkeypatch) -> None:
+    monkeypatch.setenv("BOOK_PDF_ENGINE", "typst")
+    assert book_build.resolve_pdf_engine() == "typst"
+
+    monkeypatch.delenv("BOOK_PDF_ENGINE", raising=False)
+    monkeypatch.setattr(
+        book_build.shutil,
+        "which",
+        lambda name: f"/usr/bin/{name}" if name in {"weasyprint", "typst"} else None,
+    )
+    assert book_build.resolve_pdf_engine() == "weasyprint"
+
+    monkeypatch.setattr(
+        book_build.shutil,
+        "which",
+        lambda name: "/usr/bin/typst" if name == "typst" else None,
+    )
+    assert book_build.resolve_pdf_engine() == "typst"
+
+    monkeypatch.setattr(book_build.shutil, "which", lambda _name: None)
+    assert book_build.resolve_pdf_engine() == "weasyprint"
+
+
+def test_run_pandoc_omits_css_for_typst_pdf_engine(tmp_path: Path, monkeypatch) -> None:
+    markdown = tmp_path / "book.md"
+    markdown.write_text("# Book\n", encoding="utf-8")
+    out_dir = tmp_path / "public"
+    out_dir.mkdir()
+
+    recorded: list[list[str]] = []
+
+    class _Completed:
+        returncode = 0
+
+    def fake_run(command: list[str], **_kwargs) -> _Completed:
+        recorded.append(command)
+        return _Completed()
+
+    monkeypatch.setattr(book_build.subprocess, "run", fake_run)
+    monkeypatch.setattr(
+        book_build.shutil,
+        "which",
+        lambda name: f"/usr/bin/{name}" if name in {"pandoc", "typst"} else None,
+    )
+    monkeypatch.delenv("BOOK_PDF_ENGINE", raising=False)
+
+    book_build.run_pandoc(
+        markdown, out_dir, ["html", "pdf", "epub"], {"language": "en"}
+    )
+    assert len(recorded) == 3
+    html_cmd, pdf_cmd, epub_cmd = recorded
+    assert any(arg.startswith("--css=") for arg in html_cmd)
+    assert any(arg.startswith("--css=") for arg in epub_cmd)
+    assert "--pdf-engine=typst" in pdf_cmd
+    assert not any(arg.startswith("--css=") for arg in pdf_cmd)
+
+    recorded.clear()
+    monkeypatch.setenv("BOOK_PDF_ENGINE", "weasyprint")
+    book_build.run_pandoc(markdown, out_dir, ["pdf"], {"language": "en"})
+    assert "--pdf-engine=weasyprint" in recorded[0]
+    assert any(arg.startswith("--css=") for arg in recorded[0])

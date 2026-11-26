@@ -9,6 +9,7 @@
 - OPSSAT-AD segments are addressable with the official train flag left intact.
 - The re-entry UHF campaign is addressable only after its license is recorded.
 - A read-only agent pass cites channels it actually queried.
+- Post-`RD2.3` reassessment records explicit keep/redefine/defer/add decisions on architectural debt, governance weight, and downstream tasks before `RD3–RD4` and Phase 04.
 
 ## Definition of done
 

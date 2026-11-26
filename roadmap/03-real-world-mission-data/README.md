@@ -1,6 +1,6 @@
 # Phase 03: Real-World Mission Data
 
-**Status:** Planned. Not started.
+**Status:** In progress (RD1 underway: RD1.1, RD1.2, RD1.4 Done; RD1.3 Todo).
 **Priority:** P0 for RD1-RD2, then P1 for RD3-RD4
 **Strategy:** [03-real-world-mission-data.md](../03-real-world-mission-data.md)
 **Master roadmap:** [MASTER.md](../MASTER.md)
