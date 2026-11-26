@@ -22,6 +22,7 @@ REQUIRED_README_DIRS = [
     "data/events",
     "data/ground_logs",
     "data/incidents",
+    "data/mission_registry",
     "data/approvals",
     "data/llm_runs",
     "data/eval-reports",

@@ -1,0 +1,187 @@
+{
+  "schema_version": "1",
+  "citation": "Synthetic channels are the committed CI fixture names. OPSSAT-AD channels are the nine names in the labeled-segment release (Zenodo 10.5281/zenodo.12588359, CC BY 4.0): magnetometers CADC0872-CADC0874 and photodiodes CADC0884, CADC0886, CADC0888, CADC0890, CADC0892, CADC0894. No samples and no calibration curves are stored.",
+  "missions": [
+    {
+      "mission_id": "lab-synthetic",
+      "name": "Lab synthetic fixture",
+      "sample_kind": "synthetic",
+      "spacecraft": [
+        {
+          "spacecraft_id": "lab-bus",
+          "subsystems": [
+            {
+              "subsystem_id": "Thermal",
+              "channels": [
+                {
+                  "channel_id": "temp_plate_1",
+                  "source_name": "temp_plate_1",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "sampling": "Committed CI fixture row. Not a flight sample rate."
+                },
+                {
+                  "channel_id": "thermal_plate_temp",
+                  "source_name": "thermal_plate_temp",
+                  "unit": "C",
+                  "kind": "numeric",
+                  "sampling": "Committed CI fixture row. Not a flight sample rate."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "Power",
+              "channels": [
+                {
+                  "channel_id": "bus_voltage",
+                  "source_name": "bus_voltage",
+                  "unit": "V",
+                  "kind": "numeric",
+                  "sampling": "Committed CI fixture row. Not a flight sample rate."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "Ground",
+              "channels": [
+                {
+                  "channel_id": "uplink_status",
+                  "source_name": "uplink_status",
+                  "unit": "state",
+                  "kind": "categorical",
+                  "sampling": "Committed CI fixture row. Not a flight sample rate."
+                }
+              ]
+            },
+            {
+              "subsystem_id": "ADCS",
+              "channels": [
+                {
+                  "channel_id": "wheel_rpm",
+                  "source_name": "wheel_rpm",
+                  "unit": "rpm",
+                  "kind": "numeric",
+                  "sampling": "Committed CI fixture row. Not a flight sample rate."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "datasets": [
+        {
+          "dataset_id": "lab-synthetic-telemetry",
+          "license_spdx": "LicenseRef-SpaceOps-Synthetic",
+          "source_url": "fixture:data/telemetry/telemetry.ndjson",
+          "citation": "Committed lab fixture. Not a spacecraft recording.",
+          "channel_ids": [
+            "temp_plate_1",
+            "thermal_plate_temp",
+            "bus_voltage",
+            "uplink_status",
+            "wheel_rpm"
+          ]
+        }
+      ]
+    },
+    {
+      "mission_id": "ops-sat",
+      "name": "OPS-SAT",
+      "sample_kind": "real",
+      "spacecraft": [
+        {
+          "spacecraft_id": "ops-sat-1",
+          "subsystems": [
+            {
+              "subsystem_id": "ADCS",
+              "channels": [
+                {
+                  "channel_id": "CADC0872",
+                  "source_name": "CADC0872",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD magnetometer segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0873",
+                  "source_name": "CADC0873",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD magnetometer segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0874",
+                  "source_name": "CADC0874",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD magnetometer segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0884",
+                  "source_name": "CADC0884",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0886",
+                  "source_name": "CADC0886",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0888",
+                  "source_name": "CADC0888",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0890",
+                  "source_name": "CADC0890",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0892",
+                  "source_name": "CADC0892",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                },
+                {
+                  "channel_id": "CADC0894",
+                  "source_name": "CADC0894",
+                  "unit": null,
+                  "kind": "numeric",
+                  "sampling": "OPSSAT-AD photodiode segment channel. Calibration is not stored."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "datasets": [
+        {
+          "dataset_id": "opssat-ad",
+          "license_spdx": "CC-BY-4.0",
+          "source_url": "https://doi.org/10.5281/zenodo.12588359",
+          "citation": "Ruszczak, Kotowski, Evans, Nalepa. OPSSAT-AD labeled segments. This registry stores names only.",
+          "channel_ids": [
+            "CADC0872",
+            "CADC0873",
+            "CADC0874",
+            "CADC0884",
+            "CADC0886",
+            "CADC0888",
+            "CADC0890",
+            "CADC0892",
+            "CADC0894"
+          ]
+        }
+      ]
+    }
+  ]
+}

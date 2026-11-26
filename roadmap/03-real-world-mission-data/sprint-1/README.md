@@ -1,6 +1,6 @@
 # RD1 - Mission data architecture
 
-**Status:** Todo. Not started.
+**Status:** In progress. RD1.1, RD1.2, and RD1.4 are Done. RD1.3 is still Todo.
 
 **Goal:** Give every future sample a source-agnostic envelope, a registry, and an isolation rule before any real file is imported.
 
