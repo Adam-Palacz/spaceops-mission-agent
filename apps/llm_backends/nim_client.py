@@ -9,6 +9,8 @@ from urllib.parse import urljoin
 import httpx
 
 from config import settings
+from apps.llm_gateway_errors import LLMEgressDeniedError
+from apps.mission_data.egress import enforce_transport_egress_guard
 
 NIM_HEALTH_PATH = "/v1/health/ready"
 BACKEND_ID = "gpu"
@@ -36,10 +38,17 @@ def check_nim_health(
     url = nim_health_url(base_url)
     if not url:
         return False
+    enforce_transport_egress_guard(
+        endpoint_url=url,
+        processing_kind="chat_completion",
+        local_only_setting=bool(getattr(settings, "llm_local_only_mode", False)),
+    )
     try:
         with httpx.Client(timeout=timeout_s) as client:
             resp = client.get(url)
             return resp.status_code == 200
+    except LLMEgressDeniedError:
+        raise
     except Exception:
         return False
 

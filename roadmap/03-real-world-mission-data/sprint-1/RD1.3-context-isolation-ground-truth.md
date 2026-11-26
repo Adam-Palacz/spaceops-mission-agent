@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
-| **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Status** | Done |
+| **Owner** | Mission Data / Security |
+| **Implements code** | Yes. `apps/mission_data/isolation.py`, `apps/mission_data/egress.py`, `data/mission_registry/egress_approvals.json`, `docs/mission_isolation_egress_rd13.md`, and guards in Telemetry MCP, LLM gateway, backends, reranker, and KB embeddings. |
 
 ## Objective and rationale
 
@@ -48,10 +48,10 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Specify the ground-truth record and the tool allowlist.
-- [ ] Add a negative test that an investigation tool cannot see labels.
-- [ ] Document the two OPS-SAT dataset ids that must never share labels.
-- [ ] Implement the minimal egress decision and negative tests from the policy before an external historical model call.
+- [x] Specify the ground-truth record and the tool allowlist.
+- [x] Add a negative test that an investigation tool cannot see labels.
+- [x] Document the two OPS-SAT dataset ids that must never share labels.
+- [x] Implement the minimal egress decision and negative tests from the policy before an external historical model call.
 
 ## Test requirements
 
@@ -80,9 +80,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD1.3-isolation-egress-2026-11-26.json](evidence/RD1.3-isolation-egress-2026-11-26.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The checklist, positive/negative isolation and egress tests, documentation (`docs/mission_isolation_egress_rd13.md`), and sanitized evidence note are in place. `RD1.4` reserved metadata keys required no change. This does not change the 2026-11-23 No-go decision.

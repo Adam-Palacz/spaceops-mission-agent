@@ -14,6 +14,7 @@ from langchain_openai import OpenAIEmbeddings
 from pgvector.psycopg2 import register_vector
 
 from config import settings
+from apps.mission_data.egress import enforce_transport_egress_guard
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 KB_RUNBOOKS = REPO_ROOT / "kb" / "runbooks"
@@ -92,6 +93,14 @@ def load_docs() -> list[tuple[str, str, str]]:
 
 
 def main() -> None:
+    base_url = (
+        getattr(settings, "openai_base_url", "") or ""
+    ).strip() or "https://api.openai.com"
+    enforce_transport_egress_guard(
+        endpoint_url=base_url,
+        processing_kind="embeddings",
+        local_only_setting=bool(getattr(settings, "llm_local_only_mode", False)),
+    )
     if not settings.openai_api_key:
         raise SystemExit("OPENAI_API_KEY is required for embedding; set it in .env")
     conn = get_connection()
@@ -102,6 +111,7 @@ def main() -> None:
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small",
         openai_api_key=settings.openai_api_key,
+        base_url=base_url,
     )
     docs = load_docs()
     if not docs:

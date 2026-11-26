@@ -38,7 +38,12 @@ def _mcp_httpx_client() -> httpx.AsyncClient:
 
 
 async def _call_telemetry_mcp(
-    time_range_start: str, time_range_end: str, channels: list[str] | None = None
+    time_range_start: str,
+    time_range_end: str,
+    channels: list[str] | None = None,
+    *,
+    mission_id: str | None = None,
+    dataset_ids: list[str] | None = None,
 ) -> list[dict]:
     if not _MCP_AVAILABLE:
         return []
@@ -58,13 +63,18 @@ async def _call_telemetry_mcp(
                 ):
                     async with ClientSession(read_stream, write_stream) as session:
                         await session.initialize()
+                        arguments: dict[str, object] = {
+                            "time_range_start": time_range_start,
+                            "time_range_end": time_range_end,
+                            "channels": channels or [],
+                        }
+                        if mission_id is not None:
+                            arguments["mission_id"] = mission_id
+                        if dataset_ids is not None:
+                            arguments["dataset_ids"] = list(dataset_ids)
                         result = await session.call_tool(
                             "query_telemetry",
-                            arguments={
-                                "time_range_start": time_range_start,
-                                "time_range_end": time_range_end,
-                                "channels": channels or [],
-                            },
+                            arguments=arguments,
                         )
                         # MCP SDK may use is_error (snake_case) or isError (camelCase)
                         if getattr(result, "is_error", False) or getattr(
@@ -422,10 +432,23 @@ async def _call_gitops_mcp(
 
 
 def call_telemetry(
-    time_range_start: str, time_range_end: str, channels: list[str] | None = None
+    time_range_start: str,
+    time_range_end: str,
+    channels: list[str] | None = None,
+    *,
+    mission_id: str | None = None,
+    dataset_ids: list[str] | None = None,
 ) -> list[dict]:
     """Sync wrapper for query_telemetry MCP call."""
-    return asyncio.run(_call_telemetry_mcp(time_range_start, time_range_end, channels))
+    return asyncio.run(
+        _call_telemetry_mcp(
+            time_range_start,
+            time_range_end,
+            channels,
+            mission_id=mission_id,
+            dataset_ids=dataset_ids,
+        )
+    )
 
 
 def call_create_ticket(title: str, body: str) -> dict | None:

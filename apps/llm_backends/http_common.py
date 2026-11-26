@@ -8,7 +8,13 @@ from urllib.parse import urljoin
 
 import httpx
 
-from apps.llm_gateway_errors import LLMGatewayProviderError, LLMGatewayTimeoutError
+from config import settings
+from apps.llm_gateway_errors import (
+    LLMEgressDeniedError,
+    LLMGatewayProviderError,
+    LLMGatewayTimeoutError,
+)
+from apps.mission_data.egress import enforce_transport_egress_guard
 
 
 def normalize_chat_url(base_url: str, chat_path: str) -> str:
@@ -33,6 +39,11 @@ def chat_completion(
     timeout_s: float,
 ) -> tuple[Any, int]:
     """POST chat/completions; return (parsed_json, latency_ms)."""
+    enforce_transport_egress_guard(
+        endpoint_url=endpoint,
+        processing_kind="chat_completion",
+        local_only_setting=bool(getattr(settings, "llm_local_only_mode", False)),
+    )
     headers = {"Content-Type": "application/json"}
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
@@ -50,6 +61,8 @@ def chat_completion(
             )
             resp.raise_for_status()
             data = resp.json()
+    except LLMEgressDeniedError:
+        raise
     except httpx.TimeoutException as exc:
         raise LLMGatewayTimeoutError(str(exc)) from exc
     except Exception as exc:

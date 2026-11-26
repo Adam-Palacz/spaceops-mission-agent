@@ -146,6 +146,20 @@ class Settings(BaseSettings):
         default="/v1/chat/completions",
         description="Path appended to provider base URL when base URL is not already a full endpoint.",
     )
+    llm_local_only_mode: bool = Field(
+        default=False,
+        description=(
+            "RD1.3: when true, deny all external LLM, embedding, reranker, judge, and "
+            "cloud fallback calls; allow only local loopback endpoints."
+        ),
+    )
+    llm_egress_approvals_path: str = Field(
+        default="",
+        description=(
+            "RD1.3: path to versioned historical public-data egress approvals JSON; "
+            "empty uses data/mission_registry/egress_approvals.json (default-deny)."
+        ),
+    )
 
     # Postgres (RAG, KB)
     database_url: str = Field(

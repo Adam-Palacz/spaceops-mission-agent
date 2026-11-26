@@ -18,10 +18,12 @@ from typing import Any, Literal
 from config import settings
 from apps.llm_gateway import (
     LLMBudgetExceededError,
+    LLMEgressDeniedError,
     LLMGatewayProviderError,
     LLMGatewayTimeoutError,
     generate as gateway_generate,
 )
+from apps.mission_data.egress import EgressContext, get_active_protected_context
 
 RerankerMode = Literal["lexical", "llm"]
 
@@ -58,7 +60,12 @@ def rerank_lexical(query: str, chunks: list[dict[str, Any]]) -> list[dict[str, A
     return [c for _, __, c in scored]
 
 
-def rerank_llm(query: str, chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def rerank_llm(
+    query: str,
+    chunks: list[dict[str, Any]],
+    *,
+    egress_context: EgressContext | None = None,
+) -> list[dict[str, Any]]:
     """
     Optional LLM-based reranker (external API).
 
@@ -83,14 +90,34 @@ def rerank_llm(query: str, chunks: list[dict[str, Any]]) -> list[dict[str, Any]]
     model_id = getattr(settings, "kb_reranker_llm_model", "gpt-4o-mini")
     full_prompt = "System: Return strictly valid JSON only.\n\n" f"{prompt}"
 
+    effective_egress: EgressContext | None = None
+    active_ctx = get_active_protected_context()
+    if egress_context is not None:
+        effective_egress = egress_context.model_copy(
+            update={"processing_kind": "reranking"}
+        )
+    elif active_ctx is not None:
+        effective_egress = active_ctx.model_copy(
+            update={"processing_kind": "reranking"}
+        )
+    elif bool(getattr(settings, "llm_local_only_mode", False)):
+        effective_egress = EgressContext(
+            data_class="synthetic_ci",
+            processing_kind="reranking",
+            local_only=True,
+        )
+
     try:
         out = gateway_generate(
             prompt=full_prompt,
             node="kb_reranker",
             model_id=model_id,
             temperature=0,
+            egress_context=effective_egress,
         )
         text = str(out.get("content") or "")
+    except LLMEgressDeniedError:
+        raise
     except (
         LLMGatewayTimeoutError,
         LLMGatewayProviderError,
@@ -119,6 +146,7 @@ def rerank_chunks(
     chunks: list[dict[str, Any]],
     *,
     mode: RerankerMode,
+    egress_context: EgressContext | None = None,
 ) -> list[dict[str, Any]]:
     """
     Dispatch to the configured reranker mode.
@@ -128,6 +156,6 @@ def rerank_chunks(
     if mode == "lexical":
         return rerank_lexical(query, chunks)
     if mode == "llm":
-        return rerank_llm(query, chunks)
+        return rerank_llm(query, chunks, egress_context=egress_context)
     # Defensive fallback.
     return chunks
