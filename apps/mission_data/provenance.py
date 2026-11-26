@@ -2,7 +2,8 @@
 
 RD1.4 keeps the contract unchanged. These keys are reserved inside
 ``metadata`` and are not top-level fields: ``mission_id``, ``dataset_id``,
-``license``, ``sample_kind``, ``segment_id``, ``sampling`` (RD2.1 addendum).
+``license``, ``sample_kind``, ``segment_id``, ``sampling`` (RD2.1 addendum),
+``time_basis`` (RD2.2: ground receipt versus onboard time).
 Anomaly labels and train/test flags do not belong here.
 """
 
@@ -22,6 +23,7 @@ RESERVED_METADATA_KEYS: tuple[str, ...] = (
     "sample_kind",
     "segment_id",
     "sampling",
+    "time_basis",
 )
 
 _ABSOLUTE_PATH = re.compile(r"^(?:[A-Za-z]:[\\/]|\\\\|/)")
@@ -93,6 +95,7 @@ class ProvenanceRecord(ContractBase):
         segment_id: str | None = None,
         *,
         sampling: str | None = None,
+        time_basis: str | None = None,
     ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "mission_id": self.mission_id,
@@ -108,4 +111,8 @@ class ProvenanceRecord(ContractBase):
             cleaned_sampling = str(sampling).strip()
             if cleaned_sampling:
                 payload["sampling"] = cleaned_sampling
+        if time_basis is not None:
+            cleaned_basis = str(time_basis).strip()
+            if cleaned_basis:
+                payload["time_basis"] = cleaned_basis
         return payload

@@ -1,0 +1,29 @@
+{
+  "schema_version": "rd2.reentry-license-gate.v1",
+  "date": "2026-11-26",
+  "tasks": ["RD2.2"],
+  "result": "pass",
+  "versions": {
+    "manifest_schema_version": "1",
+    "registry_schema_version": "1",
+    "telemetry_contract_version": "v1",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "ops-sat",
+    "real_dataset_id": "opssat-reentry-uhf",
+    "lookalike_dataset_id": "opssat-reentry-uhf-lookalike",
+    "license_status": "unrecorded",
+    "license_spdx": null,
+    "source_url": "https://opssat.esa.int/ops-sat-1/docs/tm_analysis.html",
+    "time_basis": "ground_receipt",
+    "real_files_committed": false,
+    "real_files_read": false,
+    "counts_as_imported_product": false
+  },
+  "command": "python -m pytest tests/test_mission_data_rd22.py tests/test_mission_data_rd21.py tests/test_mission_data_rd13.py tests/test_mission_data_rd1.py tests/test_master_roadmap_structure.py -q",
+  "tests": "66 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}
