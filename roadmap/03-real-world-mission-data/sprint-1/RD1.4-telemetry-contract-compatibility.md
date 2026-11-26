@@ -75,7 +75,7 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- Sanitized note: [evidence/RD1-adapter-registry-2026-11-24.json](evidence/RD1-adapter-registry-2026-11-24.json). Decision: reserved metadata keys only (`mission_id`, `dataset_id`, `license`, `sample_kind`, `segment_id`). `TelemetryEventV1` did not change, so the schema was not regenerated. If `RD1.3` introduces any additional reserved key, reopen `RD1.4` and update the evidence record.
+- Sanitized note: [evidence/RD1-adapter-registry-2026-11-24.json](evidence/RD1-adapter-registry-2026-11-24.json). Decision: reserved metadata keys only (`mission_id`, `dataset_id`, `license`, `sample_kind`, `segment_id`, plus `sampling` added in RD2.1 to preserve source sampling without resampling). `TelemetryEventV1` did not change, so the schema was not regenerated. If any future task requires a top-level contract field, reopen `RD1.4` and update the evidence record.
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done

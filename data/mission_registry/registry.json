@@ -180,6 +180,24 @@
             "CADC0892",
             "CADC0894"
           ]
+        },
+        {
+          "dataset_id": "opssat-ad-lookalike",
+          "license_spdx": "LicenseRef-SpaceOps-Synthetic",
+          "source_url": "fixture:tests/fixtures/opssat_ad_lookalike",
+          "citation": "Synthetic CI lookalike for OPSSAT-AD adapter testing (RD2.1). Not spacecraft telemetry.",
+          "sample_kind": "synthetic",
+          "channel_ids": [
+            "CADC0872",
+            "CADC0873",
+            "CADC0874",
+            "CADC0884",
+            "CADC0886",
+            "CADC0888",
+            "CADC0890",
+            "CADC0892",
+            "CADC0894"
+          ]
         }
       ]
     }

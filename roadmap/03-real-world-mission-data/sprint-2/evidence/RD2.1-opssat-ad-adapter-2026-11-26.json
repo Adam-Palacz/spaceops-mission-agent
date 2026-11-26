@@ -1,0 +1,39 @@
+{
+  "schema_version": "rd2.opssat-ad-adapter.v1",
+  "date": "2026-11-26",
+  "tasks": ["RD2.1"],
+  "result": "pass",
+  "versions": {
+    "manifest_schema_version": "1",
+    "registry_schema_version": "1",
+    "telemetry_contract_version": "v1",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "ops-sat",
+    "real_dataset_id": "opssat-ad",
+    "lookalike_dataset_id": "opssat-ad-lookalike",
+    "license_spdx": "CC-BY-4.0",
+    "zenodo_doi": "10.5281/zenodo.12588359",
+    "paper_doi": "10.1038/s41597-025-05035-3",
+    "citation": "Ruszczak, Kotowski, Evans, and Nalepa (2025), Scientific Data",
+    "published_md5s": {
+      "dataset.csv": "c12fb83863afa4463dec07303a20bb14",
+      "segments.csv": "1f4b6ffd0359efac96a6698ff557e0f9"
+    },
+    "expected_official_audit": {
+      "total_segments": 2123,
+      "train_segments": 1594,
+      "train_nominal": 1273,
+      "train_anomalous": 321,
+      "test_segments": 529
+    },
+    "real_files_committed": false,
+    "real_files_downloaded_in_ci": false
+  },
+  "command": "python -m pytest tests/test_mission_data_rd21.py tests/test_mission_data_rd13.py tests/test_mission_data_rd1.py tests/test_contracts_v1.py tests/test_master_roadmap_structure.py tests/test_readme_per_folder_ps75.py tests/test_portfolio_ps610.py -q",
+  "tests": "81 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

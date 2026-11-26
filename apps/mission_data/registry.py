@@ -64,6 +64,7 @@ class DatasetEntry(BaseModel):
     license_spdx: str = Field(..., min_length=1)
     source_url: str = Field(..., min_length=1)
     citation: str = Field(..., min_length=1)
+    sample_kind: Literal["real", "synthetic"] | None = None
     channel_ids: list[str] = Field(..., min_length=1)
 
     @field_validator("dataset_id", "license_spdx", "citation")
@@ -172,7 +173,7 @@ class MissionRegistry:
                                 unit=channel.unit,
                                 kind=channel.kind,
                                 sampling=channel.sampling,
-                                sample_kind=mission.sample_kind,
+                                sample_kind=dataset.sample_kind or mission.sample_kind,
                             )
             missing = declared.get(mission.mission_id, set()) - seen
             if missing:

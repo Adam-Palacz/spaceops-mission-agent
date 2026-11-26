@@ -1,0 +1,40 @@
+{
+  "schema_version": "1",
+  "mission_id": "ops-sat",
+  "dataset_id": "opssat-ad",
+  "lookalike_dataset_id": "opssat-ad-lookalike",
+  "license_spdx": "CC-BY-4.0",
+  "zenodo_record_id": "12588359",
+  "zenodo_doi": "10.5281/zenodo.12588359",
+  "source_url": "https://doi.org/10.5281/zenodo.12588359",
+  "paper_doi": "10.1038/s41597-025-05035-3",
+  "citation": "Ruszczak, B., Kotowski, K., Evans, D., & Nalepa, J. (2025). The OPS-SAT benchmark for detecting anomalies in satellite telemetry. Scientific Data, 12, DOI: 10.1038/s41597-025-05035-3. Dataset: Zenodo 10.5281/zenodo.12588359 (CC BY 4.0).",
+  "checksum_scope_note": "MD5 checksums apply specifically to Zenodo record 10.5281/zenodo.12588359. Newer Zenodo revisions intentionally fail checksum verification until explicitly reconciled.",
+  "expected_files": {
+    "dataset.csv": {
+      "md5": "c12fb83863afa4463dec07303a20bb14"
+    },
+    "segments.csv": {
+      "md5": "1f4b6ffd0359efac96a6698ff557e0f9"
+    }
+  },
+  "expected_audit": {
+    "total_segments": 2123,
+    "train_segments": 1594,
+    "train_nominal": 1273,
+    "train_anomalous": 321,
+    "test_segments": 529,
+    "split_note": "Released dataset.csv contains 1594 train=1 rows and 529 train=0 rows (2123 total). The paper prints 1494 in the training total while its class counts (1273 nominal + 321 anomalous) sum to 1594. The split is stratified random, not chronological; preserve the released train flag and do not claim time-separated generalization."
+  },
+  "channels": [
+    "CADC0872",
+    "CADC0873",
+    "CADC0874",
+    "CADC0884",
+    "CADC0886",
+    "CADC0888",
+    "CADC0890",
+    "CADC0892",
+    "CADC0894"
+  ]
+}

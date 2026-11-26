@@ -2,7 +2,8 @@
 
 RD1.4 keeps the contract unchanged. These keys are reserved inside
 ``metadata`` and are not top-level fields: ``mission_id``, ``dataset_id``,
-``license``, ``sample_kind``, ``segment_id``. Anomaly labels do not belong here.
+``license``, ``sample_kind``, ``segment_id``, ``sampling`` (RD2.1 addendum).
+Anomaly labels and train/test flags do not belong here.
 """
 
 from __future__ import annotations
@@ -20,6 +21,7 @@ RESERVED_METADATA_KEYS: tuple[str, ...] = (
     "license",
     "sample_kind",
     "segment_id",
+    "sampling",
 )
 
 _ABSOLUTE_PATH = re.compile(r"^(?:[A-Za-z]:[\\/]|\\\\|/)")
@@ -86,13 +88,24 @@ class ProvenanceRecord(ContractBase):
     def reject_local_path_and_credentials(cls, value: str) -> str:
         return validate_source_url(value)
 
-    def metadata(self, segment_id: str | None = None) -> dict[str, Any]:
+    def metadata(
+        self,
+        segment_id: str | None = None,
+        *,
+        sampling: str | None = None,
+    ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "mission_id": self.mission_id,
             "dataset_id": self.dataset_id,
             "license": self.license_spdx,
             "sample_kind": self.sample_kind,
         }
-        if segment_id is not None and segment_id != "":
-            payload["segment_id"] = segment_id
+        if segment_id is not None:
+            cleaned_segment = str(segment_id).strip()
+            if cleaned_segment:
+                payload["segment_id"] = cleaned_segment
+        if sampling is not None:
+            cleaned_sampling = str(sampling).strip()
+            if cleaned_sampling:
+                payload["sampling"] = cleaned_sampling
         return payload
