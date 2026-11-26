@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
-| **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Status** | Done |
+| **Owner** | Mission Data |
+| **Implements code** | Yes. `apps/mission_data/opssat_ad.py`, `data/mission_registry/opssat_ad_manifest.json`, `scripts/import_opssat_ad.py`, `tests/fixtures/opssat_ad_lookalike/`, `docs/opssat_ad_dataset_rd21.md`, and `tests/test_mission_data_rd21.py`. |
 
 ## Objective and rationale
 
@@ -50,9 +50,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Record license CC BY 4.0 and the two file checksums published on Zenodo.
-- [ ] Implement the adapter against a tiny checked-in synthetic lookalike, not the real file, for CI.
-- [ ] Document the official 1594/529 counts as the expected import audit.
+- [x] Record license CC BY 4.0 and the two file checksums published on Zenodo.
+- [x] Implement the adapter against a tiny checked-in synthetic lookalike, not the real file, for CI.
+- [x] Document the official 1594/529 counts as the expected import audit.
 
 ## Test requirements
 
@@ -81,9 +81,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD2.1-opssat-ad-adapter-2026-11-26.json](evidence/RD2.1-opssat-ad-adapter-2026-11-26.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The checklist, lookalike and negative tests, Zenodo MD5 manifest and Scientific Data citation (`docs/opssat_ad_dataset_rd21.md`), and sanitized evidence note are in place. CI does not download Zenodo. This does not change the 2026-11-23 No-go decision.

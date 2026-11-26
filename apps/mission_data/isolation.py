@@ -332,16 +332,18 @@ def _record_scope(
 
 
 def _is_legacy_unscoped_record(record: Mapping[str, Any]) -> bool:
-    """True for committed synthetic fixture rows without isolated real-dataset scope."""
+    """True only for committed lab-synthetic fixture rows without isolated mission scope."""
     mission, dataset, sample_kind = _record_scope(record)
     lowered_kind = (sample_kind or "").lower()
     if lowered_kind == "real":
         return False
-    if mission is not None and lowered_kind != "synthetic":
-        return False
-    if dataset is None:
+    if mission is None and dataset is None:
         return True
-    return lowered_kind == "synthetic"
+    return (
+        mission == "lab-synthetic"
+        and dataset == "lab-synthetic-telemetry"
+        and lowered_kind == "synthetic"
+    )
 
 
 class InvestigationTelemetryView:

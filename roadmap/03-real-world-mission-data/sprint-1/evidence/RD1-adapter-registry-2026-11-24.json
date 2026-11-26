@@ -9,7 +9,7 @@
     "telemetry_contract_version": "v1",
     "python_version": "3.12"
   },
-  "decision": "TelemetryEventV1 stays unchanged. Provenance uses reserved metadata keys mission_id, dataset_id, license, sample_kind, and segment_id. No anomaly label was added. Reopen RD1.4 if RD1.3 introduces any additional reserved key.",
+  "decision": "TelemetryEventV1 stays unchanged. Provenance uses reserved metadata keys mission_id, dataset_id, license, sample_kind, segment_id, and (RD2.1 addendum) sampling. No anomaly label or train flag was added.",
   "license": {
     "lab-synthetic-telemetry": "LicenseRef-SpaceOps-Synthetic",
     "opssat-ad": "CC-BY-4.0 cited for channel names only; the Zenodo files were not downloaded"
