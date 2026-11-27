@@ -1,6 +1,6 @@
 # RD4 - Historical incident knowledge
 
-**Status:** Todo. Not started.
+**Status:** Done. RD4.1 records two public sources. RD4.2 records one cited failure mode and stores no procedure. RD4.3 freezes two synthetic hidden-reference cases. RD4.4 waives SMAP/MSL without data. The holdout is not a phase exit.
 
 **Goal:** Add cited public failure knowledge and hidden-reference cases without pretending the anomaly labels are root causes.
 

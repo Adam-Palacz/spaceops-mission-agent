@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. One official OPSSAT-AD split is registered. No model is trained. |
 
 ## Objective and rationale
 
@@ -45,9 +45,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Specify the registry and the forbidden-column check.
-- [ ] Add a failing test for a feature that uses the label.
-- [ ] Record that the official split is stratified random.
+- [x] Specify the registry and the forbidden-column check.
+- [x] Add a failing test for a feature that uses the label.
+- [x] Record that the official split is stratified random.
 
 ## Test requirements
 
@@ -72,9 +72,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/AV1.1-experiment-registry-2026-11-27.json](evidence/AV1.1-experiment-registry-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The registry pins `opssat-ad-published-train-flag` to the published `dataset.csv` MD5, the code revision `av1.1-opssat-ad`, and the feature `segment_mean`. The split basis is stratified random. A feature that reads a label or a test-segment statistic is rejected. The same id and revision resolve the same split. A reported run without a registry id is refused. No raw samples are stored. This does not change the 2026-11-23 No-go decision.

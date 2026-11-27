@@ -1,0 +1,17 @@
+{
+  "schema_version": "rd4.smap-msl.v1",
+  "decision": "waived",
+  "distribution_url": "https://github.com/khundman/telemanom",
+  "version": "v2.0",
+  "license_file_url": "https://github.com/khundman/telemanom/blob/master/LICENSE.txt",
+  "readme_software_license": "Apache-2.0",
+  "license_file_kind": "Caltech software notice, all rights reserved",
+  "license_spdx": "",
+  "license_note": "The v2.0 README says Apache-2.0 for the Telemanom software. LICENSE.txt is a 2018 Caltech notice that reserves all rights and refers to the software. The README points at a third-party Kaggle dataset for the telemetry. No separate license for the SMAP/MSL samples was recorded.",
+  "third_party_mirror_used": false,
+  "import_allowed": false,
+  "files_in_ci": false,
+  "channels_added": false,
+  "samples_added": false,
+  "reserved_dataset_ids": ["smap-telemanom", "msl-telemanom"]
+}

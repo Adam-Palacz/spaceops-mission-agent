@@ -1,0 +1,26 @@
+{
+  "schema_version": "rd4.cited-sources.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD4.1"],
+  "result": "two_public_sources_accepted",
+  "sources": [
+    {
+      "source_id": "nasa-llis-2046",
+      "license_spdx": "LicenseRef-US-Gov-Work",
+      "excerpt_stored": false
+    },
+    {
+      "source_id": "esa-ad-zenodo-12528696",
+      "license_spdx": "CC-BY-3.0-IGO",
+      "excerpt_stored": true,
+      "archive_stored": false
+    }
+  ],
+  "empty_license_rejected": true,
+  "scraped": false,
+  "command": "python -m pytest tests/test_mission_data_rd41.py tests/test_master_roadmap_structure.py -q",
+  "tests": "7 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

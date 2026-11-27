@@ -1,0 +1,33 @@
+{
+  "schema_version": "rd4.cited-sources.v1",
+  "sources": [
+    {
+      "source_id": "nasa-llis-2046",
+      "title": "Limitations of Internal Protective Devices in High-Voltage/High-Capacity Batteries Using Lithium-Ion",
+      "publisher": "NASA Lessons Learned Information System",
+      "published_on": "2009-05-10",
+      "url": "https://llis.nasa.gov/lesson/2046",
+      "license_spdx": "LicenseRef-US-Gov-Work",
+      "license_note": "Public LLIS lesson 2046 submitted by NESC. US government works are not copyrighted. No lesson text is stored.",
+      "excerpt_allowed": false,
+      "excerpt": "",
+      "access": "public",
+      "status": "accepted",
+      "why_present": "Public NASA lesson on lithium-ion battery protection limits. Present as a citation target only."
+    },
+    {
+      "source_id": "esa-ad-zenodo-12528696",
+      "title": "ESA Anomaly Dataset",
+      "publisher": "European Space Agency",
+      "published_on": "2024-06-25",
+      "url": "https://doi.org/10.5281/zenodo.12528696",
+      "license_spdx": "CC-BY-3.0-IGO",
+      "license_note": "Zenodo record 12528696 states CC BY 3.0 IGO. The archive is not stored.",
+      "excerpt_allowed": true,
+      "excerpt": "Public record of the ESA anomaly telemetry benchmark. The archive is not stored.",
+      "access": "public",
+      "status": "accepted",
+      "why_present": "Public ESA anomaly dataset record with a recorded license. Present so a report can cite the dataset without shipping the files."
+    }
+  ]
+}

@@ -39,6 +39,7 @@ INVESTIGATION_TOOL_ALLOWLIST: frozenset[str] = frozenset(
         "query_telemetry",
         "search_runbooks",
         "search_postmortems",
+        "search_failure_modes",
     }
 )
 EVALUATION_TOOL_ALLOWLIST: frozenset[str] = frozenset(

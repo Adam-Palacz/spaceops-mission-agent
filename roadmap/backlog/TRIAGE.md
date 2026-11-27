@@ -68,3 +68,10 @@ Backlog = **pool**; closure = TRIAGE update + task **Done** on sprint BOARD.
 
 Next-gen specs stay in [deprecated-03-next-gen-autonomy](../deprecated-03-next-gen-autonomy/). Their execution is
 deferred in [08-next-gen-autonomy](../08-next-gen-autonomy/).
+
+## 2026-11-27 reassessment
+
+| ID | Verdict | Rationale | Scheduled in |
+|----|---------|-----------|--------------|
+| **BL-008** | Deferred | API router split waits for the first PR4.9 implementation edit. | — |
+| **BL-009** | Deferred | Agent graph unification waits for the next edge edit. | — |

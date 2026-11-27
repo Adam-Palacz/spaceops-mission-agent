@@ -1,0 +1,19 @@
+{
+  "schema_version": "rd4.failure-modes.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD4.2"],
+  "result": "one_cited_mode_no_stored_procedure",
+  "mode_id": "nasa-llis-2046-battery-protection",
+  "source_id": "nasa-llis-2046",
+  "corrective_action_stored": false,
+  "conflict_records_kept_separate": true,
+  "tool_names_absent": true,
+  "new_write_tool": false,
+  "agent_prompts_changed": false,
+  "scraped": false,
+  "command": "python -m pytest tests/test_mission_data_rd42.py tests/test_mission_data_rd13.py tests/test_master_roadmap_structure.py -q",
+  "tests": "31 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

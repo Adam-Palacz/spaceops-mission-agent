@@ -1,0 +1,22 @@
+{
+  "schema_version": "av1.experiments.v1",
+  "experiments": [
+    {
+      "experiment_id": "opssat-ad-published-train-flag",
+      "dataset_id": "opssat-ad",
+      "checksum": "c12fb83863afa4463dec07303a20bb14",
+      "split_name": "published_train_flag",
+      "split_basis": "stratified_random",
+      "role": "official",
+      "code_revision": "av1.1-opssat-ad",
+      "feature_set": [
+        {
+          "name": "segment_mean",
+          "column": "value",
+          "uses_test_segment_statistics": false
+        }
+      ],
+      "seed": null
+    }
+  ]
+}

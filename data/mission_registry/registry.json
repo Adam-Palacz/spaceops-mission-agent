@@ -521,7 +521,18 @@
                   "unit": null,
                   "kind": "numeric",
                   "role": "sensor",
+                  "benchmark_role": "target",
                   "sampling": "ESA-AD lookalike channel. The mission stays anonymized. Calibration is not stored."
+                },
+                {
+                  "channel_id": "channel_status",
+                  "source_name": "channel_status",
+                  "unit": null,
+                  "kind": "categorical",
+                  "role": "sensor",
+                  "benchmark_role": "non_target",
+                  "encoding": null,
+                  "sampling": "ESA-AD lookalike categorical channel. No numeric encoding is recorded."
                 }
               ]
             }
@@ -559,7 +570,7 @@
           "source_url": "fixture:tests/fixtures/esa_ad_lookalike/mission1",
           "citation": "Synthetic CI slice for ESA-AD mission1. Not spacecraft telemetry.",
           "sample_kind": "synthetic",
-          "channel_ids": ["channel_1"]
+          "channel_ids": ["channel_1", "channel_status"]
         },
         {
           "dataset_id": "esa-ad-mission2-lookalike",

@@ -1,0 +1,35 @@
+{
+  "schema_version": "rd2.readonly-licensed-local.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD2.3"],
+  "result": "model_backed",
+  "model_backed": true,
+  "model": "llama3.2:3b",
+  "endpoint": "loopback",
+  "provider": "local",
+  "versions": {
+    "policy_revision": "2026-11-26.v1",
+    "telemetry_contract_version": "v1",
+    "dataset_version": "zenodo-12588359",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "ops-sat",
+    "dataset_id": "opssat-ad",
+    "license_spdx": "CC-BY-4.0",
+    "checksums_verified": true,
+    "channels_queried": ["CADC0872"],
+    "citation_check": "pass",
+    "real_file_committed": false,
+    "reentry_included": false,
+    "reentry_reason": "license unrecorded"
+  },
+  "write_tool_calls": 0,
+  "external_egress": "denied by default; this call was local_only loopback",
+  "ground_truth_in_prompt": false,
+  "report_stored": "citation check passed; numeric samples and the model paragraph are not stored",
+  "command": "docker run --rm -e PYTHONPATH=/app -v \"${PWD}:/app\" -w /app spaceops-api:local python var/opssat-ad/run_pass.py",
+  "unchanged": "data/telemetry/telemetry.ndjson and evals/",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

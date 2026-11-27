@@ -1,0 +1,32 @@
+{
+  "schema_version": "rd3.slice-replay.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD3.3"],
+  "result": "lookalike_slice_replay",
+  "versions": {
+    "zenodo_doi": "10.5281/zenodo.12528696",
+    "license_spdx": "CC-BY-3.0-IGO",
+    "code_revision": "rd3.3-lookalike",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "esa-ad",
+    "dataset_ids": [
+      "esa-ad-mission1-lookalike",
+      "esa-ad-mission2-lookalike",
+      "esa-ad-mission3-lookalike"
+    ],
+    "sample_kind": "synthetic",
+    "archives_downloaded": false,
+    "byte_budget": 1000000,
+    "replay_event_ids": 4,
+    "repeat_ids_match": true,
+    "checksum_mismatch_rejected": true,
+    "over_budget_write": false
+  },
+  "command": "python -m pytest tests/test_mission_data_rd33.py tests/test_master_roadmap_structure.py tests/test_replay_workflow.py -q",
+  "tests": "12 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

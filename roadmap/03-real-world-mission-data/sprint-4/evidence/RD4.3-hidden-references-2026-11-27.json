@@ -1,0 +1,20 @@
+{
+  "schema_version": "rd4.case-cohorts.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD4.3"],
+  "result": "synthetic_cases_hidden_from_agent",
+  "synthetic_cases": 2,
+  "known_cause": 1,
+  "unknown_cause": 1,
+  "named_public_in_git": false,
+  "blinded_guaranteed_unseen": false,
+  "hidden_indexed_by_kb": false,
+  "hidden_mounted_in_compose": false,
+  "hidden_in_agent_image_context": false,
+  "opssat_ad_label_rejected": true,
+  "command": "python -m pytest tests/test_mission_data_rd43.py tests/test_master_roadmap_structure.py -q",
+  "tests": "9 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

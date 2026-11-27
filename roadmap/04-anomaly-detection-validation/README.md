@@ -1,6 +1,6 @@
 # Phase 04: Anomaly Detection and Scientific Validation
 
-**Status:** Planned. Not started.
+**Status:** In progress. AV1.1 registers the official OPSSAT-AD split and rejects leaky features. AV1.2 and later sprints stay Todo.
 **Priority:** P1. Starts after RD1, and uses RD2 or RD3 data only under that phase's isolation rules.
 **Strategy:** [04-anomaly-detection-validation.md](../04-anomaly-detection-validation.md)
 **Master roadmap:** [MASTER.md](../MASTER.md)

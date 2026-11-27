@@ -1,0 +1,19 @@
+{
+  "schema_version": "av1.experiments.v1",
+  "date": "2026-11-27",
+  "tasks": ["AV1.1"],
+  "result": "official_split_registered",
+  "experiment_id": "opssat-ad-published-train-flag",
+  "dataset_id": "opssat-ad",
+  "checksum": "c12fb83863afa4463dec07303a20bb14",
+  "split_name": "published_train_flag",
+  "split_basis": "stratified_random",
+  "code_revision": "av1.1-opssat-ad",
+  "model_trained": false,
+  "raw_samples_stored": false,
+  "command": "python -m pytest tests/test_validation_av11.py tests/test_master_roadmap_structure.py -q",
+  "tests": "7 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

@@ -1,7 +1,7 @@
 # Architecture and Roadmap Review Notes (2026-11-26)
 
 **Date:** 2026-11-26  
-**Status:** Consultation input only — does not alter canonical scope, sprint status, or the `2026-11-23` No-go admission decision.  
+**Status:** Consultation input. The 2026-11-27 dispositions are in [RD2.4](../roadmap/03-real-world-mission-data/sprint-2/RD2.4-architecture-roadmap-reassessment.md). This note still does not change the `2026-11-23` No-go admission decision.  
 **Follow-up task:** [RD2.4 - Architecture and roadmap reassessment](../roadmap/03-real-world-mission-data/sprint-2/RD2.4-architecture-roadmap-reassessment.md)
 
 This note captures an independent review of the repository and roadmap at the transition between `PR4` (paused pending the `2026-11-27` Cloud SQL network hold) and `RD1` (initial `apps/mission_data/` implementation). Revisit these points after `RD2.3` completes the first real OPS-SAT replay and read-only agent pass, to consult on which tasks to keep, slim down, redefine, or add before scaling into `RD3–RD4` and Phase 04 (`AV1–AV6`).

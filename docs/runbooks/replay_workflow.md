@@ -126,3 +126,7 @@ fi
 `apps.mission_data.readonly_pass.run_opssat_ad_lookalike_pass` replays the OPSSAT-AD lookalike through `InvestigationTelemetryView` for `2021-06-14T08:00:00Z`–`2021-06-14T08:31:00Z`. The report may name only channels that query returned. Set `tool_profile` to `read_only` on the agent state so Act cannot create a ticket, a pull request, or an approval.
 
 This CI pass does not call a model and does not include `opssat-reentry-uhf`, because that license is unrecorded. It is plumbing evidence. It does not retarget the synthetic eval jobs under `evals/`, and it does not finish RD2.3.
+
+## ESA-AD slice replay (RD3.3)
+
+The lookalike slice names its files, checksums, code revision, and time range before a replay. See [esa_ad_slice_replay.md](esa_ad_slice_replay.md). The Zenodo archives are not part of that replay.

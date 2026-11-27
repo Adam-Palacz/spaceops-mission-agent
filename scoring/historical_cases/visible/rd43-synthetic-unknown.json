@@ -1,0 +1,10 @@
+{
+  "schema_version": "rd4.case-visible.v1",
+  "case_id": "rd43-synthetic-unknown",
+  "cohort": "synthetic",
+  "dataset_id": "historical-cases-synthetic",
+  "time_range_start": "2020-01-02T00:00:00Z",
+  "time_range_end": "2020-01-02T02:00:00Z",
+  "symptoms": ["the reading does not identify a subsystem"],
+  "public_name": ""
+}

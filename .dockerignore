@@ -18,6 +18,7 @@ data/*
 !data/telemetry/
 !data/telemetry/**
 var/nim-cache
+scoring/historical_cases/hidden/
 tests
 docs
 roadmap

@@ -11,6 +11,8 @@ Pool of ideas/specs. **Disposition** (not sprint status) — see [TRIAGE.md](TRI
 | BL-005 | AI-assisted incident triage (platform ops) | Done via PS7.8 | `scripts/platform_ops_triage.py` | [BL-005](BL-005-ai-assisted-incident-triage.md) |
 | BL-006 | Live paging integration drill | Scheduled as PR4.6; owner: on-call lead, before production pilot | PR3.2-A2 | [BL-006](BL-006-live-paging-integration-drill.md) |
 | BL-007 | Mission-data and benchmark roadmap | Scheduled as the 2026-11-24 master roadmap. Not implemented. | [MASTER.md](../MASTER.md) | [MASTER.md](../MASTER.md) |
+| BL-008 | Split the API module into routers | Deferred (2026-11-27). Trigger: first PR4.9 implementation edit. | — | [BL-008](BL-008-api-router-split.md) |
+| BL-009 | One agent graph topology | Deferred (2026-11-27). Trigger: next agent-edge edit. | — | [BL-009](BL-009-agent-graph-topology.md) |
 
 ---
 

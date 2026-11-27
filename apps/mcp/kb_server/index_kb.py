@@ -79,6 +79,13 @@ def chunk_text(text: str, max_chars: int = 600, overlap: int = 100) -> list[str]
     return [c for c in chunks if c]
 
 
+def load_cited_source_docs() -> list[tuple[str, str, str]]:
+    """Return accepted cited sources as index rows. Does not embed or scrape."""
+    from apps.mission_data.cited_sources import index_rows
+
+    return [(row["doc_id"], "cited_source", row["content"]) for row in index_rows()]
+
+
 def load_docs() -> list[tuple[str, str, str]]:
     """Yield (doc_id, doc_type, content) for each file."""
     out: list[tuple[str, str, str]] = []
