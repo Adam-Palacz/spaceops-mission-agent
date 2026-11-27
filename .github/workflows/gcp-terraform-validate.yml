@@ -46,7 +46,7 @@ jobs:
       - name: Terraform validate
         run: terraform validate
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
