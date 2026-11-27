@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | No. This task records decisions. It does not change runtime code. |
 
 ## Objective and rationale
 
@@ -48,11 +48,11 @@ Gaps and observations recorded for this reassessment (see [docs/architecture_roa
 
 ## Implementation checklist
 
-- [ ] Review all six topics in [docs/architecture_roadmap_review_2026_11_26.md](../../../docs/architecture_roadmap_review_2026_11_26.md) alongside `RD2.3` evidence and current `PR4` status.
-- [ ] Run an owner consultation to agree on primary project positioning and governance vs. delivery balance.
-- [ ] Record explicit keep / redefine / defer / add / drop dispositions for each topic (including `apps/api/main.py` modularization, `apps/agent/graph.py` topology unification, `docs/project-overview.md`, and downstream Phase `03–07` / `PR4` tasks).
-- [ ] Apply approved task additions or redefinitions to the relevant sprint specs and `BOARD.md` files, and update `roadmap/CHANGELOG.md` if roadmap sequence or phase scope changes.
-- [ ] Verify roadmap structure and link-integrity tests pass after any edits.
+- [x] Review all six topics in [docs/architecture_roadmap_review_2026_11_26.md](../../../docs/architecture_roadmap_review_2026_11_26.md) alongside `RD2.3` evidence and current `PR4` status.
+- [x] Run an owner consultation to agree on primary project positioning and governance vs. delivery balance.
+- [x] Record explicit keep / redefine / defer / add / drop dispositions for each topic (including `apps/api/main.py` modularization, `apps/agent/graph.py` topology unification, `docs/project-overview.md`, and downstream Phase `03–07` / `PR4` tasks).
+- [x] Apply approved task additions or redefinitions to the relevant sprint specs and `BOARD.md` files, and update `roadmap/CHANGELOG.md` if roadmap sequence or phase scope changes.
+- [x] Verify roadmap structure and link-integrity tests pass after any edits.
 
 ## Test requirements
 
@@ -78,11 +78,27 @@ Gaps and observations recorded for this reassessment (see [docs/architecture_roa
 - Any approved refactoring or scope change is reflected as concrete, test-validated task specs and board rows (or explicitly deferred with a trigger condition).
 - Roadmap structure and link tests pass with zero broken links.
 
+## Dispositions (2026-11-27)
+
+RD2.3 evidence is a read-only lookalike pass: no model, no real OPSSAT-AD file, and no re-entry import. That is the input. It is not a licensed model-backed report.
+
+| Topic | Disposition | What happens next |
+|-------|-------------|-------------------|
+| Lab positioning | keep | Cited historical data in the lab stays the active path. External pilot, flight claims, and next-gen stay deferred. |
+| Governance overhead | redefine | OPA, approvals, mission isolation, egress policy, and the 2026-11-23 No-go stay. PR4.8–PR4.12 stay evidence or waiver inputs for PR4.7. No new admission tasks. |
+| Platform versus domain | keep domain | No further platform build in this pause. Residual cloud cleanup stays on its existing hold. |
+| `apps/api/main.py` split | defer | [BL-008](../../backlog/BL-008-api-router-split.md). Trigger: the first implementation edit inside PR4.9. |
+| Agent graph topology | defer | [BL-009](../../backlog/BL-009-agent-graph-topology.md). Trigger: the next edit to agent edges. |
+| `docs/project-overview.md` | drop from canon | The file stays untracked and is not a source. Use MASTER, the phase boards, and the engineering book. |
+| RD3.2, RD3.3, RD4, AV1–AV6 | defer | The RD3.1 lookalike already on the branch stays. Do not download the ESA-AD archives. Do not start those later tasks until RD2.3 has a model-backed report on licensed data, or a later written waiver. |
+
+The licensed report was stored later on 2026-11-27 ([RD2.3 evidence](evidence/RD2.3-licensed-local-2026-11-27.json)). That satisfies the deferral condition. Those tasks stay Todo until they are started. The ESA-AD archives stay downloaded nowhere in this repo.
+
 ## Required execution evidence
 
-- A sanitized decision note under this sprint's future `evidence/` directory summarizing the consultation date, `RD2.3` inputs reviewed, dispositions per topic, tasks added/redefined/deferred, and test commands run.
+- Sanitized decision note: [evidence/RD2.4-reassessment-2026-11-27.json](evidence/RD2.4-reassessment-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until `RD2.3` evidence has been reviewed, the consultation dispositions and any approved roadmap/task updates are recorded, roadmap tests pass, and a sanitized evidence note exists. Writing this specification does not implement any refactoring and does not change the 2026-11-23 No-go decision.
+The RD2.3 lookalike evidence was reviewed, the dispositions are recorded, and the sanitized note is linked above. No runtime code changed. This does not change the 2026-11-23 No-go decision.

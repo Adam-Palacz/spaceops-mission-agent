@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes, on the synthetic slice. Real ESA-AD archives stay unread. |
 
 ## Objective and rationale
 
@@ -46,9 +46,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Map the three annotation kinds on the test slice.
-- [ ] Assert rare nominal events are queryable separately from anomalies.
-- [ ] Assert Mission3 telecommand count can be zero without failing import.
+- [x] Map the three annotation kinds on the test slice.
+- [x] Assert rare nominal events are queryable separately from anomalies.
+- [x] Assert Mission3 telecommand count can be zero without failing import.
 
 ## Test requirements
 
@@ -76,9 +76,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD3.2-annotations-2026-11-27.json](evidence/RD3.2-annotations-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The lookalike import counts anomalies, rare nominal events, and telecommands separately. Mission3 has zero telecommands and the import still succeeds. Rare nominal events do not satisfy an anomaly query. A telecommand timestamp does not become an anomaly label. The categorical sample stays text because no encoding is recorded. The investigation role cannot read the annotations. The Zenodo archives were not downloaded. This does not change the 2026-11-23 No-go decision.

@@ -13,3 +13,7 @@ On 2026-11-26 the Zenodo file list showed `ESA-Mission1.zip` with `channels/chan
 Real import refuses while `checksums_pinned` is false. The published experiment budget recorded from the benchmark README is 512 GB free for artifacts and 32 GB RAM. No archive is downloaded.
 
 CI streams `tests/fixtures/esa_ad_lookalike/`, one invented row per mission key. A mission1 query does not return the mission2 row.
+
+## Annotations (RD3.2)
+
+The same slice stores anomalies, rare nominal events, and telecommands as different ground-truth kinds. A rare nominal event does not satisfy an anomaly query. A telecommand keeps impact or priority only when the row has it, as data. Mission3 has no telecommand row, and the import still succeeds. `channel_status` is categorical and non-target. Its sample stays the text `NOMINAL` because no numeric encoding is recorded. The investigation role cannot read these annotations. No detection score is computed.

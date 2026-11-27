@@ -9,14 +9,15 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
 from apps.contracts.v1 import TelemetryEventV1
 from apps.mission_data.adapter import AdapterError
-from apps.mission_data.isolation import FORBIDDEN_LABEL_KEYS
+from apps.mission_data.isolation import FORBIDDEN_LABEL_KEYS, GroundTruthRecord
 from apps.mission_data.opssat_ad import normalize_opssat_timestamp
 from apps.mission_data.provenance import ProvenanceRecord
 from apps.mission_data.registry import REPO_ROOT, MissionRegistry, load_registry
@@ -167,6 +168,227 @@ def iter_lookalike_events(
                 ts=normalize_opssat_timestamp(row.get("timestamp") or ""),
                 channel=channel,
                 value=float(row["value"]),
+                subsystem=registered.subsystem_id,
+                unit=registered.unit,
+                source="esa-ad-lookalike",
+                metadata=provenance.metadata(sampling=registered.sampling),
+            )
+
+
+_TELECOMMAND_TEXT_RE = re.compile(r"^[a-z0-9_-]{0,32}$")
+_FORBIDDEN_TELECOMMAND_TEXT = ("execute", "command", "uplink", "gitops", "kubectl")
+
+
+class EsaAnnotationCounts(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    dataset_id: str
+    anomaly: int = 0
+    rare_nominal: int = 0
+    telecommand: int = 0
+
+
+class EsaAnnotationReport(BaseModel):
+    """Separate counts. This sprint does not compute a detection score."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["rd3.annotations.v1"] = "rd3.annotations.v1"
+    status: Literal["imported"] = "imported"
+    sample_kind: Literal["synthetic"] = "synthetic"
+    archives_downloaded: Literal[False] = False
+    anomaly_count: int
+    rare_nominal_count: int
+    telecommand_count: int
+    missions: list[EsaAnnotationCounts]
+
+
+def query_annotations(
+    records: list[GroundTruthRecord],
+    *,
+    label_kind: Literal["anomaly", "rare_nominal", "telecommand"],
+) -> list[GroundTruthRecord]:
+    """Return one annotation kind. A rare nominal event is not an anomaly."""
+    return [item for item in records if item.label_kind == label_kind]
+
+
+def _telecommand_value(impact: str, priority: str) -> str:
+    """Keep impact and priority as data. Never turn them into an instruction."""
+    parts: list[str] = []
+    for name, raw in (("impact", impact), ("priority", priority)):
+        cleaned = raw.strip().lower()
+        if not cleaned:
+            continue
+        if not _TELECOMMAND_TEXT_RE.fullmatch(cleaned):
+            raise AdapterError(f"telecommand {name} is not plain data")
+        if any(token in cleaned for token in _FORBIDDEN_TELECOMMAND_TEXT):
+            raise AdapterError(f"telecommand {name} must not be an instruction")
+        parts.append(f"{name}={cleaned}")
+    return ",".join(parts) if parts else "timestamp-only"
+
+
+def _annotation_record(
+    *,
+    mission_id: str,
+    dataset_id: str,
+    kind: str,
+    channel: str,
+    start: str,
+    end: str,
+    impact: str,
+    priority: str,
+) -> GroundTruthRecord:
+    if kind == "anomaly":
+        label_kind: Literal["anomaly", "rare_nominal", "telecommand"] = "anomaly"
+    elif kind == "rare_nominal":
+        label_kind = "rare_nominal"
+    elif kind == "telecommand":
+        label_kind = "telecommand"
+    else:
+        raise AdapterError(f"unknown ESA-AD annotation kind {kind}")
+    if kind == "telecommand":
+        label_value: bool | str = _telecommand_value(impact, priority)
+    else:
+        if impact.strip() or priority.strip():
+            raise AdapterError("impact and priority belong only on telecommands")
+        label_value = True
+    return GroundTruthRecord(
+        mission_id=mission_id,
+        dataset_id=dataset_id,
+        time_range_start=start,
+        time_range_end=end,
+        label_kind=label_kind,
+        label_value=label_value,
+        annotation_source="esa-ad-lookalike:annotations.csv",
+        provenance_version="lookalike-v1",
+    )
+
+
+def import_lookalike_annotations(
+    source_dir: Path | None = None,
+    *,
+    manifest: EsaAdManifest | None = None,
+    registry: MissionRegistry | None = None,
+) -> tuple[EsaAnnotationReport, list[GroundTruthRecord]]:
+    """Map the three annotation kinds on the synthetic slice. Archives stay unread."""
+    active = manifest or load_esa_ad_manifest()
+    root = source_dir or DEFAULT_ESA_AD_LOOKALIKE_DIR
+    if any(root.rglob("*.zip")):
+        raise AdapterError("ESA-AD lookalike slice cannot contain archives")
+    active_registry = registry or load_registry()
+    records: list[GroundTruthRecord] = []
+    missions: list[EsaAnnotationCounts] = []
+    for mission in active.missions:
+        dataset_id = lookalike_dataset_id(mission.dataset_id)
+        path = root / mission.key / "annotations.csv"
+        if not path.is_file():
+            raise AdapterError(f"lookalike slice {mission.key} has no annotations.csv")
+        counts = {"anomaly": 0, "rare_nominal": 0, "telecommand": 0}
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            expected = {
+                "kind",
+                "channel",
+                "time_start",
+                "time_end",
+                "impact",
+                "priority",
+            }
+            if set(reader.fieldnames or []) != expected:
+                raise AdapterError(f"unexpected annotation columns for {mission.key}")
+            for row in reader:
+                kind = (row.get("kind") or "").strip()
+                channel = (row.get("channel") or "").strip()
+                active_registry.require(active.mission_id, dataset_id, channel)
+                start = normalize_opssat_timestamp(row.get("time_start") or "")
+                end = normalize_opssat_timestamp(row.get("time_end") or "")
+                record = _annotation_record(
+                    mission_id=active.mission_id,
+                    dataset_id=dataset_id,
+                    kind=kind,
+                    channel=channel,
+                    start=start,
+                    end=end,
+                    impact=row.get("impact") or "",
+                    priority=row.get("priority") or "",
+                )
+                if record.label_kind == "telecommand" and record.label_value is True:
+                    raise AdapterError(
+                        "a telecommand timestamp is not an anomaly label"
+                    )
+                records.append(record)
+                counts[kind] += 1
+        missions.append(
+            EsaAnnotationCounts(
+                dataset_id=dataset_id,
+                anomaly=counts["anomaly"],
+                rare_nominal=counts["rare_nominal"],
+                telecommand=counts["telecommand"],
+            )
+        )
+    return (
+        EsaAnnotationReport(
+            anomaly_count=sum(item.anomaly for item in missions),
+            rare_nominal_count=sum(item.rare_nominal for item in missions),
+            telecommand_count=sum(item.telecommand for item in missions),
+            missions=missions,
+        ),
+        records,
+    )
+
+
+def iter_lookalike_categorical(
+    mission_key: str,
+    *,
+    source_dir: Path | None = None,
+    manifest: EsaAdManifest | None = None,
+    registry: MissionRegistry | None = None,
+) -> Iterator[TelemetryEventV1]:
+    """Stream categorical samples as text. No encoding means no float cast."""
+    active = manifest or load_esa_ad_manifest()
+    mission = _mission(active, mission_key)
+    dataset_id = lookalike_dataset_id(mission.dataset_id)
+    active_registry = registry or load_registry()
+    path = (
+        (source_dir or DEFAULT_ESA_AD_LOOKALIKE_DIR) / mission_key / "categorical.csv"
+    )
+    if not path.is_file():
+        raise AdapterError(f"lookalike slice {mission_key} has no categorical.csv")
+    provenance = None
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        if reader.fieldnames is None:
+            raise AdapterError(
+                f"lookalike slice {mission_key} has no categorical header"
+            )
+        for index, row in enumerate(reader):
+            channel_id = (row.get("channel") or "").strip()
+            registered = active_registry.require(
+                active.mission_id, dataset_id, channel_id
+            )
+            if registered.kind != "categorical":
+                raise AdapterError(f"{channel_id} is not a categorical channel")
+            if registered.encoding:
+                raise AdapterError(
+                    "categorical encoding is recorded but this slice does not apply it"
+                )
+            raw = (row.get("value") or "").strip()
+            if not raw:
+                raise AdapterError("categorical sample is empty")
+            if provenance is None:
+                provenance = ProvenanceRecord(
+                    mission_id=active.mission_id,
+                    dataset_id=dataset_id,
+                    license_spdx=registered.license_spdx,
+                    source_url=f"fixture:tests/fixtures/esa_ad_lookalike/{mission_key}",
+                    sample_kind=registered.sample_kind,
+                    version="lookalike-v1",
+                )
+            yield TelemetryEventV1(
+                event_id=f"{dataset_id}:{channel_id}:{index}",
+                ts=normalize_opssat_timestamp(row.get("timestamp") or ""),
+                channel=channel_id,
+                value=raw,
                 subsystem=registered.subsystem_id,
                 unit=registered.unit,
                 source="esa-ad-lookalike",

@@ -37,6 +37,8 @@ deploy/secrets/decrypted/
 var/llm_last_gpu_call_at
 # PS5.3 NIM downloaded model/build cache
 var/nim-cache/
+# RD2.3 — local OPSSAT-AD download. CC BY 4.0 files stay out of git.
+var/opssat-ad/
 
 apps/ui/node_modules/
 apps/ui/.next/

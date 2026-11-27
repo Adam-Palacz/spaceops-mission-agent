@@ -9,11 +9,15 @@ import pytest
 
 from apps.agent.nodes import act
 from apps.mission_data.isolation import READONLY_TOOL_PROFILE
-from apps.mission_data.opssat_ad import OPSSAT_AD_LOOKALIKE_DATASET_ID
+from apps.mission_data.opssat_ad import (
+    OPSSAT_AD_LOOKALIKE_DATASET_ID,
+    _extract_anomaly_flag,
+)
 from apps.mission_data.readonly_pass import (
     REENTRY_EXCLUSION,
     CitationError,
     require_report_channels,
+    run_opssat_ad_licensed_local_pass,
     run_opssat_ad_lookalike_pass,
 )
 
@@ -120,3 +124,18 @@ def test_lookalike_pass_is_plumbing_and_leaves_synthetic_evals_alone() -> None:
         and "opssat-ad" in path.read_text(encoding="utf-8")
     ]
     assert eval_hits == []
+
+
+def test_published_class_code_is_not_the_binary_flag() -> None:
+    assert _extract_anomaly_flag({"anomaly": "1", "label": "anomaly"}) is True
+    assert _extract_anomaly_flag({"anomaly": "0", "label": "a3"}) is False
+
+
+def test_licensed_pass_refuses_external_endpoint(tmp_path: Path) -> None:
+    with pytest.raises(CitationError, match="non-loopback"):
+        run_opssat_ad_licensed_local_pass(
+            tmp_path,
+            model="llama3.2:3b",
+            endpoint="https://api.openai.com/v1/chat/completions",
+            complete=lambda *_args: "unused",
+        )

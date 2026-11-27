@@ -1,6 +1,6 @@
 # Phase 03: Real-World Mission Data
 
-**Status:** In progress (RD1 Done; RD2.1 and RD2.2 Done; RD2.3 In progress on lookalike plumbing; RD2.4 Todo; RD3.1 In progress on an ESA-AD lookalike). The real re-entry file and the ESA-AD archives stay unread.
+**Status:** In progress (RD1 Done; RD2.1–RD2.4 Done; RD3.1 In progress on an ESA-AD lookalike; RD3.2 Done on that slice). RD3.3, RD4, and phase 04 stay Todo. The real re-entry file and the ESA-AD archives stay unread.
 **Priority:** P0 for RD1-RD2, then P1 for RD3-RD4
 **Strategy:** [03-real-world-mission-data.md](../03-real-world-mission-data.md)
 **Master roadmap:** [MASTER.md](../MASTER.md)

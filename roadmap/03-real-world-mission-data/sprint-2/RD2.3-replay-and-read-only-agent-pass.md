@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | In progress |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | Partial. The read-only profile and the lookalike plumbing pass exist. A model-backed report on licensed real data does not. |
+| **Implements code** | Yes. The read-only profile, the lookalike plumbing pass, and one local model pass on checksum-verified OPSSAT-AD. |
 
 ## Objective and rationale
 
@@ -48,7 +48,8 @@ Gaps for this task:
 
 - [x] Configure a read-only tool profile.
 - [x] Run one recorded pass on the lookalike in CI. The real OPSSAT-AD file is not in this checkout, and the re-entry license gate is closed, so that pass was not run.
-- [x] Save a sanitized plumbing excerpt: [evidence/RD2.3-readonly-lookalike-2026-11-26.json](evidence/RD2.3-readonly-lookalike-2026-11-26.json). The model-backed report is still pending.
+- [x] Save a sanitized plumbing excerpt: [evidence/RD2.3-readonly-lookalike-2026-11-26.json](evidence/RD2.3-readonly-lookalike-2026-11-26.json).
+- [x] Save the licensed local model report: [evidence/RD2.3-licensed-local-2026-11-27.json](evidence/RD2.3-licensed-local-2026-11-27.json). Checksums matched the committed manifest. The call stayed on loopback. Ground truth stayed out of the prompt. The re-entry campaign stayed unread.
 
 ## Test requirements
 
@@ -81,4 +82,4 @@ Gaps for this task:
 
 ## Definition of Done
 
-Stays In progress. The read-only profile, the lookalike plumbing pass, and the sanitized excerpt exist. Done still requires one stored model-backed report on licensed real data. This does not change the 2026-11-23 No-go decision.
+The read-only profile, the lookalike plumbing pass, and one stored model-backed report on checksum-verified OPSSAT-AD exist. The report records dataset id `opssat-ad`, model `llama3.2:3b`, policy revision `2026-11-26.v1`, the queried channel, a passed citation check, and zero write-tool calls. This does not change the 2026-11-23 No-go decision.

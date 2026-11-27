@@ -211,6 +211,14 @@ def _parse_binary_flag(raw: Any, field_name: str) -> bool:
     raise AdapterError(f"invalid binary {field_name} flag: {raw!r}")
 
 
+def _binary_or_class_code(raw: Any) -> bool | None:
+    """Return a binary flag. Published ``segments.csv`` uses ``label`` as a class code."""
+    try:
+        return _parse_binary_flag(raw, "label")
+    except AdapterError:
+        return None
+
+
 def _extract_anomaly_flag(record: Mapping[str, Any]) -> bool | None:
     has_anomaly = "anomaly" in record and str(record.get("anomaly") or "").strip() != ""
     has_label = "label" in record and str(record.get("label") or "").strip() != ""
@@ -219,7 +227,9 @@ def _extract_anomaly_flag(record: Mapping[str, Any]) -> bool | None:
     val_anomaly = (
         _parse_binary_flag(record["anomaly"], "anomaly") if has_anomaly else None
     )
-    val_label = _parse_binary_flag(record["label"], "label") if has_label else None
+    # Zenodo segments.csv stores class codes (anomaly, a2, a3, a4) in ``label``.
+    # The detection flag is the binary ``anomaly`` column. A class code is not a second flag.
+    val_label = _binary_or_class_code(record["label"]) if has_label else None
     if val_anomaly is not None and val_label is not None and val_anomaly != val_label:
         raise AdapterError("conflicting 'anomaly' and 'label' values in OPSSAT-AD row")
     return val_anomaly if val_anomaly is not None else val_label

@@ -1,0 +1,4 @@
+kind,channel,time_start,time_end,impact,priority
+anomaly,channel_1,2020-01-01 00:00:00,2020-01-01 00:05:00,,
+rare_nominal,channel_1,2020-01-01 01:00:00,2020-01-01 01:05:00,,
+telecommand,channel_1,2020-01-01 02:00:00,2020-01-01 02:00:00,low,info

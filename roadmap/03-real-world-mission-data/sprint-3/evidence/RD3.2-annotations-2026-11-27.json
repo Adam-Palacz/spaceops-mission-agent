@@ -1,0 +1,28 @@
+{
+  "schema_version": "rd3.annotations.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD3.2"],
+  "result": "lookalike_annotations",
+  "versions": {
+    "zenodo_doi": "10.5281/zenodo.12528696",
+    "license_spdx": "CC-BY-3.0-IGO",
+    "code_license_spdx": "MIT",
+    "python_version": "3.12"
+  },
+  "dataset": {
+    "mission_id": "esa-ad",
+    "sample_kind": "synthetic",
+    "archives_downloaded": false,
+    "checksums_pinned": false,
+    "anomaly_count": 3,
+    "rare_nominal_count": 3,
+    "telecommand_count": 2,
+    "mission3_telecommand_count": 0,
+    "detection_score_computed": false
+  },
+  "command": "python -m pytest tests/test_mission_data_rd32.py tests/test_mission_data_rd31.py tests/test_mission_data_rd1.py tests/test_mission_data_rd23.py tests/test_master_roadmap_structure.py -q",
+  "tests": "42 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

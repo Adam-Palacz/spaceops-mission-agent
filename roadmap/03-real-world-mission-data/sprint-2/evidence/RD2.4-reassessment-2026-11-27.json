@@ -1,0 +1,24 @@
+{
+  "schema_version": "rd2.reassessment.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD2.4"],
+  "consultation": "Project owner continued after the recommendation to close this reassessment before more ESA-AD or phase-04 work.",
+  "rd23_input": "roadmap/03-real-world-mission-data/sprint-2/evidence/RD2.3-readonly-lookalike-2026-11-26.json",
+  "rd23_result": "plumbing_only",
+  "model_backed": false,
+  "real_opssat_ad_file_present": false,
+  "reentry_imported": false,
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "positioning": "keep lab domain validation; defer external pilot, edge flight claims, and next-gen",
+  "dispositions": {
+    "governance_overhead": "redefine: keep safety gates and the existing PR4 list; do not add admission tasks",
+    "platform_versus_domain": "keep the domain path; defer more platform work",
+    "api_monolith": "defer until PR4.9 implementation starts (BL-008)",
+    "graph_topology": "defer until the next agent-edge edit (BL-009)",
+    "project_overview": "drop from canon; leave the local file untracked",
+    "downstream_rd3_rd4_av": "keep the RD3.1 lookalike; defer RD3.2, RD3.3, RD4, and AV1-AV6"
+  },
+  "unchanged": "data/telemetry/telemetry.ndjson, evals/, OPA, approvals, mission isolation, and model-egress policy",
+  "gcp": "No resources changed. Residual network cleanup stays scheduled after the hold.",
+  "torn_down": "none"
+}
