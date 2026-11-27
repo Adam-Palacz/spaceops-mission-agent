@@ -37,6 +37,7 @@ The **docs/** directory holds project documentation that supports both humans an
 - **[mission_isolation_egress_rd13.md](mission_isolation_egress_rd13.md)** — RD1.3 mission/dataset isolation (`(mission_id, dataset_id)`), OPS-SAT product separation, evaluator-only ground-truth store, and minimal historical public-data model egress control.
 - **[opssat_ad_dataset_rd21.md](opssat_ad_dataset_rd21.md)** — RD2.1 OPSSAT-AD citation, CC BY 4.0 license, published Zenodo MD5 checksums, 2123/1594/529 audit counts, and offline import workflow.
 - **[opssat_reentry_dataset_rd22.md](opssat_reentry_dataset_rd22.md)** — RD2.2 re-entry column map, ground-receipt time, and the license gate that keeps the real campaign unread.
+- **[esa_ad_dataset_rd31.md](esa_ad_dataset_rd31.md)** — RD3.1 ESA-AD contexts, the Mission3 benchmark holdout, and the slice reader. The Zenodo archives are not downloaded.
 - **Folder READMEs** — Each major repo folder (`data/`, `kb/`, `evals/`, `infra/`, `apps/`, `roadmap/`, …) has a short `README.md` for onboarding (PS7.5 / BL-002).
 - **[runbooks/ci_gating_policy.md](runbooks/ci_gating_policy.md)** — Hard vs soft CI gates, OPA/HITL criteria, recovery (PS4.7).
 - **[runbooks/guardrails_quality_triage.md](runbooks/guardrails_quality_triage.md)** — Failed-gate triage, decision tree, PS4 symptom → action (PS4.8).
