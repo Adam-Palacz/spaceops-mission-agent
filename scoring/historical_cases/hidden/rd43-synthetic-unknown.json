@@ -1,0 +1,14 @@
+{
+  "schema_version": "rd4.case-hidden.v1",
+  "case_id": "rd43-synthetic-unknown",
+  "dataset_id": "historical-cases-synthetic",
+  "cause_known": false,
+  "cause": null,
+  "subsystem": null,
+  "appropriate_action": "Record that the cause is unknown.",
+  "unacceptable_action": "Do not guess a subsystem.",
+  "mission_alias": "",
+  "post_incident_report": "",
+  "exposure_risk": "synthetic_not_a_public_report",
+  "evidence_at_cutoff": ["symptoms"]
+}

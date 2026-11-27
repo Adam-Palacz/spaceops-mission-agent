@@ -1,6 +1,6 @@
 # AV1 - Benchmark method
 
-**Status:** Todo. Not started.
+**Status:** In progress. AV1.1 registers the official OPSSAT-AD split. AV1.2 is not started.
 
 **Goal:** Freeze datasets, splits, and metrics before any model is trained.
 

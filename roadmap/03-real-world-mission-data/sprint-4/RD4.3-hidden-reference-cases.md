@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. Two synthetic CI cases. Real public reconstructions are not in git. |
 
 ## Objective and rationale
 
@@ -50,10 +50,10 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Define the split file layout.
-- [ ] Test that KB search and the telemetry tool cannot read the hidden file.
-- [ ] Include one synthetic case in CI and keep real cases out of git if their text is restricted.
-- [ ] Freeze case families/cohort assignments together and audit model-visible packets, KB, tool output and metadata for identifying cues and future evidence.
+- [x] Define the split file layout.
+- [x] Test that KB search and the telemetry tool cannot read the hidden file.
+- [x] Include one synthetic case in CI and keep real cases out of git if their text is restricted.
+- [x] Freeze case families/cohort assignments together and audit model-visible packets, KB, tool output and metadata for identifying cues and future evidence.
 
 ## Test requirements
 
@@ -82,9 +82,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD4.3-hidden-references-2026-11-27.json](evidence/RD4.3-hidden-references-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+Two synthetic cases are frozen: one with a known cause and one with an unknown cause. The hidden files sit outside `kb/`, `data/telemetry/`, and `evals/fixtures/`. They are dockerignored and are not a Compose volume. Agent-visible search does not return the hidden cause. The scorer reads it only after a closed prediction. Blinded rows drop the alias, calendar dates, and the after-cutoff note, and they are marked transformed. `guaranteed_unseen` is false. An OPSSAT-AD label is not a root cause. Diagnosis scoring accepts only the known-cause synthetic case. This does not change the 2026-11-23 No-go decision.

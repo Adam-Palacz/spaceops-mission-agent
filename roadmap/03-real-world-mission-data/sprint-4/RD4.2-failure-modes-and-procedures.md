@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. One cited battery mode. No procedure text is stored. |
 
 ## Objective and rationale
 
@@ -42,8 +42,8 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Add the schema and one cited example, or an explicit empty accepted set.
-- [ ] Test that a failure-mode record is searchable and carries its citation.
+- [x] Add the schema and one cited example, or an explicit empty accepted set.
+- [x] Test that a failure-mode record is searchable and carries its citation.
 
 ## Test requirements
 
@@ -68,9 +68,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD4.2-failure-modes-2026-11-27.json](evidence/RD4.2-failure-modes-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The catalog has one mode, `nasa-llis-2046-battery-protection`. It cites NASA LLIS 2046, repeats that source's public title, and stores no symptoms and no procedure. Conflicting records stay separate. Investigation can search the mode. The search result has no `change_config` or `restart_service` tool. Agent prompts are unchanged. This does not change the 2026-11-23 No-go decision.

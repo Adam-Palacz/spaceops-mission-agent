@@ -9,4 +9,4 @@
 
 **Status key:** Todo | In progress | Done | Blocked
 
-RD2.1, RD2.2, RD2.3, and RD2.4 are Done with sanitized evidence. RD2.2 does not import the real campaign. RD2.3's licensed pass is a loopback model report on checksum-verified OPSSAT-AD; the re-entry campaign stays unread. The RD2.4 deferral condition is met. RD3.2 is Done on the ESA-AD lookalike. RD3.3, RD4, and phase 04 stay Todo. The 2026-11-23 No-go decision is unchanged.
+RD2.1, RD2.2, RD2.3, and RD2.4 are Done with sanitized evidence. RD2.2 does not import the real campaign. RD2.3's licensed pass is a loopback model report on checksum-verified OPSSAT-AD; the re-entry campaign stays unread. The RD2.4 deferral condition is met. RD3.2 and RD3.3 are Done on the ESA-AD lookalike. RD4.1–RD4.4 are Done. RD4.4 is a waiver without samples. Phase 04 stays Todo. The 2026-11-23 No-go decision is unchanged.

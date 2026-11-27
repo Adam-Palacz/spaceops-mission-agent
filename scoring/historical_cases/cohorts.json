@@ -1,0 +1,10 @@
+{
+  "schema_version": "rd4.case-cohorts.v1",
+  "frozen_on": "2026-11-27",
+  "guaranteed_unseen": false,
+  "real_cases_in_git": false,
+  "named_public": [],
+  "synthetic": ["rd43-synthetic-known", "rd43-synthetic-unknown"],
+  "blinded": ["rd43-synthetic-known-blinded", "rd43-synthetic-unknown-blinded"],
+  "perturbed": ["rd43-synthetic-known-perturbed", "rd43-synthetic-unknown-perturbed"]
+}

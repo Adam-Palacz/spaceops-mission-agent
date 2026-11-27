@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. Two public records are accepted. No report body is scraped. |
 
 ## Objective and rationale
 
@@ -45,9 +45,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Define the registry fields.
-- [ ] Add two public, license-checked examples or document that no example passed the license check.
-- [ ] Refuse a source with an empty license.
+- [x] Define the registry fields.
+- [x] Add two public, license-checked examples or document that no example passed the license check.
+- [x] Refuse a source with an empty license.
 
 ## Test requirements
 
@@ -73,9 +73,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD4.1-cited-sources-2026-11-27.json](evidence/RD4.1-cited-sources-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The registry lists two accepted public sources and why each is present. NASA LLIS 2046 is a citation target with no stored lesson text. The ESA anomaly dataset record is CC BY 3.0 IGO and the archive is not stored. An accepted source with an empty license fails. Index rows cite the registry id. This does not change the 2026-11-23 No-go decision.

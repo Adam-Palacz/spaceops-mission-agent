@@ -12,6 +12,8 @@ Reproducible fixtures and output from `POST /ingest` and run triggers. Same fixt
 | **incidents/** | Run trigger payloads and incident artifacts (from `POST /runs`). |
 | **mission_registry/** | Git-versioned mission, spacecraft, subsystem, and channel registry ([mission_registry/README.md](mission_registry/README.md)). |
 
+Historical-case hidden references are not stored here. They live in `scoring/historical_cases/hidden/` so this data volume does not mount them into the agent.
+
 ## Fixture schema (minimal)
 
 - **Telemetry:** `ts` (ISO8601), `channel`, `value`, optional `subsystem` (ADCS|Power|Thermal|Comms|Payload|Ground), `unit`.

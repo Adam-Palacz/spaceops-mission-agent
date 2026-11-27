@@ -1,0 +1,21 @@
+{
+  "schema_version": "rd4.smap-msl.v1",
+  "date": "2026-11-27",
+  "tasks": ["RD4.4"],
+  "result": "waived_without_data",
+  "distribution": "github.com/khundman/telemanom",
+  "version": "v2.0",
+  "readme_software_license": "Apache-2.0",
+  "license_file_kind": "Caltech software notice, all rights reserved",
+  "sample_license_recorded": false,
+  "third_party_mirror_used": false,
+  "downloaded": false,
+  "files_in_ci": false,
+  "channels_added": false,
+  "phase_exit_depends_on_task": false,
+  "command": "python -m pytest tests/test_mission_data_rd44.py tests/test_master_roadmap_structure.py -q",
+  "tests": "7 passed",
+  "unchanged": "data/telemetry/telemetry.ndjson",
+  "admission_decision": "No-go - remain reference/stage only (unchanged)",
+  "torn_down": "none"
+}

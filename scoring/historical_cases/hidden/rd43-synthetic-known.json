@@ -1,0 +1,14 @@
+{
+  "schema_version": "rd4.case-hidden.v1",
+  "case_id": "rd43-synthetic-known",
+  "dataset_id": "historical-cases-synthetic",
+  "cause_known": true,
+  "cause": "synthetic contactor weld",
+  "subsystem": "battery",
+  "appropriate_action": "Record the observation for the scorer.",
+  "unacceptable_action": "Do not use a segment label as the cause.",
+  "mission_alias": "LabSat-Alpha",
+  "post_incident_report": "After-cutoff scorer note.",
+  "exposure_risk": "synthetic_not_a_public_report",
+  "evidence_at_cutoff": ["symptoms"]
+}

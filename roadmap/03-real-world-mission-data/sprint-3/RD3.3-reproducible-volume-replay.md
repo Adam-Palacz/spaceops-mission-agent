@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes, on the synthetic slice. Real ESA-AD archives stay unread. |
 
 ## Objective and rationale
 
@@ -46,9 +46,9 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Specify the manifest schema.
-- [ ] Make two slice replays identical.
-- [ ] Make an over-budget request fail before write.
+- [x] Specify the manifest schema.
+- [x] Make two slice replays identical.
+- [x] Make an over-budget request fail before write.
 
 ## Test requirements
 
@@ -75,9 +75,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD3.3-slice-replay-2026-11-27.json](evidence/RD3.3-slice-replay-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+The lookalike import manifest records checksums, the caller-supplied code revision, mission and dataset ids, and row counts. Two replays of the same manifest return the same event ids. A changed checksum fails. An over-budget request raises before creating the output file. Sample values are not in the manifest. The Zenodo archives were not downloaded. This does not change the 2026-11-23 No-go decision.

@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | Todo |
+| **Status** | Done |
 | **Owner** | Unassigned |
-| **Implements code** | No. This file is a specification only. |
+| **Implements code** | Yes. The decision is a waiver. No samples were downloaded. |
 
 ## Objective and rationale
 
@@ -44,8 +44,8 @@ Gaps for this task:
 
 ## Implementation checklist
 
-- [ ] Write the license decision, including a no-go decision if the terms are unclear.
-- [ ] Do not add channels or samples until that decision is allow.
+- [x] Write the license decision, including a no-go decision if the terms are unclear.
+- [x] Do not add channels or samples until that decision is allow.
 
 ## Test requirements
 
@@ -70,9 +70,9 @@ Gaps for this task:
 
 ## Required execution evidence
 
-- A sanitized note under this sprint's future `evidence/` directory: dataset or tool versions, license record, commands, results, and what was torn down.
+- Sanitized note: [evidence/RD4.4-smap-msl-waiver-2026-11-27.json](evidence/RD4.4-smap-msl-waiver-2026-11-27.json).
 - The note must not contain project identifiers, tokens, contact details, or unredacted operational data.
 
 ## Definition of Done
 
-Remains Todo until the checklist, the tests named above, and a sanitized evidence note exist. Writing this specification does not implement the task and does not change the 2026-11-23 No-go decision.
+Telemanom v2.0 is the distribution that was checked. The README calls the software Apache-2.0. `LICENSE.txt` is a 2018 Caltech software notice that reserves all rights. The README points at a third-party Kaggle dataset for the telemetry, and that mirror was not used. No separate sample license was recorded, so the task is waived without data. Reserved dataset ids are not in the mission registry. An allow decision still refuses CI files. This does not change the 2026-11-23 No-go decision, and phase 03 does not depend on this holdout.

@@ -1,0 +1,14 @@
+{
+  "schema_version": "rd4.failure-modes.v1",
+  "modes": [
+    {
+      "mode_id": "nasa-llis-2046-battery-protection",
+      "source_id": "nasa-llis-2046",
+      "failure_mode": "Limitations of Internal Protective Devices in High-Voltage/High-Capacity Batteries Using Lithium-Ion",
+      "subsystem": "battery",
+      "symptoms": [],
+      "corrective_action": "No public corrective action is stored. This record is not an executable plan.",
+      "conflicts_with": []
+    }
+  ]
+}

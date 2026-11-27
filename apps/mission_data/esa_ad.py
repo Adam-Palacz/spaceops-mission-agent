@@ -8,6 +8,7 @@ Real import refuses while checksums are unpinned.
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -394,3 +395,147 @@ def iter_lookalike_categorical(
                 source="esa-ad-lookalike",
                 metadata=provenance.metadata(sampling=registered.sampling),
             )
+
+
+class SliceFileRecord(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    relative_path: str
+    md5: str
+    row_count: int = Field(..., ge=0)
+    byte_count: int = Field(..., ge=0)
+
+
+class SliceImportManifest(BaseModel):
+    """Checksums and counts for one slice. Sample values stay out of this record."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["rd3.slice-manifest.v1"] = "rd3.slice-manifest.v1"
+    code_revision: str = Field(..., min_length=1)
+    mission_id: str
+    dataset_ids: list[str] = Field(..., min_length=1)
+    files: list[SliceFileRecord] = Field(..., min_length=1)
+    row_count: int = Field(..., ge=0)
+    byte_budget: int = Field(..., ge=0)
+    bytes_planned: int = Field(..., ge=0)
+
+
+class SliceReplayManifest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["rd3.slice-replay.v1"] = "rd3.slice-replay.v1"
+    code_revision: str = Field(..., min_length=1)
+    import_md5: str = Field(..., min_length=32, max_length=32)
+    mission_id: str
+    dataset_ids: list[str] = Field(..., min_length=1)
+    time_range_start: str
+    time_range_end: str
+
+
+def _slice_csv_files(root: Path) -> list[Path]:
+    if any(root.rglob("*.zip")):
+        raise AdapterError("ESA-AD slice cannot contain archives")
+    files = sorted(path for path in root.rglob("*.csv") if path.is_file())
+    if not files:
+        raise AdapterError("ESA-AD slice has no csv files")
+    return files
+
+
+def _file_record(root: Path, path: Path) -> SliceFileRecord:
+    payload = path.read_bytes()
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.reader(handle)
+        next(reader, None)
+        row_count = sum(1 for row in reader if any(cell.strip() for cell in row))
+    return SliceFileRecord(
+        relative_path=path.relative_to(root).as_posix(),
+        md5=hashlib.md5(payload).hexdigest(),
+        row_count=row_count,
+        byte_count=len(payload),
+    )
+
+
+def canonical_import_md5(manifest: SliceImportManifest) -> str:
+    body = json.dumps(
+        manifest.model_dump(mode="json"), sort_keys=True, separators=(",", ":")
+    )
+    return hashlib.md5(body.encode("utf-8")).hexdigest()
+
+
+def commit_slice_import(
+    source_dir: Path,
+    dest: Path,
+    *,
+    code_revision: str,
+    byte_budget: int,
+    manifest: EsaAdManifest | None = None,
+) -> SliceImportManifest:
+    """Write the slice manifest only after the byte budget accepts the inputs."""
+    if byte_budget < 0:
+        raise AdapterError("byte budget must be zero or positive")
+    active = manifest or load_esa_ad_manifest()
+    files = _slice_csv_files(source_dir)
+    planned = sum(path.stat().st_size for path in files)
+    if planned > byte_budget:
+        raise AdapterError(
+            f"slice import exceeds the byte budget: planned {planned}, budget {byte_budget}"
+        )
+    records = [_file_record(source_dir, path) for path in files]
+    document = SliceImportManifest(
+        code_revision=code_revision.strip(),
+        mission_id=active.mission_id,
+        dataset_ids=[lookalike_dataset_id(item.dataset_id) for item in active.missions],
+        files=records,
+        row_count=sum(item.row_count for item in records),
+        byte_budget=byte_budget,
+        bytes_planned=planned,
+    )
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(
+        json.dumps(document.model_dump(mode="json"), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return document
+
+
+def verify_slice_import(manifest: SliceImportManifest, source_dir: Path) -> None:
+    """Fail when a recorded file checksum no longer matches the slice."""
+    for record in manifest.files:
+        path = source_dir / record.relative_path
+        if not path.is_file():
+            raise AdapterError(f"slice file missing: {record.relative_path}")
+        actual = hashlib.md5(path.read_bytes()).hexdigest()
+        if actual != record.md5:
+            raise AdapterError(f"checksum mismatch for {record.relative_path}")
+
+
+def replay_slice_event_ids(
+    manifest: SliceImportManifest,
+    replay: SliceReplayManifest,
+    source_dir: Path,
+) -> list[str]:
+    """Return stable event ids for the recorded time slice."""
+    if replay.code_revision != manifest.code_revision:
+        raise AdapterError("replay code revision does not match the import manifest")
+    if replay.import_md5 != canonical_import_md5(manifest):
+        raise AdapterError("replay does not match the import manifest checksum")
+    if replay.mission_id != manifest.mission_id:
+        raise AdapterError("replay mission does not match the import manifest")
+    verify_slice_import(manifest, source_dir)
+    start = normalize_opssat_timestamp(replay.time_range_start)
+    end = normalize_opssat_timestamp(replay.time_range_end)
+    if start > end:
+        raise AdapterError("replay time range is reversed")
+    event_ids: list[str] = []
+    for dataset_id in replay.dataset_ids:
+        mission_key = dataset_id.removeprefix("esa-ad-").removesuffix("-lookalike")
+        for event in iter_lookalike_events(mission_key, source_dir=source_dir):
+            if start <= event.ts <= end:
+                event_ids.append(event.event_id)
+        categorical = source_dir / mission_key / "categorical.csv"
+        if categorical.is_file():
+            for event in iter_lookalike_categorical(mission_key, source_dir=source_dir):
+                if start <= event.ts <= end:
+                    event_ids.append(event.event_id)
+    return event_ids

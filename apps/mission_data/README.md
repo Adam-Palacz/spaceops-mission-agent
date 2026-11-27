@@ -12,4 +12,9 @@ Source-agnostic telemetry adapters, provenance validation, mission/channel regis
 - **`opssat_ad.py`** — Offline `OPSSATADAdapter`, Zenodo MD5 manifest loader, and separated telemetry/ground-truth importer for OPSSAT-AD (`opssat-ad` and synthetic CI `opssat-ad-lookalike`, RD2.1).
 - **`opssat_reentry.py`** — Offline re-entry column map (RD2.2). Real UHF rows stay unread until a license and file checksums are recorded. The synthetic lookalike is `opssat-reentry-uhf-lookalike` and it does not write ground truth.
 - **`readonly_pass.py`** — RD2.3 read-only lookalike query and channel-citation check. It does not call a model and does not mark the task Done.
-- **`esa_ad.py`** — RD3.1 streaming lookalike for three anonymized ESA-AD contexts, plus the RD3.2 annotation split. Real archives stay unread until checksums are pinned. Mission3 is outside the published benchmark unless the report prints an override.
+- **`esa_ad.py`** — RD3.1 streaming lookalike for three anonymized ESA-AD contexts, the RD3.2 annotation split, and the RD3.3 slice manifest. Real archives stay unread until checksums are pinned. Mission3 is outside the published benchmark unless the report prints an override.
+- **`cited_sources.py`** — RD4.1 curated public citation registry. Accepted sources need a license. Excerpts are stored only when the record allows them.
+- **`failure_modes.py`** — RD4.2 cited failure modes. Corrective action is operator text. A source that forbids excerpts stores no procedure.
+- **`historical_cases.py`** — RD4.3 visible packets and scorer-only hidden references. Diagnosis scoring accepts a known cause on the synthetic cohort.
+- **`smap_msl.py`** — RD4.4 license gate. The current decision is a waiver. Samples stay out of CI.
+- **`experiments.py`** — AV1.1 experiment registry. The official OPSSAT-AD split is the published train flag. Label columns and test-segment statistics are rejected.

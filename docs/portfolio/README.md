@@ -220,6 +220,7 @@ and secrets leakage to PS4/PS5/PS6 controls (tests, OPA, evals, runbooks).
 | [guardrails_quality_triage.md](../runbooks/guardrails_quality_triage.md) | Dev | CI gate failure triage |
 | [distributed_tracing_ps19.md](../runbooks/distributed_tracing_ps19.md) | Dev / SRE | Trace propagation |
 | [replay_workflow.md](../runbooks/replay_workflow.md) | Dev | Deterministic replay |
+| [esa_ad_slice_replay.md](../runbooks/esa_ad_slice_replay.md) | Dev | ESA-AD lookalike slice replay |
 | [post_incident_loop.md](../runbooks/post_incident_loop.md) | Ops | Post-incident learning |
 | [db_migrations.md](../runbooks/db_migrations.md) | Dev | Postgres migrations |
 | [postgres_backup_restore.md](../runbooks/postgres_backup_restore.md) | Data / SRE | PR2.1 Postgres backup, restore, and RTO/RPO drill |
